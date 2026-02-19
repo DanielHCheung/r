@@ -1,0 +1,36 @@
+## LaTeX 臨時檔案 (所有 sub-folders 都適用)
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.bbl
+*.blg
+*.thm
+*.pre
+*.bcf
+*.xml
+
+## 如果你唔想將編譯出嚟嘅 PDF 上傳 (建議 ignore)
+; *.pdf
+
+## R 專屬垃圾
+.Rhistory        # 你行過嘅所有 Command 紀錄，唔好 upload，好肉酸
+.RData           # 費事你個 Workspace 唔小心 save 咗啲巨大嘅 Data frame 入去
+.Rdevice         # 繪圖設備暫存
+.Rapp.history
+
+## RStudio 專屬設定
+.Rproj.user/     # 呢個係重點！入面係你個人嘅 RStudio session 資訊，絕對唔應該上傳
+*.Rproj          # (視情況) 如果你想人哋一開就係你個 Project 檔就留，唔想就 ignore
+
+## Data Science 常用
+; *.csv            # 如果你嘅 Data 係喺 Kaggle 或 Database 攞，唔好 upload 原始大 file
+*.rds            # R 專屬嘅格式化數據
+*.RData
+
+## OS 產生嘅垃圾 
+.DS_Store
+Thumbs.db
