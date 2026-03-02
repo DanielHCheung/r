@@ -31,6 +31,8 @@
 *.rds            # R 專屬嘅格式化數據
 *.RData
 
-## OS 產生嘅垃圾 
+## OS 產生嘅垃圾
 .DS_Store
 Thumbs.db
+/.quarto/
+**/*.quarto_ipynb
