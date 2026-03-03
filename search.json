@@ -10,13 +10,23 @@
     ]
   },
   {
-    "objectID": "code.html",
-    "href": "code.html",
-    "title": "R Note for Statistics Learning and Computing",
+    "objectID": "RBasics.html",
+    "href": "RBasics.html",
+    "title": "1  R Basics",
     "section": "",
     "text": "c(\"Hello\")\n\n[1] \"Hello\"",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>code.html</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>R Basics</span>"
+    ]
+  },
+  {
+    "objectID": "HypothesisTest.html",
+    "href": "HypothesisTest.html",
+    "title": "2  Hypothesis Test",
+    "section": "",
+    "text": "2.1 mean inference",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Hypothesis Test</span>"
     ]
   }
 ]
