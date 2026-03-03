@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "r",
+    "title": "R Note for Statistics Learning and Computing",
     "section": "",
-    "text": "Preface\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.",
+    "text": "Preface\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.\nto be wrote.",
     "crumbs": [
       "Preface"
     ]
@@ -27,6 +27,16 @@
     "text": "In summary, this book has no content whatsoever.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Summary</span>"
+    ]
+  },
+  {
+    "objectID": "code.html",
+    "href": "code.html",
+    "title": "R Note for Statistics Learning and Computing",
+    "section": "",
+    "text": "c(\"Hello\")\n\n[1] \"Hello\"",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>code.html</span>"
     ]
   },
   {
