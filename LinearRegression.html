@@ -71,6 +71,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -149,8 +178,14 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#theoritical-knowledge" id="toc-theoritical-knowledge" class="nav-link active" data-scroll-target="#theoritical-knowledge"><span class="header-section-number">3.1</span> Theoritical Knowledge</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -174,8 +209,22 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="theoritical-knowledge" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="theoritical-knowledge"><span class="header-section-number">3.1</span> Theoritical Knowledge</h2>
+<p>The multivariate linear Regression <span class="math inline">\(y = X \beta\)</span> with loss function <span class="math inline">\(Q = (y - X \beta) ^T (y - X \beta)\)</span></p>
+<p><span class="math display">\[
+\frac{\partial Q}{\partial \beta} = -2X^Ty + 2X^TX\beta = 0 \\
+\to \hat{\beta} = {(X^TX)}^{-1}X^Ty
+\]</span></p>
+<p>H is called Hat Matrix where: <span class="math inline">\(\hat{y} = X \hat{\beta} = X (X^TX)^{-1}X^Ty = Hy\)</span></p>
+<p>Normal Equation: <span class="math inline">\((X^TX)\hat{\beta} = X^Ty \to X^T(y-X\hat{\beta}) = 0\)</span></p>
+<p><span class="math display">\[ R^2 = \frac{SSR}{SST} = 1 - \frac{SSE}{SST} \]</span></p>
+<p><span class="math display">\[ \text{Adjusted-}R^2 = \frac{SSR/k}{SST/(n-1)} = 1- \frac{SSE/(n-k-1)}{SST/(n-1)} \]</span></p>
+<p>Notice that here SSE means Sum Square Error, and SSR means Sum Square Regression. Sometimes you might see ESS which is Explained Sum Square which equals to SSR here, and RSS is Residual Sum Square.</p>
+<p>In R, use <code>lm()</code> to fit a linear regression model.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
