@@ -14,7 +14,17 @@
     "href": "RBasics.html",
     "title": "1  R Basics",
     "section": "",
-    "text": "c(\"Hello\")\n\n[1] \"Hello\"",
+    "text": "1.1 Generate Random Sample\nset random seed to get same result for repeating\nset.seed(42)\na random vector size of 20, follows to Normal Distribution\nrnorm(20)\n\n [1]  1.37095845 -0.56469817  0.36312841  0.63286260  0.40426832 -0.10612452\n [7]  1.51152200 -0.09465904  2.01842371 -0.06271410  1.30486965  2.28664539\n[13] -1.38886070 -0.27878877 -0.13332134  0.63595040 -0.28425292 -2.65645542\n[19] -2.44046693  1.32011335\n\nrnorm(20, mean = 10, sd = 2)\n\n [1]  9.386723  6.437383  9.656165 12.429349 13.790387  9.139062  9.485461\n [8]  6.473674 10.920195  8.720010 10.910900 11.409675 12.070207  8.782147\n[15] 11.009910  6.565983  8.431082  8.298185  5.171585 10.072245",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>R Basics</span>"
+    ]
+  },
+  {
+    "objectID": "RBasics.html#string",
+    "href": "RBasics.html#string",
+    "title": "1  R Basics",
+    "section": "1.2 string",
+    "text": "1.2 string\n\nastr &lt;- as.character(12345)\nbstr &lt;- \"NULL\"\ncstr &lt;- \"NOT LOWER, not upper\"\nc(astr, bstr, cstr)\n\n[1] \"12345\"                \"NULL\"                 \"NOT LOWER, not upper\"\n\n\n\nnchar(astr)\n\n[1] 5\n\n\n\nc(toupper(cstr), tolower(cstr))\n\n[1] \"NOT LOWER, NOT UPPER\" \"not lower, not upper\"\n\n\nreplace by vector\n\nchartr(\"U\", \"L\", bstr)\n\n[1] \"NLLL\"\n\nchartr(\"UL\", \"AI\", bstr)\n\n[1] \"NAII\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"\n\n\n\nc(\"Hello\")\n\n[1] \"Hello\"",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>R Basics</span>"
     ]
