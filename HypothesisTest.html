@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Hypothesis Test – R Note for Statistics Learning and Computing</title>
+<title>3&nbsp; Hypothesis Test – R Note for Statistics Learning and Computing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./LinearRegression.html" rel="next">
-<link href="./RBasics.html" rel="prev">
+<link href="./RProgramming.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./HypothesisTest.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Hypothesis Test</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./HypothesisTest.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis Test</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -157,20 +157,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./RProgramming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R Programming for Data Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./HypothesisTest.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Hypothesis Test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis Test</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./LinearRegression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Linear Regression</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./LogisticsRegression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Logistics Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Logistics Regression</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -189,12 +195,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#mean-inference-zt-test" id="toc-mean-inference-zt-test" class="nav-link active" data-scroll-target="#mean-inference-zt-test"><span class="header-section-number">2.1</span> mean inference (z,t-test)</a>
+  <li><a href="#mean-inference-zt-test" id="toc-mean-inference-zt-test" class="nav-link active" data-scroll-target="#mean-inference-zt-test"><span class="header-section-number">3.1</span> mean inference (z,t-test)</a>
   <ul class="collapse">
-  <li><a href="#z-test" id="toc-z-test" class="nav-link" data-scroll-target="#z-test"><span class="header-section-number">2.1.1</span> Z-test</a></li>
-  <li><a href="#t-test" id="toc-t-test" class="nav-link" data-scroll-target="#t-test"><span class="header-section-number">2.1.2</span> t-test</a></li>
+  <li><a href="#z-test" id="toc-z-test" class="nav-link" data-scroll-target="#z-test"><span class="header-section-number">3.1.1</span> Z-test</a></li>
+  <li><a href="#t-test" id="toc-t-test" class="nav-link" data-scroll-target="#t-test"><span class="header-section-number">3.1.2</span> t-test</a></li>
   </ul></li>
-  <li><a href="#median-inference-non-para-test" id="toc-median-inference-non-para-test" class="nav-link" data-scroll-target="#median-inference-non-para-test"><span class="header-section-number">2.2</span> median inference (non-para test)</a></li>
+  <li><a href="#median-inference-non-para-test" id="toc-median-inference-non-para-test" class="nav-link" data-scroll-target="#median-inference-non-para-test"><span class="header-section-number">3.2</span> median inference (non-para test)</a></li>
   </ul>
 </nav>
     </div>
@@ -203,7 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Hypothesis Test</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis Test</span></h1>
 </div>
 
 
@@ -220,10 +226,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="mean-inference-zt-test" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="mean-inference-zt-test"><span class="header-section-number">2.1</span> mean inference (z,t-test)</h2>
-<section id="z-test" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="z-test"><span class="header-section-number">2.1.1</span> Z-test</h3>
+<section id="mean-inference-zt-test" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="mean-inference-zt-test"><span class="header-section-number">3.1</span> mean inference (z,t-test)</h2>
+<section id="z-test" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="z-test"><span class="header-section-number">3.1.1</span> Z-test</h3>
 <p>Note that there’s no built-in Z-test in R. Use third party package <code>BSDA</code> (the code above written by Gemini)</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("BSDA")</span></span>
@@ -258,8 +264,8 @@ mean of x
 </div>
 <p>You can also make implement from the formular: reference this passage: https://cran.r-project.org/web/packages/distributions3/vignettes/one-sample-z-test.html</p>
 </section>
-<section id="t-test" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="t-test"><span class="header-section-number">2.1.2</span> t-test</h3>
+<section id="t-test" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="t-test"><span class="header-section-number">3.1.2</span> t-test</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">11</span>,<span class="dv">1</span>,<span class="dv">1</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">11</span>,<span class="dv">1</span>,<span class="dv">1</span>)</span>
@@ -308,8 +314,8 @@ mean of x mean of y
 </div>
 </section>
 </section>
-<section id="median-inference-non-para-test" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="median-inference-non-para-test"><span class="header-section-number">2.2</span> median inference (non-para test)</h2>
+<section id="median-inference-non-para-test" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="median-inference-non-para-test"><span class="header-section-number">3.2</span> median inference (non-para test)</h2>
 <p>Although it’s non-parametric test based on median, the function also require to pass parameter as <code>mu</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">11</span>,<span class="dv">1</span>,<span class="dv">1</span>)</span>
@@ -759,13 +765,13 @@ alternative hypothesis: true location shift is not equal to 2</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./RBasics.html" class="pagination-link" aria-label="R Basics">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R Basics</span></span>
+      <a href="./RProgramming.html" class="pagination-link" aria-label="R Programming for Data Analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R Programming for Data Analysis</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./LinearRegression.html" class="pagination-link" aria-label="Linear Regression">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Linear Regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
