@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "R Note for Statistics Learning and Computing",
     "section": "",
-    "text": "Preface\nThis is a R Markdown based on Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.\n\nWelcome to my R Note for Statistics Learning and Computing. Any mistake or suggestion please send to DanielHCheung [at] outlook [dot] com.\n\nI personally recommand to use both RStudio and Positron for R development. RStudio is very traditional and familiar to those who get used to R programming for many years, and Positron is more vscode-like one. Positron connects both Python and R, so it’s really interesting. But in this note, I will only share about the knowledge with R.\n\ncat(\"Hello, World!\")\n\nHello, World!",
+    "text": "Preface\nThis is a R Markdown based on Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.\n\nWelcome to my R Note for Statistics Learning and Computing. Any mistake or suggestion please send to DanielHCheung [at] outlook [dot] com.\nThis document will be irregually updated. You’re welcomed to provided any new ideas about it!\n\nI personally recommand to use both RStudio and Positron for R development. RStudio is very traditional and familiar to those who get used to R programming for many years, and Positron is more vscode-like one. Positron connects both Python and R, so it’s really interesting. But in this note, I will only share about the knowledge with R.\n\ncat(\"Hello, World!\")\n\nHello, World!",
     "crumbs": [
       "Preface"
     ]
@@ -44,7 +44,27 @@
     "href": "HypothesisTest.html",
     "title": "2  Hypothesis Test",
     "section": "",
-    "text": "2.1 mean inference",
+    "text": "2.1 mean inference (z,t-test)",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Hypothesis Test</span>"
+    ]
+  },
+  {
+    "objectID": "HypothesisTest.html#mean-inference-zt-test",
+    "href": "HypothesisTest.html#mean-inference-zt-test",
+    "title": "2  Hypothesis Test",
+    "section": "",
+    "text": "2.1.1 Z-test\nNote that there’s no built-in Z-test in R. Use third party package BSDA (the code above written by Gemini)\n\n# install.packages(\"BSDA\")\nlibrary(BSDA)\n\nLoading required package: lattice\n\n\n\nAttaching package: 'BSDA'\n\n\nThe following object is masked from 'package:datasets':\n\n    Orange\n\nx &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\nz.test(x, sigma.x = 0.5, conf.level = 0.95)\n\n\n    One-sample z-Test\n\ndata:  x\nz = 16, p-value &lt; 2.2e-16\nalternative hypothesis: true mean is not equal to 0\n95 percent confidence interval:\n 1.755005 2.244995\nsample estimates:\nmean of x \n        2 \n\n\nYou can also make implement from the formular: reference this passage: https://cran.r-project.org/web/packages/distributions3/vignettes/one-sample-z-test.html\n\n\n2.1.2 t-test\n\nx &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\ny &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\nt.test(x)\n\n\n    One Sample t-test\n\ndata:  x\nt = 3.1298, df = 15, p-value = 0.006884\nalternative hypothesis: true mean is not equal to 0\n95 percent confidence interval:\n 0.6379832 3.3620168\nsample estimates:\nmean of x \n        2 \n\nt.test(x,y)\n\n\n    Welch Two Sample t-test\n\ndata:  x and y\nt = 0, df = 30, p-value = 1\nalternative hypothesis: true difference in means is not equal to 0\n95 percent confidence interval:\n -1.845594  1.845594\nsample estimates:\nmean of x mean of y \n        2         2 \n\nt.test(x,y, mu = 2, alter = \"two.sided\", var.equal = T)\n\n\n    Two Sample t-test\n\ndata:  x and y\nt = -2.2131, df = 30, p-value = 0.03464\nalternative hypothesis: true difference in means is not equal to 2\n95 percent confidence interval:\n -1.845594  1.845594\nsample estimates:\nmean of x mean of y \n        2         2",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Hypothesis Test</span>"
+    ]
+  },
+  {
+    "objectID": "HypothesisTest.html#median-inference-non-para-test",
+    "href": "HypothesisTest.html#median-inference-non-para-test",
+    "title": "2  Hypothesis Test",
+    "section": "2.2 median inference (non-para test)",
+    "text": "2.2 median inference (non-para test)\nAlthough it’s non-parametric test based on median, the function also require to pass parameter as mu.\n\nx &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\ny &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\nwilcox.test(x)\n\nWarning in wilcox.test.default(x): cannot compute exact p-value with ties\n\n\n\n    Wilcoxon signed rank test with continuity correction\n\ndata:  x\nV = 136, p-value = 0.0002424\nalternative hypothesis: true location is not equal to 0\n\nwilcox.test(x,y)\n\nWarning in wilcox.test.default(x, y): cannot compute exact p-value with ties\n\n\n\n    Wilcoxon rank sum test with continuity correction\n\ndata:  x and y\nW = 128, p-value = 1\nalternative hypothesis: true location shift is not equal to 0\n\nwilcox.test(x,y, mu = 2, alter = \"two.sided\", var.equal = T)\n\nWarning in wilcox.test.default(x, y, mu = 2, alter = \"two.sided\", var.equal =\nT): cannot compute exact p-value with ties\n\n\n\n    Wilcoxon rank sum test with continuity correction\n\ndata:  x and y\nW = 33.5, p-value = 0.0001599\nalternative hypothesis: true location shift is not equal to 2",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Hypothesis Test</span>"
     ]
