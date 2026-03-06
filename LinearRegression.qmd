@@ -1,0 +1,24 @@
+# Linear Regression
+
+## Theoritical Knowledge
+
+The multivariate linear Regression $y = X \beta$ with loss function $Q = (y - X \beta) ^T (y - X \beta)$
+
+
+$$
+\frac{\partial Q}{\partial \beta} = -2X^Ty + 2X^TX\beta = 0 \\
+\to \hat{\beta} = {(X^TX)}^{-1}X^Ty
+$$
+
+H is called Hat Matrix where: $\hat{y} = X \hat{\beta} = X (X^TX)^{-1}X^Ty = Hy$
+
+Normal Equation: $(X^TX)\hat{\beta} = X^Ty \to X^T(y-X\hat{\beta}) = 0$
+
+$$ R^2 = \frac{SSR}{SST} = 1 - \frac{SSE}{SST} $$
+
+$$ \text{Adjusted-}R^2 = \frac{SSR/k}{SST/(n-1)} = 1- \frac{SSE/(n-k-1)}{SST/(n-1)} $$
+
+Notice that here SSE means Sum Square Error, and SSR means Sum Square Regression. Sometimes you might see ESS which is Explained Sum Square which equals to SSR here, and RSS is Residual Sum Square.
+
+
+In R, use ```lm()``` to fit a linear regression model.

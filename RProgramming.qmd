@@ -1,0 +1,31 @@
+# R Programming for Data Analysis
+
+```{r}
+library(dplyr)
+```
+
+## Data Cleaning
+
+```{r}
+iris <- iris %>%
+  mutate(Petal.Ratio = Petal.Length / Petal.Width)
+iris
+```
+
+```{r}
+iris %>%
+  group_by(Species) %>%
+  summarise(mean_Petal_Ratio = mean(Petal.Ratio))
+```
+
+## Split Dataset
+
+Please use ```y``` (target variable) as the variable into ```createDataPartition```, rather than any other variables. p is the portition of training set. 
+```{r}
+library(caret)
+training.samples = iris$Species %>%
+  createDataPartition(p = 0.70, list = FALSE)
+
+traindf = iris[training.samples,]
+testdf = iris[-training.samples,]
+```

@@ -1,5 +1,22 @@
 # Preface {.unnumbered}
 
-This is a Quarto book.
+This is a R Markdown based on Quarto book.
 
 To learn more about Quarto books visit <https://quarto.org/docs/books>.
+
+---
+
+Welcome to my R Note for Statistics Learning and Computing. Any mistake or suggestion please send to ```DanielHCheung [at] outlook [dot] com```. 
+
+This document will be irregually updated. You're welcomed to provided any new ideas about it!
+
+---
+
+I personally recommand to use both RStudio and Positron for R development. RStudio is very traditional and familiar to those who get used to R programming for many years, and Positron is more vscode-like one. Positron connects both Python and R, so it's really interesting. But in this note, I will only share about the knowledge with R. 
+
+
+```{r}
+cat("Hello, World!")
+
+```
+

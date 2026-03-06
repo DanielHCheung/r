@@ -1,0 +1,276 @@
+# R Basics
+
+## Generate Random Sample
+
+set random seed to get same result for repeating
+```{r}
+set.seed(42)
+```
+
+a random vector size of 20, follows to Normal Distribution
+```{r}
+rnorm(20)
+rnorm(20, mean = 10, sd = 2)
+
+```
+
+a random vector size of 10, follows to Uniform Distribution
+
+```{r}
+runif(20)
+runif(20, min = 0, max = 1)
+runif(20, 0, 1)
+
+```
+
+
+```{r}
+prod(40:36)
+prod(5:1)/prod(40:36)
+1/choose(40,5)
+```
+
+```{r}
+pvec <- seq(0,1,0.05)
+pvec
+
+x <- rnorm(60000)
+quantile(x, pvec)
+quantile(x)
+```
+
+
+```{r}
+x.1 <- rnorm(20)
+x.2 <- rnorm(20) + runif(20)
+x.3 <- x.1 * 20 + x.2 * 4 - rnorm(20)
+
+df <- data.frame(x1 = x.1, x2 = x.2, x3 = x.3)
+```
+
+## Matrix
+```{r}
+A <- cor(df)
+A
+
+
+svd(A)
+iA <- solve(A)
+
+cA <- chol(A)
+
+t(cA)  %*% cA
+
+
+solve(cA) %*% t(solve(cA))
+solve(A)
+```
+
+
+
+## string
+```{r}
+astr <- as.character(12345)
+bstr <- "NULL"
+cstr <- "NOT LOWER, not upper"
+c(astr, bstr, cstr)
+
+```
+
+
+
+
+```{r}
+nchar(astr)
+```
+
+
+```{r}
+c(toupper(cstr), tolower(cstr))
+
+```
+
+
+replace by vector
+```{r}
+chartr("U", "L", bstr)
+chartr("UL", "AI", bstr)
+
+```
+
+
+substr
+```{r}
+substr("HELLO", 2,3)
+
+```
+
+
+
+```{r}
+a = "12345678"
+substr(a,2,2)
+substr(a,2,4)
+
+# substr(a,2)
+# Error in substr(a, 2) : argument "stop" is missing, with no default
+
+substring(a,2)
+substr(a,3,4) <- "Toyota"
+a
+
+substring(a,3) <- "Toyata"
+a
+```
+
+
+
+
+```{r}
+
+a = "12345"
+
+b = "6789"
+
+paste(a,b)
+paste(a,b,sep="")
+paste(a,b,sep="-")
+paste(a,b,sep = "honda")
+
+a <- c('Taipei', "Tokyo", 'Singapore', 'Hong Kong', "Johor Baru", "Kuala Lumpr")
+paste(a)
+paste(a, "?", sep = "")
+paste(a, "is where", sep = " ")
+paste(a, "is where", sep = " ", collapse = ", and ")
+
+```
+
+
+```{r}
+strsplit(",,a,bb,", split = ",")
+strsplit(",,a,,", split = ",")
+strsplit(",,a,", split = ",")
+```
+
+
+
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```
+
+
+```{r}
+c("Hello")
+
+```

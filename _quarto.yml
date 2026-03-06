@@ -2,13 +2,18 @@ project:
   type: book
 
 book:
-  title: "r"
-  author: "Norah Jones"
+  title: "R Note for Statistics Learning and Computing"
+  author: "Daniel Cheung"
   date: "3/2/2026"
   chapters:
     - index.qmd
-    - intro.qmd
-    - summary.qmd
+    # - intro.qmd
+    # - summary.qmd
+    - RBasics.qmd
+    - RProgramming.qmd
+    - HypothesisTest.qmd
+    - LinearRegression.qmd
+    - LogisticsRegression.qmd
     - references.qmd
 
 bibliography: references.bib
