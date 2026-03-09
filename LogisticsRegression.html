@@ -326,9 +326,11 @@ P(X = 1) = \frac{e^{ \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p}}
 <section id="r-code" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="r-code"><span class="header-section-number">5.2</span> R code</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dv">20</span>, T)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> y <span class="sc">*</span> <span class="dv">5</span> <span class="sc">-</span>y<span class="sc">^</span><span class="dv">2</span>  <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">20</span>, <span class="dv">5</span>, <span class="dv">10</span>)<span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">5</span>, <span class="dv">10</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3306</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dv">20</span>, T)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> y <span class="sc">*</span> <span class="dv">5</span> <span class="sc">-</span>y<span class="sc">^</span><span class="dv">2</span>  <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">20</span>, <span class="dv">5</span>, <span class="dv">10</span>)<span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">5</span>, <span class="dv">10</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -345,16 +347,16 @@ glm(formula = y ~ x, family = binomial)
 
 Coefficients:
             Estimate Std. Error z value Pr(&gt;|z|)  
-(Intercept) -2.04095    1.22631  -1.664   0.0961 .
-x            0.12802    0.07333   1.746   0.0808 .
+(Intercept) -1.73353    1.00181   -1.73   0.0836 .
+x            0.13851    0.07067    1.96   0.0500 *
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
-    Null deviance: 27.526  on 19  degrees of freedom
-Residual deviance: 22.738  on 18  degrees of freedom
-AIC: 26.738
+    Null deviance: 27.726  on 19  degrees of freedom
+Residual deviance: 21.951  on 18  degrees of freedom
+AIC: 25.951
 
 Number of Fisher Scoring iterations: 4</code></pre>
 </div>
@@ -364,11 +366,11 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>$log_or
         x 
-0.1280154 
+0.1385138 
 
 $or
        x 
-1.136571 </code></pre>
+1.148566 </code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
@@ -376,8 +378,8 @@ $or
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  2.5 %      97.5 %
-(Intercept) -5.21464140 -0.09723842
-x            0.01144692  0.31858507</code></pre>
+(Intercept) -4.08999874 -0.00682785
+x            0.02215079  0.30995357</code></pre>
 </div>
 </div>
 </section>
@@ -457,12 +459,12 @@ x            0.01144692  0.31858507</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 y
 predicted.classes 0 1
-               c0 8 3
-               c1 3 6</code></pre>
+               c0 7 3
+               c1 3 7</code></pre>
 </div>
 </div>
 <p>From the confusion matrix, we can tell <span class="math inline">\(7+9 =16\)</span> samples correctly classificated, and 2 of Positive and 2 of Negative mistakenly classfied into Negative and Positive respectively.</p>
-<p>So the TP = 9, TN = 7, FP = FN = 2.</p>
+<p>So the TP = TN = 7, FP = FN = 3.</p>
 
 
 </section>
