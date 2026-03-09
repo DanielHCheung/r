@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
+<link href="./Classification.html" rel="next">
 <link href="./LinearRegression.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -219,6 +219,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./Classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Classification Models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -234,6 +240,11 @@ window.Quarto = {
    
   <ul>
   <li><a href="#theoritical-knowledge" id="toc-theoritical-knowledge" class="nav-link active" data-scroll-target="#theoritical-knowledge"><span class="header-section-number">5.1</span> Theoritical Knowledge</a></li>
+  <li><a href="#r-code" id="toc-r-code" class="nav-link" data-scroll-target="#r-code"><span class="header-section-number">5.2</span> R code</a></li>
+  <li><a href="#performance" id="toc-performance" class="nav-link" data-scroll-target="#performance"><span class="header-section-number">5.3</span> Performance</a>
+  <ul class="collapse">
+  <li><a href="#binary-classification-confusion-matrix" id="toc-binary-classification-confusion-matrix" class="nav-link" data-scroll-target="#binary-classification-confusion-matrix"><span class="header-section-number">5.3.1</span> Binary Classification: Confusion Matrix</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -311,8 +322,151 @@ P(X = 1) = \frac{e^{ \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p}}
 <p>when reply <span class="math inline">\(X\)</span> by <span class="math inline">\(X+1\)</span> then <span class="math display">\[
 \frac{e^{\beta_0 + \beta_1 (X+1)}}{e^{\beta_0 + \beta_1 X}} = e^{\beta_1}
 \]</span></p>
+</section>
+<section id="r-code" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="r-code"><span class="header-section-number">5.2</span> R code</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dv">20</span>, T)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> y <span class="sc">*</span> <span class="dv">5</span> <span class="sc">-</span>y<span class="sc">^</span><span class="dv">2</span>  <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">20</span>, <span class="dv">5</span>, <span class="dv">10</span>)<span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">5</span>, <span class="dv">10</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="LogisticsRegression_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x, <span class="at">family =</span> binomial)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = y ~ x, family = binomial)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)  
+(Intercept) -2.04095    1.22631  -1.664   0.0961 .
+x            0.12802    0.07333   1.746   0.0808 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 27.526  on 19  degrees of freedom
+Residual deviance: 22.738  on 18  degrees of freedom
+AIC: 26.738
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>log_or <span class="ot">&lt;-</span> <span class="fu">coef</span>(model)[<span class="st">"x"</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>or <span class="ot">&lt;-</span> <span class="fu">exp</span>(log_or)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">log_or =</span> log_or, <span class="at">or =</span> or)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$log_or
+        x 
+0.1280154 
+
+$or
+       x 
+1.136571 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Waiting for profiling to be done...</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  2.5 %      97.5 %
+(Intercept) -5.21464140 -0.09723842
+x            0.01144692  0.31858507</code></pre>
+</div>
+</div>
+</section>
+<section id="performance" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="performance"><span class="header-section-number">5.3</span> Performance</h2>
+<p>For classfication models like logitics regression, <strong>Confusion Matrix</strong> is a good method to evaluate your model.</p>
+<section id="binary-classification-confusion-matrix" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="binary-classification-confusion-matrix"><span class="header-section-number">5.3.1</span> Binary Classification: Confusion Matrix</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Predicted: NO (0) <br><em>(Not to Reject)</em></th>
+<th style="text-align: center;">Predicted: YES (1) <br><em>(Reject Null Hypothesis)</em></th>
+<th style="text-align: center;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Actual: NO (0) <br><em>(Alter is Wrong)</em></td>
+<td style="text-align: center;">True Negative (TN)</td>
+<td style="text-align: center;">False Positive (FP) <br><em>(Type I Error)</em></td>
+<td style="text-align: center;"><span class="math inline">\(N\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Actual: YES (1) <br><em>(Alter is Correct)</em></td>
+<td style="text-align: center;">False Negative (FN) <br><em>(Type II Error)</em></td>
+<td style="text-align: center;">True Positive (TP) <br><em>(Power)</em></td>
+<td style="text-align: center;"><span class="math inline">\(P\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: center;"><span class="math inline">\(N_{pred}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(P_{pred}\)</span></td>
+<td style="text-align: center;">Total (N)</td>
+</tr>
+</tbody>
+</table>
+<p>You can see there’s also a link between statistics inference and machine learning. Interesting! Note that in statistics we prefer writing <span class="math inline">\(H_0\)</span> (Null Hypothesis) is true or false rather than then <span class="math inline">\(H_1\)</span> (or <span class="math inline">\(H_a\)</span>, alternative hypothesis).</p>
+<p>The first letter T or F means whether this case is correctly identified; the second letter P or N means which sample the case belongs to.</p>
+<section id="accuracy" class="level4" data-number="5.3.1.1">
+<h4 data-number="5.3.1.1" class="anchored" data-anchor-id="accuracy"><span class="header-section-number">5.3.1.1</span> Accuracy</h4>
+<p><span class="math display">\[\text{Accuracy} = \frac{TP+TN}{TP+TN+FP+FN}\]</span></p>
+</section>
+<section id="recall-or-sensitive" class="level4" data-number="5.3.1.2">
+<h4 data-number="5.3.1.2" class="anchored" data-anchor-id="recall-or-sensitive"><span class="header-section-number">5.3.1.2</span> Recall (or Sensitive):</h4>
+<p><span class="math display">\[\text{Recall} = \frac{TP}{TP+FN}\]</span></p>
+<p>Recall is used to measure how many <strong>Positive Samples</strong> being correctly recognized. Assume you’re predicating whether a product has an issue, and your target is to recall samples with an issue. Recall reports in what extend you find the real issue samples.</p>
+</section>
+<section id="specificity" class="level4" data-number="5.3.1.3">
+<h4 data-number="5.3.1.3" class="anchored" data-anchor-id="specificity"><span class="header-section-number">5.3.1.3</span> Specificity:</h4>
+<p><span class="math display">\[\text{Specificity} = \frac{TN}{TN+FP}\]</span></p>
+<p>Specificity is opposite to the Recall. The target is to find how many <strong>Negative Samples</strong> beging correctly recognized.</p>
+</section>
+<section id="precision" class="level4" data-number="5.3.1.4">
+<h4 data-number="5.3.1.4" class="anchored" data-anchor-id="precision"><span class="header-section-number">5.3.1.4</span> Precision</h4>
+<p><span class="math display">\[\text{Precision} = \frac{TP}{TP+FP}\]</span></p>
+<p>Precision is different from either Recall and Specificity, since it measures how many samples with <strong>Positive Results</strong> really from <strong>Positive Samples</strong>. Assume you’re predicating whether a product has an issue, Precision reports whether a sample you’re recalling is really recall-needed one.</p>
+</section>
+<section id="f-1-score" class="level4" data-number="5.3.1.5">
+<h4 data-number="5.3.1.5" class="anchored" data-anchor-id="f-1-score"><span class="header-section-number">5.3.1.5</span> F-1 Score</h4>
+<p>Let’s make an example. You’re doing a model about fraud detection. The higher recall indicate you find almost most fraud, while you may interupt some non-fraud transcations; the higher Precision means you’re not interupt most non-fraud transcations while may miss some fraud transcations.</p>
+<p>F-1 Score is the <strong>Harmonic Mean</strong> of Recall and Precision</p>
+<p><span class="math display">\[
+\text{F-1 Score} = \frac{2}{\frac{1}{Recall}+\frac{1}{Precision}} = 2 \frac{Recall \times Precision}{Recall + Precision}
+\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, <span class="fu">list</span>(x), <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>predicted.classes <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(prob <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="st">"c1"</span>, <span class="st">"c0"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(predicted.classes,y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 y
+predicted.classes 0 1
+               c0 8 3
+               c1 3 6</code></pre>
+</div>
+</div>
+<p>From the confusion matrix, we can tell <span class="math inline">\(7+9 =16\)</span> samples correctly classificated, and 2 of Positive and 2 of Negative mistakenly classfied into Negative and Positive respectively.</p>
+<p>So the TP = 9, TN = 7, FP = FN = 2.</p>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -723,8 +877,8 @@ P(X = 1) = \frac{e^{ \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p}}
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link" aria-label="References">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Classification.html" class="pagination-link" aria-label="Classification Models">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Classification Models</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
