@@ -290,6 +290,27 @@ L = \prod_{i = 1}^{n} {(1-p)}^{1-y_i} {p}^{y_i}  =  {(1-p)}^{n-\sum y_i} {p}^{\s
 l = {(n-\sum y_i)}\log{(1-p)} + {(\sum y_i)}\log{p}
 \]</span></p>
 <p>R utilize Iteratively Reweighted Least Squares (IRLS) to calculate the coefficients of the regression. Guess first, then iteration until likelihood function no longer increase.</p>
+<p>For generalized model, p variables,</p>
+<p><span class="math display">\[
+\log{\frac{p}{1-p}} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p
+\]</span></p>
+<p><span class="math display">\[
+P(X = 1) = \frac{e^{ \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p}}{1 + e^{ \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p}}
+\]</span></p>
+<p><span class="math display">\[
+\text{Odds Ratio} = OR = \frac{Odds_1}{Odds_2}
+\]</span></p>
+<p><span class="math display">\[
+\text{Relative Risk} = RR = \frac{p_1}{p_2} \rightarrow OR = RR \times \frac{1-p_1}{1-p_2}
+\]</span></p>
+<p>Note that when p is small, <span class="math inline">\(OR \approx RR\)</span></p>
+<p>to explain the model, we can write</p>
+<p><span class="math display">\[
+\frac{p}{1-p} = e^{\beta_0} (e^{\beta_1 })^{x_1} (e^{\beta_2 })^{x_2} \dots (e^{\beta_p })^{x_p}
+\]</span></p>
+<p>when reply <span class="math inline">\(X\)</span> by <span class="math inline">\(X+1\)</span> then <span class="math display">\[
+\frac{e^{\beta_0 + \beta_1 (X+1)}}{e^{\beta_0 + \beta_1 X}} = e^{\beta_1}
+\]</span></p>
 
 
 </section>
