@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -80,6 +115,35 @@ ul.task-list li input[type="checkbox"] {
   gtag('config', 'G-P9D3XB8EYV');
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -164,8 +228,14 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#theoritical-knowledge" id="toc-theoritical-knowledge" class="nav-link active" data-scroll-target="#theoritical-knowledge"><span class="header-section-number">5.1</span> Theoritical Knowledge</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -189,8 +259,40 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="theoritical-knowledge" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="theoritical-knowledge"><span class="header-section-number">5.1</span> Theoritical Knowledge</h2>
+<p>Assume you’re predicting binary categorical data with OLS:</p>
+<p><span class="math display">\[ Y = \alpha + \beta X + \varepsilon \]</span></p>
+<p>The problem is, <span class="math inline">\(Y \sim Bin(p)\)</span> rather than <span class="math inline">\(N(\mu, \sigma^2)\)</span>. The target should be from <span class="math inline">\([0,1]\)</span>, indicating the probability which category this sample likely belongs to. However, the predicated value may greater than 1 or less than 0, which cause a problem.</p>
+<p>But you can have a function to map <span class="math inline">\((-\infty, \infty)\)</span> to <span class="math inline">\((0,1)\)</span> which is <span class="math inline">\(y = \frac{1}{1+e^{-x}}\)</span> (logistic function, aka. sigmoid function as activation function in neural network)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">20</span>,<span class="dv">20</span>,<span class="fl">0.1</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(<span class="sc">-</span>x)), <span class="st">'l'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">'Logistics Function'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="LogisticsRegression_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let <span class="math inline">\(p = \frac{1}{1+e^{-\eta}}\)</span>. Thus the model is,</p>
+<p><span class="math display">\[ \eta = \log{\frac{p}{1-p}} = \alpha + \beta X + \varepsilon \]</span></p>
+<p>Here we define Odds (<span class="math inline">\(\eta = \log{Odds}\)</span>) helps explain the model.</p>
+<p><span class="math display">\[ Odds = \frac{p}{1-p} \]</span></p>
+<p>We use MLE to estimate, and solve by iteration. In R, we use <code>glm</code> function with <code>family = binomial</code>.</p>
+<p>MLE function is given by</p>
+<p><span class="math display">\[
+L = \prod_{i = 1}^{n} {(1-p)}^{1-y_i} {p}^{y_i}  =  {(1-p)}^{n-\sum y_i} {p}^{\sum y_i}
+\]</span></p>
+<p><span class="math display">\[
+l = {(n-\sum y_i)}\log{(1-p)} + {(\sum y_i)}\log{p}
+\]</span></p>
+<p>R utilize Iteratively Reweighted Least Squares (IRLS) to calculate the coefficients of the regression. Guess first, then iteration until likelihood function no longer increase.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
