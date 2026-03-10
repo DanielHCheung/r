@@ -74,7 +74,7 @@
     "href": "RProgramming.html#split-dataset",
     "title": "2  R Programming for Data Analysis",
     "section": "2.2 Split Dataset",
-    "text": "2.2 Split Dataset\nThere’s how you can get random sample.\n\nlibrary(dplyr)\n\niris %&gt;% sample_n(10)\n\n   Sepal.Length Sepal.Width Petal.Length Petal.Width    Species Petal.Ratio\n1           7.6         3.0          6.6         2.1  virginica    3.142857\n2           7.7         3.0          6.1         2.3  virginica    2.652174\n3           6.4         3.1          5.5         1.8  virginica    3.055556\n4           6.6         3.0          4.4         1.4 versicolor    3.142857\n5           5.0         3.6          1.4         0.2     setosa    7.000000\n6           6.2         2.2          4.5         1.5 versicolor    3.000000\n7           5.9         3.0          4.2         1.5 versicolor    2.800000\n8           7.1         3.0          5.9         2.1  virginica    2.809524\n9           6.7         3.1          5.6         2.4  virginica    2.333333\n10          6.8         3.2          5.9         2.3  virginica    2.565217\n\niris[sample(nrow(iris), 10), ]\n\n    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species Petal.Ratio\n87           6.7         3.1          4.7         1.5 versicolor    3.133333\n135          6.1         2.6          5.6         1.4  virginica    4.000000\n139          6.0         3.0          4.8         1.8  virginica    2.666667\n136          7.7         3.0          6.1         2.3  virginica    2.652174\n128          6.1         3.0          4.9         1.8  virginica    2.722222\n13           4.8         3.0          1.4         0.1     setosa   14.000000\n54           5.5         2.3          4.0         1.3 versicolor    3.076923\n15           5.8         4.0          1.2         0.2     setosa    6.000000\n74           6.1         2.8          4.7         1.2 versicolor    3.916667\n112          6.4         2.7          5.3         1.9  virginica    2.789474\n\n\nPlease use y (target variable) as the variable into createDataPartition, rather than any other variables. p is the portition of training set.\n\nlibrary(caret)\n\nLoading required package: ggplot2\n\n\nWarning: package 'ggplot2' was built under R version 4.5.2\n\n\nLoading required package: lattice\n\ntraining.samples = iris$Species %&gt;%\n  createDataPartition(p = 0.70, list = FALSE)\n\ntraindf = iris[training.samples,]\ntestdf = iris[-training.samples,]",
+    "text": "2.2 Split Dataset\nThere’s how you can get random sample.\n\nlibrary(dplyr)\n\niris %&gt;% sample_n(10)\n\n   Sepal.Length Sepal.Width Petal.Length Petal.Width    Species Petal.Ratio\n1           4.9         3.6          1.4         0.1     setosa   14.000000\n2           6.4         2.8          5.6         2.2  virginica    2.545455\n3           5.7         4.4          1.5         0.4     setosa    3.750000\n4           6.9         3.1          4.9         1.5 versicolor    3.266667\n5           5.6         2.8          4.9         2.0  virginica    2.450000\n6           4.7         3.2          1.3         0.2     setosa    6.500000\n7           7.2         3.2          6.0         1.8  virginica    3.333333\n8           5.1         3.5          1.4         0.3     setosa    4.666667\n9           5.9         3.0          5.1         1.8  virginica    2.833333\n10          6.9         3.2          5.7         2.3  virginica    2.478261\n\niris[sample(nrow(iris), 10), ]\n\n    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species Petal.Ratio\n17           5.4         3.9          1.3         0.4     setosa    3.250000\n105          6.5         3.0          5.8         2.2  virginica    2.636364\n4            4.6         3.1          1.5         0.2     setosa    7.500000\n14           4.3         3.0          1.1         0.1     setosa   11.000000\n87           6.7         3.1          4.7         1.5 versicolor    3.133333\n101          6.3         3.3          6.0         2.5  virginica    2.400000\n84           6.0         2.7          5.1         1.6 versicolor    3.187500\n149          6.2         3.4          5.4         2.3  virginica    2.347826\n6            5.4         3.9          1.7         0.4     setosa    4.250000\n24           5.1         3.3          1.7         0.5     setosa    3.400000\n\n\nPlease use y (target variable) as the variable into createDataPartition, rather than any other variables. p is the portition of training set.\n\nlibrary(caret)\n\nLoading required package: ggplot2\n\n\nWarning: package 'ggplot2' was built under R version 4.5.2\n\n\nLoading required package: lattice\n\ntraining.samples = iris$Species %&gt;%\n  createDataPartition(p = 0.70, list = FALSE)\n\ntraindf = iris[training.samples,]\ntestdf = iris[-training.samples,]",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>R Programming for Data Analysis</span>"
     ]
@@ -187,6 +187,66 @@
     "text": "6.1 Performance\nPlease see Logistics -&gt; Performance",
     "crumbs": [
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Classification Models</span>"
+    ]
+  },
+  {
+    "objectID": "Random.html",
+    "href": "Random.html",
+    "title": "7  Generate Random Variables",
+    "section": "",
+    "text": "7.1 Remember to Set the Random Seed\nReference: Rizzo (2019)\nset.seed(42)\nIf the seed is not set by a default value, each time I render the webpage, the R codes will run, and different results may given. In some documents, the text will require to change in order to match the code output. In your project, set it whatever you like, 42, 2026, 3306, 3389, 65535, 114514, …",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Generate Random Variables</span>"
+    ]
+  },
+  {
+    "objectID": "Random.html#direct-approach-in-r",
+    "href": "Random.html#direct-approach-in-r",
+    "title": "7  Generate Random Variables",
+    "section": "7.2 Direct approach in R",
+    "text": "7.2 Direct approach in R\n\n# Uniform (0,1)\nrunif(n = 10, min = 0, max = 1)\n\n [1] 0.9148060 0.9370754 0.2861395 0.8304476 0.6417455 0.5190959 0.7365883\n [8] 0.1346666 0.6569923 0.7050648\n\n# Bin(30, 0.6)\nrbinom(n = 10, size = 30, prob = 0.6)\n\n [1] 18 16 14 20 18 14 13 21 18 18\n\n# Poisson(7)\nrpois(n = 5, lambda = 7)\n\n[1] 11  4 14 12  4",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Generate Random Variables</span>"
+    ]
+  },
+  {
+    "objectID": "Random.html#inverse-cdf",
+    "href": "Random.html#inverse-cdf",
+    "title": "7  Generate Random Variables",
+    "section": "7.3 Inverse CDF",
+    "text": "7.3 Inverse CDF\nFor any continuous random variable, the random variable defined by its Cumulative Distribution Function (CDF) evaluated at itself follows a U(0,1) distribution.\nThus you can get the random value from the inverse of CDF.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Generate Random Variables</span>"
+    ]
+  },
+  {
+    "objectID": "Random.html#acceptance-rejection-method",
+    "href": "Random.html#acceptance-rejection-method",
+    "title": "7  Generate Random Variables",
+    "section": "7.4 Acceptance-Rejection Method",
+    "text": "7.4 Acceptance-Rejection Method\nAssume you have \\(X\\sim f_X\\), \\(Y\\sim g_Y\\), and \\[ \\frac{f(t)}{g(t)}\\leq c, \\forall t s.t. f(t)&gt;0 \\]\nThen generate \\(u\\) from \\(U \\sim U(0,1)\\) and \\(y\\) from \\(Y\\sim g_Y\\), accept \\(y\\) if \\(u &lt; \\frac{f(t)}{c g(t)}\\), otherwise drop it.\nIn some textbooks, \\(M = sup \\frac{f(t)}{g(t)} &lt; \\infty \\Rightarrow \\frac{f(t)}{Mg(t)}\\leq 1\\). The \\(M\\) here is equal to the \\(c\\) mentioned earlier.\n\n7.4.1 Example: Beta(5,3)\n\\[f(x) = \\frac{1}{Beta(5,3)} x^4 (1-x)^2\\]\n\\[f'(x) = \\frac{1}{Beta(5,3)} [4x^3 (1-x)^2 - 2x^4 (1-x)] =  \\frac{2x^3(1-x)(2-3x)}{Beta(5,3)}  \\]\nThen we have \\(M = sup \\frac{f(t)}{g(t)}  =  f(\\frac{2}{3})\\)\n\nb1 &lt;- rbeta(50, 5,3)\nhist(b1)\n\n\n\n\n\n\n\nb2 &lt;- c()\nM &lt;- dbeta(2/3, 5,3)\nwhile (length(b2) &lt; 50){\n    u1 &lt;- runif(1)\n    y &lt;- runif(1)\n    if(u1 &lt; dbeta(y,5,3)/M){\n        b2 &lt;- c(b2,y)\n    }\n}\nhist(b2)\n\n\n\n\n\n\n\n\nThere’re some performance weakness: - bad append operation b2 &lt;- c(b2,y) - non-vectorized operation\nLet’s optimize!\n\nN &lt;- 50\nM &lt;- dbeta(2/3, 5,3)\nN1 &lt;- as.integer(N * M * 1.2)\n\nu &lt;- runif(N1)\ny &lt;- runif(N1)\nb3 &lt;- y[u &lt; dbeta(y,5,3)/M]\nprint(c(\"target is\", N, \", and we generated \", N1, \"finally get \", length(b3)))\n\n[1] \"target is\"           \"50\"                  \", and we generated \"\n[4] \"138\"                 \"finally get \"        \"55\"                 \n\nb3 &lt;- b3[1:N]\nhist(b3)",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Generate Random Variables</span>"
+    ]
+  },
+  {
+    "objectID": "Random.html#benchmark",
+    "href": "Random.html#benchmark",
+    "title": "7  Generate Random Variables",
+    "section": "7.5 Benchmark",
+    "text": "7.5 Benchmark\n\nlibrary(microbenchmark)\n\nrejection_scalar &lt;- function(N) {\n    b2 &lt;- numeric(N)\n    M &lt;- dbeta(2/3, 5, 3)\n    count &lt;- 0\n    while (count &lt; N) {\n        u1 &lt;- runif(1)\n        y &lt;- runif(1)\n        if (u1 &lt; dbeta(y, 5, 3) / M) {\n            count &lt;- count + 1\n            b2[count] &lt;- y\n        }\n    }\n    return(b2)\n}\n\nrejection_vectorized &lt;- function(N) {\n    M &lt;- dbeta(2/3, 5,3)\n    N1 &lt;- as.integer(N * M * 1.2)\n\n    u &lt;- runif(N1)\n    y &lt;- runif(N1)\n    b3 &lt;- y[u &lt; dbeta(y,5,3)/M]\n    return(b3[1:N])\n}\n\nresults &lt;- microbenchmark(\n    Scalar_Loop = rejection_scalar(5000),\n    Vectorized  = rejection_vectorized(5000),\n    Built_in = rbeta(5000, 5, 3),\n    times = 100\n)\n\nWarning in microbenchmark(Scalar_Loop = rejection_scalar(5000), Vectorized =\nrejection_vectorized(5000), : less accurate nanosecond times to avoid potential\ninteger overflows\n\nresults\n\nUnit: microseconds\n        expr       min         lq       mean    median         uq       max\n Scalar_Loop 17982.805 19047.8825 20080.3195 20208.408 20996.0180 24657.523\n  Vectorized  1100.440  1143.6335  1242.1897  1238.651  1256.2810  3935.754\n    Built_in   384.006   424.0015   425.9162   432.919   436.3015   486.547\n neval\n   100\n   100\n   100\n\n\n\n\n\n\nRizzo, Maria L. 2019. Statistical Computing with r. 2nd ed. CRC Press.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Generate Random Variables</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Rizzo, Maria L. 2019. Statistical Computing with r. 2nd ed. CRC\nPress.",
+    "crumbs": [
+      "References"
     ]
   }
 ]
