@@ -267,10 +267,13 @@ window.Quarto = {
   <ul>
   <li><a href="#remember-to-set-the-random-seed" id="toc-remember-to-set-the-random-seed" class="nav-link active" data-scroll-target="#remember-to-set-the-random-seed"><span class="header-section-number">7.1</span> Remember to Set the Random Seed</a></li>
   <li><a href="#direct-approach-in-r" id="toc-direct-approach-in-r" class="nav-link" data-scroll-target="#direct-approach-in-r"><span class="header-section-number">7.2</span> Direct approach in R</a></li>
-  <li><a href="#inverse-cdf" id="toc-inverse-cdf" class="nav-link" data-scroll-target="#inverse-cdf"><span class="header-section-number">7.3</span> Inverse CDF</a></li>
+  <li><a href="#inverse-cdf" id="toc-inverse-cdf" class="nav-link" data-scroll-target="#inverse-cdf"><span class="header-section-number">7.3</span> Inverse CDF</a>
+  <ul class="collapse">
+  <li><a href="#example-beta53" id="toc-example-beta53" class="nav-link" data-scroll-target="#example-beta53"><span class="header-section-number">7.3.1</span> Example: Beta(5,3)</a></li>
+  </ul></li>
   <li><a href="#acceptance-rejection-method" id="toc-acceptance-rejection-method" class="nav-link" data-scroll-target="#acceptance-rejection-method"><span class="header-section-number">7.4</span> Acceptance-Rejection Method</a>
   <ul class="collapse">
-  <li><a href="#example-beta53" id="toc-example-beta53" class="nav-link" data-scroll-target="#example-beta53"><span class="header-section-number">7.4.1</span> Example: Beta(5,3)</a></li>
+  <li><a href="#example-beta53-1" id="toc-example-beta53-1" class="nav-link" data-scroll-target="#example-beta53-1"><span class="header-section-number">7.4.1</span> Example: Beta(5,3)</a></li>
   </ul></li>
   <li><a href="#benchmark" id="toc-benchmark" class="nav-link" data-scroll-target="#benchmark"><span class="header-section-number">7.5</span> Benchmark</a></li>
   </ul>
@@ -331,20 +334,17 @@ window.Quarto = {
 <h2 data-number="7.3" class="anchored" data-anchor-id="inverse-cdf"><span class="header-section-number">7.3</span> Inverse CDF</h2>
 <p>For any continuous random variable, the random variable defined by its Cumulative Distribution Function (CDF) evaluated at itself follows a U(0,1) distribution.</p>
 <p>Thus you can get the random value from the inverse of CDF.</p>
-</section>
-<section id="acceptance-rejection-method" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="acceptance-rejection-method"><span class="header-section-number">7.4</span> Acceptance-Rejection Method</h2>
-<p>Assume you have <span class="math inline">\(X\sim f_X\)</span>, <span class="math inline">\(Y\sim g_Y\)</span>, and <span class="math display">\[ \frac{f(t)}{g(t)}\leq c, \forall t s.t. f(t)&gt;0 \]</span></p>
-<p>Then generate <span class="math inline">\(u\)</span> from <span class="math inline">\(U \sim U(0,1)\)</span> and <span class="math inline">\(y\)</span> from <span class="math inline">\(Y\sim g_Y\)</span>, accept <span class="math inline">\(y\)</span> if <span class="math inline">\(u &lt; \frac{f(t)}{c g(t)}\)</span>, otherwise drop it.</p>
-<p>In some textbooks, <span class="math inline">\(M = sup \frac{f(t)}{g(t)} &lt; \infty \Rightarrow \frac{f(t)}{Mg(t)}\leq 1\)</span>. The <span class="math inline">\(M\)</span> here is equal to the <span class="math inline">\(c\)</span> mentioned earlier.</p>
-<section id="example-beta53" class="level3" data-number="7.4.1">
-<h3 data-number="7.4.1" class="anchored" data-anchor-id="example-beta53"><span class="header-section-number">7.4.1</span> Example: Beta(5,3)</h3>
+<section id="example-beta53" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="example-beta53"><span class="header-section-number">7.3.1</span> Example: Beta(5,3)</h3>
 <p><span class="math display">\[f(x) = \frac{1}{Beta(5,3)} x^4 (1-x)^2\]</span></p>
-<p><span class="math display">\[f'(x) = \frac{1}{Beta(5,3)} [4x^3 (1-x)^2 - 2x^4 (1-x)] =  \frac{2x^3(1-x)(2-3x)}{Beta(5,3)}  \]</span></p>
-<p>Then we have <span class="math inline">\(M = sup \frac{f(t)}{g(t)}  =  f(\frac{2}{3})\)</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">50</span>, <span class="dv">5</span>,<span class="dv">3</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(b1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ReverseCDF <span class="ot">&lt;-</span> <span class="cf">function</span>(N) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">qbeta</span>(<span class="fu">runif</span>(N),<span class="dv">5</span>,<span class="dv">3</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>b0 <span class="ot">&lt;-</span> <span class="fu">ReverseCDF</span>(<span class="dv">50</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(b0, <span class="at">freq =</span> F)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dbeta</span>(x, <span class="dv">5</span>, <span class="dv">3</span>), <span class="at">add =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -352,20 +352,45 @@ window.Quarto = {
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>b2 <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(<span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">5</span>,<span class="dv">3</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (<span class="fu">length</span>(b2) <span class="sc">&lt;</span> <span class="dv">50</span>){</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    u1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(u1 <span class="sc">&lt;</span> <span class="fu">dbeta</span>(y,<span class="dv">5</span>,<span class="dv">3</span>)<span class="sc">/</span>M){</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        b2 <span class="ot">&lt;-</span> <span class="fu">c</span>(b2,y)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(b2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="acceptance-rejection-method" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="acceptance-rejection-method"><span class="header-section-number">7.4</span> Acceptance-Rejection Method</h2>
+<p>Assume you have <span class="math inline">\(X\sim f_X\)</span>, <span class="math inline">\(Y\sim g_Y\)</span>, and <span class="math display">\[ \frac{f(t)}{g(t)}\leq c, \forall t s.t. f(t)&gt;0 \]</span></p>
+<p>Then generate <span class="math inline">\(u\)</span> from <span class="math inline">\(U \sim U(0,1)\)</span> and <span class="math inline">\(y\)</span> from <span class="math inline">\(Y\sim g_Y\)</span>, accept <span class="math inline">\(y\)</span> if <span class="math inline">\(u &lt; \frac{f(t)}{c g(t)}\)</span>, otherwise drop it.</p>
+<p>In some textbooks, <span class="math inline">\(M = sup \frac{f(t)}{g(t)} &lt; \infty \Rightarrow \frac{f(t)}{Mg(t)}\leq 1\)</span>. The <span class="math inline">\(M\)</span> here is equal to the <span class="math inline">\(c\)</span> mentioned earlier.</p>
+<section id="example-beta53-1" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="example-beta53-1"><span class="header-section-number">7.4.1</span> Example: Beta(5,3)</h3>
+<p><span class="math display">\[f(x) = \frac{1}{Beta(5,3)} x^4 (1-x)^2\]</span></p>
+<p><span class="math display">\[f'(x) = \frac{1}{Beta(5,3)} [4x^3 (1-x)^2 - 2x^4 (1-x)] =  \frac{2x^3(1-x)(2-3x)}{Beta(5,3)}  \]</span></p>
+<p>Then we have <span class="math inline">\(M = sup \frac{f(t)}{g(t)}  =  f(\frac{2}{3})\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">50</span>, <span class="dv">5</span>,<span class="dv">3</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(b1, <span class="at">freq =</span> F)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dbeta</span>(x, <span class="dv">5</span>, <span class="dv">3</span>), <span class="at">add =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Random_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Random_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>b2 <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(<span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">5</span>,<span class="dv">3</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (<span class="fu">length</span>(b2) <span class="sc">&lt;</span> <span class="dv">50</span>){</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    u1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(u1 <span class="sc">&lt;</span> <span class="fu">dbeta</span>(y,<span class="dv">5</span>,<span class="dv">3</span>)<span class="sc">/</span>M){</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        b2 <span class="ot">&lt;-</span> <span class="fu">c</span>(b2,y)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(b2, <span class="at">freq =</span> F)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dbeta</span>(x, <span class="dv">5</span>, <span class="dv">3</span>), <span class="at">add =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Random_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -373,24 +398,25 @@ window.Quarto = {
 <p>There’re some performance weakness: - bad append operation <code>b2 &lt;- c(b2,y)</code> - non-vectorized operation</p>
 <p>Let’s optimize!</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(<span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">5</span>,<span class="dv">3</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>N1 <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(N <span class="sc">*</span> M <span class="sc">*</span> <span class="fl">1.2</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">runif</span>(N1)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">runif</span>(N1)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>b3 <span class="ot">&lt;-</span> y[u <span class="sc">&lt;</span> <span class="fu">dbeta</span>(y,<span class="dv">5</span>,<span class="dv">3</span>)<span class="sc">/</span>M]</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="st">"target is"</span>, N, <span class="st">", and we generated "</span>, N1, <span class="st">"finally get "</span>, <span class="fu">length</span>(b3)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(<span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">5</span>,<span class="dv">3</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>N1 <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(N <span class="sc">*</span> M <span class="sc">*</span> <span class="fl">1.2</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">runif</span>(N1)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">runif</span>(N1)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>b3 <span class="ot">&lt;-</span> y[u <span class="sc">&lt;</span> <span class="fu">dbeta</span>(y,<span class="dv">5</span>,<span class="dv">3</span>)<span class="sc">/</span>M]</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="st">"target is"</span>, N, <span class="st">", and we generated "</span>, N1, <span class="st">"finally get "</span>, <span class="fu">length</span>(b3)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "target is"           "50"                  ", and we generated "
-[4] "138"                 "finally get "        "55"                 </code></pre>
+[4] "138"                 "finally get "        "59"                 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>b3 <span class="ot">&lt;-</span> b3[<span class="dv">1</span><span class="sc">:</span>N]</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(b3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>b3 <span class="ot">&lt;-</span> b3[<span class="dv">1</span><span class="sc">:</span>N]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(b3, <span class="at">freq =</span> F)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dbeta</span>(x, <span class="dv">5</span>, <span class="dv">3</span>), <span class="at">add =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Random_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Random_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -400,52 +426,59 @@ window.Quarto = {
 <section id="benchmark" class="level2" data-number="7.5">
 <h2 data-number="7.5" class="anchored" data-anchor-id="benchmark"><span class="header-section-number">7.5</span> Benchmark</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>rejection_scalar <span class="ot">&lt;-</span> <span class="cf">function</span>(N) {</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    b2 <span class="ot">&lt;-</span> <span class="fu">numeric</span>(N)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    M <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(<span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">3</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    count <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> (count <span class="sc">&lt;</span> N) {</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        u1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        y <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (u1 <span class="sc">&lt;</span> <span class="fu">dbeta</span>(y, <span class="dv">5</span>, <span class="dv">3</span>) <span class="sc">/</span> M) {</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>            count <span class="ot">&lt;-</span> count <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>            b2[count] <span class="ot">&lt;-</span> y</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(b2)</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>rejection_vectorized <span class="ot">&lt;-</span> <span class="cf">function</span>(N) {</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    M <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(<span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">5</span>,<span class="dv">3</span>)</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    N1 <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(N <span class="sc">*</span> M <span class="sc">*</span> <span class="fl">1.2</span>)</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    u <span class="ot">&lt;-</span> <span class="fu">runif</span>(N1)</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="fu">runif</span>(N1)</span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    b3 <span class="ot">&lt;-</span> y[u <span class="sc">&lt;</span> <span class="fu">dbeta</span>(y,<span class="dv">5</span>,<span class="dv">3</span>)<span class="sc">/</span>M]</span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(b3[<span class="dv">1</span><span class="sc">:</span>N])</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">Scalar_Loop =</span> <span class="fu">rejection_scalar</span>(<span class="dv">5000</span>),</span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">Vectorized  =</span> <span class="fu">rejection_vectorized</span>(<span class="dv">5000</span>),</span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">Built_in =</span> <span class="fu">rbeta</span>(<span class="dv">5000</span>, <span class="dv">5</span>, <span class="dv">3</span>),</span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">times =</span> <span class="dv">100</span></span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>rejection_scalar <span class="ot">&lt;-</span> <span class="cf">function</span>(N) {</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    b2 <span class="ot">&lt;-</span> <span class="fu">numeric</span>(N)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    M <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(<span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">3</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    count <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> (count <span class="sc">&lt;</span> N) {</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>        u1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>        y <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (u1 <span class="sc">&lt;</span> <span class="fu">dbeta</span>(y, <span class="dv">5</span>, <span class="dv">3</span>) <span class="sc">/</span> M) {</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>            count <span class="ot">&lt;-</span> count <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>            b2[count] <span class="ot">&lt;-</span> y</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(b2)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>rejection_vectorized <span class="ot">&lt;-</span> <span class="cf">function</span>(N) {</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    M <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(<span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">5</span>,<span class="dv">3</span>)</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    N1 <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(N <span class="sc">*</span> M <span class="sc">*</span> <span class="fl">1.2</span>)</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    u <span class="ot">&lt;-</span> <span class="fu">runif</span>(N1)</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="fu">runif</span>(N1)</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    b3 <span class="ot">&lt;-</span> y[u <span class="sc">&lt;</span> <span class="fu">dbeta</span>(y,<span class="dv">5</span>,<span class="dv">3</span>)<span class="sc">/</span>M]</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(b3[<span class="dv">1</span><span class="sc">:</span>N])</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">Reverse =</span> <span class="fu">ReverseCDF</span>(<span class="dv">5000</span>),</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">Scalar_Loop =</span> <span class="fu">rejection_scalar</span>(<span class="dv">5000</span>),</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">Vectorized  =</span> <span class="fu">rejection_vectorized</span>(<span class="dv">5000</span>),</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">Built_in =</span> <span class="fu">rbeta</span>(<span class="dv">5000</span>, <span class="dv">5</span>, <span class="dv">3</span>),</span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">times =</span> <span class="dv">100</span></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in microbenchmark(Scalar_Loop = rejection_scalar(5000), Vectorized =
-rejection_vectorized(5000), : less accurate nanosecond times to avoid potential
+<pre><code>Warning in microbenchmark(Reverse = ReverseCDF(5000), Scalar_Loop =
+rejection_scalar(5000), : less accurate nanosecond times to avoid potential
 integer overflows</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>results</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>results</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: microseconds
-        expr       min         lq       mean    median         uq       max
- Scalar_Loop 17982.805 19047.8825 20080.3195 20208.408 20996.0180 24657.523
-  Vectorized  1100.440  1143.6335  1242.1897  1238.651  1256.2810  3935.754
-    Built_in   384.006   424.0015   425.9162   432.919   436.3015   486.547
+        expr       min        lq       mean     median        uq       max
+     Reverse  3179.140  3519.440  3814.6146  3567.3690  3991.043  5788.872
+ Scalar_Loop 17834.508 20628.309 22501.8020 21764.1325 23724.568 31529.697
+  Vectorized  1110.444  1257.532  1432.2911  1397.2185  1432.438  4392.781
+    Built_in   386.425   432.960   459.0171   441.0165   488.884   581.380
  neval
+   100
    100
    100
    100</code></pre>
