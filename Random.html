@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>7&nbsp; Generate Random Variables – R Note for Statistics Learning and Computing</title>
+<title>8&nbsp; Generate Random Variables – R Note for Statistics Learning and Computing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -176,7 +176,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Random.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Generate Random Variables</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Random.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Generate Random Variables</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -233,20 +233,26 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./ANOVA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">ANalysis of VAriance (ANOVA)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./LogisticsRegression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Logistics Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Logistics Regression</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Classification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Classification Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Classification Models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Random.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Generate Random Variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Generate Random Variables</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -265,17 +271,17 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#remember-to-set-the-random-seed" id="toc-remember-to-set-the-random-seed" class="nav-link active" data-scroll-target="#remember-to-set-the-random-seed"><span class="header-section-number">7.1</span> Remember to Set the Random Seed</a></li>
-  <li><a href="#direct-approach-in-r" id="toc-direct-approach-in-r" class="nav-link" data-scroll-target="#direct-approach-in-r"><span class="header-section-number">7.2</span> Direct approach in R</a></li>
-  <li><a href="#inverse-cdf" id="toc-inverse-cdf" class="nav-link" data-scroll-target="#inverse-cdf"><span class="header-section-number">7.3</span> Inverse CDF</a>
+  <li><a href="#remember-to-set-the-random-seed" id="toc-remember-to-set-the-random-seed" class="nav-link active" data-scroll-target="#remember-to-set-the-random-seed"><span class="header-section-number">8.1</span> Remember to Set the Random Seed</a></li>
+  <li><a href="#direct-approach-in-r" id="toc-direct-approach-in-r" class="nav-link" data-scroll-target="#direct-approach-in-r"><span class="header-section-number">8.2</span> Direct approach in R</a></li>
+  <li><a href="#inverse-cdf" id="toc-inverse-cdf" class="nav-link" data-scroll-target="#inverse-cdf"><span class="header-section-number">8.3</span> Inverse CDF</a>
   <ul class="collapse">
-  <li><a href="#example-beta53" id="toc-example-beta53" class="nav-link" data-scroll-target="#example-beta53"><span class="header-section-number">7.3.1</span> Example: Beta(5,3)</a></li>
+  <li><a href="#example-beta53" id="toc-example-beta53" class="nav-link" data-scroll-target="#example-beta53"><span class="header-section-number">8.3.1</span> Example: Beta(5,3)</a></li>
   </ul></li>
-  <li><a href="#acceptance-rejection-method" id="toc-acceptance-rejection-method" class="nav-link" data-scroll-target="#acceptance-rejection-method"><span class="header-section-number">7.4</span> Acceptance-Rejection Method</a>
+  <li><a href="#acceptance-rejection-method" id="toc-acceptance-rejection-method" class="nav-link" data-scroll-target="#acceptance-rejection-method"><span class="header-section-number">8.4</span> Acceptance-Rejection Method</a>
   <ul class="collapse">
-  <li><a href="#example-beta53-1" id="toc-example-beta53-1" class="nav-link" data-scroll-target="#example-beta53-1"><span class="header-section-number">7.4.1</span> Example: Beta(5,3)</a></li>
+  <li><a href="#example-beta53-1" id="toc-example-beta53-1" class="nav-link" data-scroll-target="#example-beta53-1"><span class="header-section-number">8.4.1</span> Example: Beta(5,3)</a></li>
   </ul></li>
-  <li><a href="#benchmark" id="toc-benchmark" class="nav-link" data-scroll-target="#benchmark"><span class="header-section-number">7.5</span> Benchmark</a></li>
+  <li><a href="#benchmark" id="toc-benchmark" class="nav-link" data-scroll-target="#benchmark"><span class="header-section-number">8.5</span> Benchmark</a></li>
   </ul>
 </nav>
     </div>
@@ -284,7 +290,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Generate Random Variables</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Generate Random Variables</span></h1>
 </div>
 
 
@@ -302,15 +308,15 @@ window.Quarto = {
 
 
 <p>Reference: <span class="citation" data-cites="rizzo2019statistical">Rizzo (<a href="references.html#ref-rizzo2019statistical" role="doc-biblioref">2019</a>)</span> Chapter 3</p>
-<section id="remember-to-set-the-random-seed" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="remember-to-set-the-random-seed"><span class="header-section-number">7.1</span> Remember to Set the Random Seed</h2>
+<section id="remember-to-set-the-random-seed" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="remember-to-set-the-random-seed"><span class="header-section-number">8.1</span> Remember to Set the Random Seed</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If the seed is not set by a default value, each time I render the webpage, the R codes will run, and different results may given. In some documents, the text will require to change in order to match the code output. In your project, set it whatever you like, 42, 2026, 3306, 3389, 65535, 114514, …</p>
 </section>
-<section id="direct-approach-in-r" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="direct-approach-in-r"><span class="header-section-number">7.2</span> Direct approach in R</h2>
+<section id="direct-approach-in-r" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="direct-approach-in-r"><span class="header-section-number">8.2</span> Direct approach in R</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Uniform (0,1)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -336,12 +342,12 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="inverse-cdf" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="inverse-cdf"><span class="header-section-number">7.3</span> Inverse CDF</h2>
+<section id="inverse-cdf" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="inverse-cdf"><span class="header-section-number">8.3</span> Inverse CDF</h2>
 <p>For any continuous random variable, the random variable defined by its Cumulative Distribution Function (CDF) evaluated at itself follows a U(0,1) distribution.</p>
 <p>Thus you can get the random value from the inverse of CDF.</p>
-<section id="example-beta53" class="level3" data-number="7.3.1">
-<h3 data-number="7.3.1" class="anchored" data-anchor-id="example-beta53"><span class="header-section-number">7.3.1</span> Example: Beta(5,3)</h3>
+<section id="example-beta53" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="example-beta53"><span class="header-section-number">8.3.1</span> Example: Beta(5,3)</h3>
 <p><span class="math display">\[f(x) = \frac{1}{Beta(5,3)} x^4 (1-x)^2\]</span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ReverseCDF <span class="ot">&lt;-</span> <span class="cf">function</span>(N) {</span>
@@ -361,13 +367,13 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="acceptance-rejection-method" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="acceptance-rejection-method"><span class="header-section-number">7.4</span> Acceptance-Rejection Method</h2>
+<section id="acceptance-rejection-method" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="acceptance-rejection-method"><span class="header-section-number">8.4</span> Acceptance-Rejection Method</h2>
 <p>Assume you have <span class="math inline">\(X\sim f_X\)</span>, <span class="math inline">\(Y\sim g_Y\)</span>, and <span class="math display">\[ \frac{f(t)}{g(t)}\leq c, \forall t s.t. f(t)&gt;0 \]</span></p>
 <p>Then generate <span class="math inline">\(u\)</span> from <span class="math inline">\(U \sim U(0,1)\)</span> and <span class="math inline">\(y\)</span> from <span class="math inline">\(Y\sim g_Y\)</span>, accept <span class="math inline">\(y\)</span> if <span class="math inline">\(u &lt; \frac{f(t)}{c g(t)}\)</span>, otherwise drop it.</p>
 <p>In some textbooks, <span class="math inline">\(M = sup \frac{f(t)}{g(t)} &lt; \infty \Rightarrow \frac{f(t)}{Mg(t)}\leq 1\)</span>. The <span class="math inline">\(M\)</span> here is equal to the <span class="math inline">\(c\)</span> mentioned earlier.</p>
-<section id="example-beta53-1" class="level3" data-number="7.4.1">
-<h3 data-number="7.4.1" class="anchored" data-anchor-id="example-beta53-1"><span class="header-section-number">7.4.1</span> Example: Beta(5,3)</h3>
+<section id="example-beta53-1" class="level3" data-number="8.4.1">
+<h3 data-number="8.4.1" class="anchored" data-anchor-id="example-beta53-1"><span class="header-section-number">8.4.1</span> Example: Beta(5,3)</h3>
 <p><span class="math display">\[f(x) = \frac{1}{Beta(5,3)} x^4 (1-x)^2\]</span></p>
 <p><span class="math display">\[f'(x) = \frac{1}{Beta(5,3)} [4x^3 (1-x)^2 - 2x^4 (1-x)] =  \frac{2x^3(1-x)(2-3x)}{Beta(5,3)}  \]</span></p>
 <p>Then we have <span class="math inline">\(M = sup \frac{f(t)}{g(t)}  =  f(\frac{2}{3})\)</span></p>
@@ -428,8 +434,8 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="benchmark" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="benchmark"><span class="header-section-number">7.5</span> Benchmark</h2>
+<section id="benchmark" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="benchmark"><span class="header-section-number">8.5</span> Benchmark</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -473,11 +479,11 @@ integer overflows</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>results</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: microseconds
-        expr       min         lq       mean     median         uq       max
-     Reverse  1993.953  2037.0645  2060.2652  2043.7475  2056.1295  2447.659
- Scalar_Loop 11599.802 12012.4875 12377.9722 12262.6080 12676.3390 13896.417
-  Vectorized   715.040   724.2855   751.9519   730.7635   739.4965  2359.509
-    Built_in   245.180   251.2070   254.3099   253.2775   256.0245   281.711
+        expr       min         lq       mean     median        uq       max
+     Reverse  1924.294  2016.1545  2034.6463  2037.0440  2047.007  2467.257
+ Scalar_Loop 11490.168 11852.3825 12226.5756 12127.7795 12520.601 14168.780
+  Vectorized   669.448   720.6980   748.0917   730.1690   744.601  2300.633
+    Built_in   227.755   249.2185   252.1721   252.6215   255.676   279.087
  neval
    100
    100
@@ -898,7 +904,7 @@ Rizzo, Maria L. 2019. <em>Statistical Computing with r</em>. 2nd ed. CRC Press.
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./Classification.html" class="pagination-link" aria-label="Classification Models">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Classification Models</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Classification Models</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

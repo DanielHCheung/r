@@ -6,7 +6,7 @@
   </url>
   <url>
     <loc>https://r.danieldata.com/RBasics.html</loc>
-    <lastmod>2026-03-07T17:16:53.659Z</lastmod>
+    <lastmod>2026-03-13T15:17:03.248Z</lastmod>
   </url>
   <url>
     <loc>https://r.danieldata.com/RProgramming.html</loc>
@@ -14,11 +14,15 @@
   </url>
   <url>
     <loc>https://r.danieldata.com/HypothesisTest.html</loc>
-    <lastmod>2026-03-07T17:25:06.969Z</lastmod>
+    <lastmod>2026-03-13T15:25:41.900Z</lastmod>
   </url>
   <url>
     <loc>https://r.danieldata.com/LinearRegression.html</loc>
-    <lastmod>2026-03-07T00:51:26.695Z</lastmod>
+    <lastmod>2026-03-13T16:07:09.705Z</lastmod>
+  </url>
+  <url>
+    <loc>https://r.danieldata.com/ANOVA.html</loc>
+    <lastmod>2026-03-13T15:25:23.985Z</lastmod>
   </url>
   <url>
     <loc>https://r.danieldata.com/LogisticsRegression.html</loc>
@@ -38,6 +42,6 @@
   </url>
   <url>
     <loc>https://r.danieldata.com/R-Note-for-Statistics-Learning-and-Computing.pdf</loc>
-    <lastmod>2026-03-11T22:15:26.006Z</lastmod>
+    <lastmod>2026-03-20T16:02:53.969Z</lastmod>
   </url>
 </urlset>
