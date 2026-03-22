@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>8&nbsp; Classification Models – R Note for Statistics Learning and Computing</title>
+<title>3&nbsp; Datasets to Practice – R Note for Statistics Learning and Computing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +65,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./NeuralNetwork.html" rel="next">
-<link href="./LogisticsRegression.html" rel="prev">
+<link href="./HypothesisTest.html" rel="next">
+<link href="./RProgramming.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -92,7 +127,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Classification.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Classification Models</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./DataSets.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Datasets to Practice</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -137,7 +172,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./DataSets.html" class="sidebar-item-text sidebar-link">
+  <a href="./DataSets.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Datasets to Practice</span></span></a>
   </div>
 </li>
@@ -167,7 +202,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Classification.html" class="sidebar-item-text sidebar-link active">
+  <a href="./Classification.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Classification Models</span></span></a>
   </div>
 </li>
@@ -205,7 +240,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#performance" id="toc-performance" class="nav-link active" data-scroll-target="#performance"><span class="header-section-number">8.1</span> Performance</a></li>
+  <li><a href="#environment-setup" id="toc-environment-setup" class="nav-link active" data-scroll-target="#environment-setup"><span class="header-section-number">3.1</span> Environment Setup</a>
+  <ul class="collapse">
+  <li><a href="#the-tidyverse-collection-modern-data-science" id="toc-the-tidyverse-collection-modern-data-science" class="nav-link" data-scroll-target="#the-tidyverse-collection-modern-data-science"><span class="header-section-number">3.1.1</span> The Tidyverse Collection (Modern Data Science)</a></li>
+  <li><a href="#iswr-introductory-statistics-with-r" id="toc-iswr-introductory-statistics-with-r" class="nav-link" data-scroll-target="#iswr-introductory-statistics-with-r"><span class="header-section-number">3.1.2</span> ISwR (Introductory Statistics with R)</a></li>
+  </ul></li>
+  <li><a href="#loading-the-dataset" id="toc-loading-the-dataset" class="nav-link" data-scroll-target="#loading-the-dataset"><span class="header-section-number">3.2</span> Loading the dataset</a></li>
   </ul>
 </nav>
     </div>
@@ -214,7 +254,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Classification Models</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Datasets to Practice</span></h1>
 </div>
 
 
@@ -231,10 +271,198 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="performance" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="performance"><span class="header-section-number">8.1</span> Performance</h2>
-<p>Please see Logistics -&gt; Performance</p>
-<!-- Assume you have a binary classification model, i.e., Logistics Regression. There're 2 -->
+<section id="environment-setup" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="environment-setup"><span class="header-section-number">3.1</span> Environment Setup</h2>
+<p>We use the tidyverse suite for data manipulation and visualization.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales) <span class="co"># For professional axis labels</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="the-tidyverse-collection-modern-data-science" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="the-tidyverse-collection-modern-data-science"><span class="header-section-number">3.1.1</span> The Tidyverse Collection (Modern Data Science)</h3>
+<p>The <code>tidyverse</code> is a suite of packages designed for a seamless data workflow. Its datasets are primarily used to master <strong>Data Wrangling</strong>, <strong>Tidy Data principles</strong>, and <strong>Advanced Visualization</strong>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Dataset</th>
+<th style="text-align: left;">Package</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Primary Analysis Use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong><code>mpg</code></strong></td>
+<td style="text-align: left;"><code>ggplot2</code></td>
+<td style="text-align: left;">Fuel economy data for 38 car models (1999–2008).</td>
+<td style="text-align: left;"><strong>Exploratory Data Analysis (EDA)</strong>: Practicing scatterplots, smoothing lines, and correlation between engine size and efficiency.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><code>diamonds</code></strong></td>
+<td style="text-align: left;"><code>ggplot2</code></td>
+<td style="text-align: left;">Prices and attributes of ~54,000 diamonds.</td>
+<td style="text-align: left;"><strong>Predictive Modeling</strong>: Ideal for training linear regression models or random forests due to its large sample size.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong><code>starwars</code></strong></td>
+<td style="text-align: left;"><code>dplyr</code></td>
+<td style="text-align: left;">Characteristics of characters (height, mass, species).</td>
+<td style="text-align: left;"><strong>Data Cleaning</strong>: Best for practicing how to handle <code>NA</code> (missing values) and complex list-columns.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><code>table1-5</code></strong></td>
+<td style="text-align: left;"><code>tidyr</code></td>
+<td style="text-align: left;">WHO Tuberculosis cases in different formats.</td>
+<td style="text-align: left;"><strong>Data Reshaping</strong>: Specifically used to learn <code>pivot_longer()</code> and <code>pivot_wider()</code> to reach a “tidy” state.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong><code>storms</code></strong></td>
+<td style="text-align: left;"><code>dplyr</code></td>
+<td style="text-align: left;">Wind and pressure data for tropical cyclones.</td>
+<td style="text-align: left;"><strong>Time Series &amp; Mapping</strong>: Visualizing storm tracks over time and geographical coordinates.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="iswr-introductory-statistics-with-r" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="iswr-introductory-statistics-with-r"><span class="header-section-number">3.1.2</span> ISwR (Introductory Statistics with R)</h3>
+<p>The <code>ISwR</code> package (by Peter Dalgaard) focuses on <strong>Biostatistics</strong> and <strong>Inference</strong>. These datasets are smaller but are “textbook cases” for specific mathematical tests.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Dataset</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Primary Analysis Use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong><code>thuesen</code></strong></td>
+<td style="text-align: left;">Ventricular shortening velocity and blood glucose in diabetics.</td>
+<td style="text-align: left;"><strong>Simple Linear Regression</strong>: Testing the linear relationship between two continuous clinical variables.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><code>energy</code></strong></td>
+<td style="text-align: left;">Energy expenditure in lean vs.&nbsp;obese women.</td>
+<td style="text-align: left;"><strong>Hypothesis Testing</strong>: Perfect for practicing the Two-sample t-test and checking for equal variance.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong><code>juul</code></strong></td>
+<td style="text-align: left;">IGF-I (Growth Hormone) levels across different ages.</td>
+<td style="text-align: left;"><strong>ANOVA &amp; Polynomial Regression</strong>: Analyzing how a biological marker changes non-linearly across puberty stages.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><code>melanom</code></strong></td>
+<td style="text-align: left;">Survival data of patients with malignant melanoma.</td>
+<td style="text-align: left;"><strong>Survival Analysis</strong>: The gold standard for practicing Kaplan-Meier survival curves and Cox Proportional Hazards.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong><code>stroke</code></strong></td>
+<td style="text-align: left;">Clinical outcomes of stroke patients in Estonia.</td>
+<td style="text-align: left;"><strong>Logistic Regression</strong>: Predicting binary outcomes (e.g., dead/alive) based on age, sex, and clinical history.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="loading-the-dataset" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="loading-the-dataset"><span class="header-section-number">3.2</span> Loading the dataset</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"diamonds"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<!-- 
+3. Exploratory Data Analysis (EDA)
+
+Before modeling, we must understand the distribution of our target variable: price.
+
+3.1 Distribution of Price
+
+Most diamonds are relatively inexpensive, but there is a "long tail" of high-value stones.
+
+diamonds |> 
+  ggplot(aes(x = price)) +
+  geom_histogram(bins = 50, fill = "#2c3e50", color = "white") +
+  scale_x_continuous(labels = label_dollar()) +
+  labs(
+    title = "Distribution of Diamond Prices",
+    x = "Price (USD)",
+    y = "Frequency"
+  ) +
+  theme_minimal()
+
+
+3.2 The Carat-Price Relationship
+
+The relationship between weight (carat) and price is clearly non-linear. As carat increases, the price increases exponentially—a classic example of "diminishing returns" in reverse (increasing returns to rarity).
+
+diamonds |> 
+  slice_sample(n = 5000) |> # Sampling for clearer visualization
+  ggplot(aes(x = carat, y = price)) +
+  geom_point(alpha = 0.2, color = "#3498db") +
+  geom_smooth(method = "gam", color = "red") +
+  scale_y_continuous(labels = label_dollar()) +
+  labs(
+    title = "Price vs. Carat Weight",
+    subtitle = "Non-linear relationship suggests a power-law or exponential trend",
+    x = "Weight (Carat)",
+    y = "Price (USD)"
+  ) +
+  theme_minimal()
+
+
+4. Feature Engineering: Log Transformations
+
+In industry, we often transform skewed data to meet the assumptions of linear models. By applying a log10 transformation to both Price and Carat, we can linearize the relationship.
+
+# Linearizing the relationship
+diamonds |> 
+  ggplot(aes(x = log10(carat), y = log10(price))) +
+  geom_point(alpha = 0.1, color = "#2ecc71") +
+  geom_smooth(method = "lm", color = "black") +
+  labs(
+    title = "Log-Log Transformation: Price vs. Carat",
+    subtitle = "A clear linear trend emerges after transformation",
+    x = "Log10(Carat)",
+    y = "Log10(Price)"
+  ) +
+  theme_minimal()
+
+
+5. Statistical Modeling
+
+We will fit a linear model using the log-transformed variables to predict price.
+
+# Fitting the model
+model <- lm(log10(price) ~ log10(carat) + cut + color + clarity, data = diamonds)
+
+# Summary of the model
+summary(model)
+
+
+Key Insights:
+
+R-squared: The high R-squared value indicates that the "Four Cs" explain nearly 98% of the variance in (logged) prices.
+
+Carat Impact: For every 1% increase in carat weight, the price increases by approximately 1.6% (interpreting the log-log coefficient).
+
+6. Conclusion
+
+This analysis demonstrates that while Carat is the primary driver of price, the categorical variables (Cut, Color, Clarity) act as significant multipliers. For a professional portfolio, this workflow shows a transition from raw data exploration to a mathematically sound predictive framework.
+
+Note: This notebook was created for self-study and portfolio purposes using R 4.4.1. -->
 
 
 </section>
@@ -642,13 +870,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./LogisticsRegression.html" class="pagination-link" aria-label="Logistics Regression">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Logistics Regression</span></span>
+      <a href="./RProgramming.html" class="pagination-link" aria-label="R Programming for Data Analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R Programming for Data Analysis</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./NeuralNetwork.html" class="pagination-link" aria-label="Neural Network">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Neural Network</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./HypothesisTest.html" class="pagination-link" aria-label="Hypothesis Test">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Hypothesis Test</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

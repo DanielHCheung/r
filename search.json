@@ -74,189 +74,249 @@
     "href": "RProgramming.html#split-dataset",
     "title": "2  R Programming for Data Analysis",
     "section": "2.2 Split Dataset",
-    "text": "2.2 Split Dataset\nThere’s how you can get random sample.\n\niris %&gt;% sample_n(10)\n\n   Sepal.Length Sepal.Width Petal.Length Petal.Width    Species Petal.Ratio\n1           4.9         3.6          1.4         0.1     setosa   14.000000\n2           6.3         3.4          5.6         2.4  virginica    2.333333\n3           6.7         3.1          4.4         1.4 versicolor    3.142857\n4           5.5         2.4          3.7         1.0 versicolor    3.700000\n5           7.9         3.8          6.4         2.0  virginica    3.200000\n6           6.4         3.2          4.5         1.5 versicolor    3.000000\n7           5.4         3.4          1.5         0.4     setosa    3.750000\n8           5.2         3.4          1.4         0.2     setosa    7.000000\n9           5.9         3.2          4.8         1.8 versicolor    2.666667\n10          6.8         3.0          5.5         2.1  virginica    2.619048\n\niris[sample(nrow(iris), 10), ]\n\n    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species Petal.Ratio\n127          6.2         2.8          4.8         1.8  virginica    2.666667\n111          6.5         3.2          5.1         2.0  virginica    2.550000\n99           5.1         2.5          3.0         1.1 versicolor    2.727273\n17           5.4         3.9          1.3         0.4     setosa    3.250000\n120          6.0         2.2          5.0         1.5  virginica    3.333333\n40           5.1         3.4          1.5         0.2     setosa    7.500000\n118          7.7         3.8          6.7         2.2  virginica    3.045455\n147          6.3         2.5          5.0         1.9  virginica    2.631579\n45           5.1         3.8          1.9         0.4     setosa    4.750000\n24           5.1         3.3          1.7         0.5     setosa    3.400000\n\n\nPlease use y (target variable) as the variable into createDataPartition, rather than any other variables. p is the portition of training set.\n\nlibrary(caret)\n\n\ntraining.samples = iris$Species %&gt;%\n  createDataPartition(p = 0.70, list = FALSE)\n\ntraindf = iris[training.samples,]\ntestdf = iris[-training.samples,]",
+    "text": "2.2 Split Dataset\nThere’s how you can get random sample.\n\niris %&gt;% sample_n(10)\n\n   Sepal.Length Sepal.Width Petal.Length Petal.Width    Species Petal.Ratio\n1           5.8         2.7          5.1         1.9  virginica    2.684211\n2           5.5         2.4          3.7         1.0 versicolor    3.700000\n3           4.8         3.4          1.9         0.2     setosa    9.500000\n4           5.6         3.0          4.5         1.5 versicolor    3.000000\n5           4.9         2.4          3.3         1.0 versicolor    3.300000\n6           4.8         3.0          1.4         0.1     setosa   14.000000\n7           7.0         3.2          4.7         1.4 versicolor    3.357143\n8           5.1         3.8          1.9         0.4     setosa    4.750000\n9           6.3         3.3          4.7         1.6 versicolor    2.937500\n10          5.0         2.3          3.3         1.0 versicolor    3.300000\n\niris[sample(nrow(iris), 10), ]\n\n    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species Petal.Ratio\n29           5.2         3.4          1.4         0.2     setosa    7.000000\n18           5.1         3.5          1.4         0.3     setosa    4.666667\n98           6.2         2.9          4.3         1.3 versicolor    3.307692\n33           5.2         4.1          1.5         0.1     setosa   15.000000\n88           6.3         2.3          4.4         1.3 versicolor    3.384615\n49           5.3         3.7          1.5         0.2     setosa    7.500000\n38           4.9         3.6          1.4         0.1     setosa   14.000000\n82           5.5         2.4          3.7         1.0 versicolor    3.700000\n142          6.9         3.1          5.1         2.3  virginica    2.217391\n124          6.3         2.7          4.9         1.8  virginica    2.722222\n\n\nPlease use y (target variable) as the variable into createDataPartition, rather than any other variables. p is the portition of training set.\n\nlibrary(caret)\n\n\ntraining.samples = iris$Species %&gt;%\n  createDataPartition(p = 0.70, list = FALSE)\n\ntraindf = iris[training.samples,]\ntestdf = iris[-training.samples,]",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>R Programming for Data Analysis</span>"
     ]
   },
   {
+    "objectID": "DataSets.html",
+    "href": "DataSets.html",
+    "title": "3  Datasets to Practice",
+    "section": "",
+    "text": "3.1 Environment Setup\nWe use the tidyverse suite for data manipulation and visualization.\nlibrary(tidyverse)\nlibrary(scales) # For professional axis labels",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Datasets to Practice</span>"
+    ]
+  },
+  {
+    "objectID": "DataSets.html#environment-setup",
+    "href": "DataSets.html#environment-setup",
+    "title": "3  Datasets to Practice",
+    "section": "",
+    "text": "3.1.1 The Tidyverse Collection (Modern Data Science)\nThe tidyverse is a suite of packages designed for a seamless data workflow. Its datasets are primarily used to master Data Wrangling, Tidy Data principles, and Advanced Visualization.\n\n\n\n\n\n\n\n\n\nDataset\nPackage\nDescription\nPrimary Analysis Use\n\n\n\n\nmpg\nggplot2\nFuel economy data for 38 car models (1999–2008).\nExploratory Data Analysis (EDA): Practicing scatterplots, smoothing lines, and correlation between engine size and efficiency.\n\n\ndiamonds\nggplot2\nPrices and attributes of ~54,000 diamonds.\nPredictive Modeling: Ideal for training linear regression models or random forests due to its large sample size.\n\n\nstarwars\ndplyr\nCharacteristics of characters (height, mass, species).\nData Cleaning: Best for practicing how to handle NA (missing values) and complex list-columns.\n\n\ntable1-5\ntidyr\nWHO Tuberculosis cases in different formats.\nData Reshaping: Specifically used to learn pivot_longer() and pivot_wider() to reach a “tidy” state.\n\n\nstorms\ndplyr\nWind and pressure data for tropical cyclones.\nTime Series & Mapping: Visualizing storm tracks over time and geographical coordinates.\n\n\n\n\n\n\n3.1.2 ISwR (Introductory Statistics with R)\nThe ISwR package (by Peter Dalgaard) focuses on Biostatistics and Inference. These datasets are smaller but are “textbook cases” for specific mathematical tests.\n\n\n\n\n\n\n\n\nDataset\nDescription\nPrimary Analysis Use\n\n\n\n\nthuesen\nVentricular shortening velocity and blood glucose in diabetics.\nSimple Linear Regression: Testing the linear relationship between two continuous clinical variables.\n\n\nenergy\nEnergy expenditure in lean vs. obese women.\nHypothesis Testing: Perfect for practicing the Two-sample t-test and checking for equal variance.\n\n\njuul\nIGF-I (Growth Hormone) levels across different ages.\nANOVA & Polynomial Regression: Analyzing how a biological marker changes non-linearly across puberty stages.\n\n\nmelanom\nSurvival data of patients with malignant melanoma.\nSurvival Analysis: The gold standard for practicing Kaplan-Meier survival curves and Cox Proportional Hazards.\n\n\nstroke\nClinical outcomes of stroke patients in Estonia.\nLogistic Regression: Predicting binary outcomes (e.g., dead/alive) based on age, sex, and clinical history.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Datasets to Practice</span>"
+    ]
+  },
+  {
+    "objectID": "DataSets.html#loading-the-dataset",
+    "href": "DataSets.html#loading-the-dataset",
+    "title": "3  Datasets to Practice",
+    "section": "3.2 Loading the dataset",
+    "text": "3.2 Loading the dataset\n\ndata(\"diamonds\")",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Datasets to Practice</span>"
+    ]
+  },
+  {
     "objectID": "HypothesisTest.html",
     "href": "HypothesisTest.html",
-    "title": "3  Hypothesis Test",
+    "title": "4  Hypothesis Test",
     "section": "",
-    "text": "3.1 mean inference (z,t-test)",
+    "text": "4.1 mean inference (z,t-test)",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Hypothesis Test</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Hypothesis Test</span>"
     ]
   },
   {
     "objectID": "HypothesisTest.html#mean-inference-zt-test",
     "href": "HypothesisTest.html#mean-inference-zt-test",
-    "title": "3  Hypothesis Test",
+    "title": "4  Hypothesis Test",
     "section": "",
-    "text": "3.1.1 Z-test\nNote that there’s no built-in Z-test in R. Use third party package BSDA (the code above written by Gemini)\n\n# install.packages(\"BSDA\")\nlibrary(BSDA)\n\nLoading required package: lattice\n\n\n\nAttaching package: 'BSDA'\n\n\nThe following object is masked from 'package:datasets':\n\n    Orange\n\nx &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\nz.test(x, sigma.x = 0.5, conf.level = 0.95)\n\n\n    One-sample z-Test\n\ndata:  x\nz = 16, p-value &lt; 2.2e-16\nalternative hypothesis: true mean is not equal to 0\n95 percent confidence interval:\n 1.755005 2.244995\nsample estimates:\nmean of x \n        2 \n\n\nYou can also make implement from the formular: reference this passage: https://cran.r-project.org/web/packages/distributions3/vignettes/one-sample-z-test.html\n\n\n3.1.2 t-test\n\nx &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\ny &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\nt.test(x)\n\n\n    One Sample t-test\n\ndata:  x\nt = 3.1298, df = 15, p-value = 0.006884\nalternative hypothesis: true mean is not equal to 0\n95 percent confidence interval:\n 0.6379832 3.3620168\nsample estimates:\nmean of x \n        2 \n\nt.test(x,y)\n\n\n    Welch Two Sample t-test\n\ndata:  x and y\nt = 0, df = 30, p-value = 1\nalternative hypothesis: true difference in means is not equal to 0\n95 percent confidence interval:\n -1.845594  1.845594\nsample estimates:\nmean of x mean of y \n        2         2 \n\nt.test(x,y, mu = 2, alter = \"two.sided\", var.equal = T)\n\n\n    Two Sample t-test\n\ndata:  x and y\nt = -2.2131, df = 30, p-value = 0.03464\nalternative hypothesis: true difference in means is not equal to 2\n95 percent confidence interval:\n -1.845594  1.845594\nsample estimates:\nmean of x mean of y \n        2         2",
+    "text": "4.1.1 Z-test\nNote that there’s no built-in Z-test in R. Use third party package BSDA (the code above written by Gemini)\n\n# install.packages(\"BSDA\")\nlibrary(BSDA)\n\nLoading required package: lattice\n\n\n\nAttaching package: 'BSDA'\n\n\nThe following object is masked from 'package:datasets':\n\n    Orange\n\nx &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\nz.test(x, sigma.x = 0.5, conf.level = 0.95)\n\n\n    One-sample z-Test\n\ndata:  x\nz = 16, p-value &lt; 2.2e-16\nalternative hypothesis: true mean is not equal to 0\n95 percent confidence interval:\n 1.755005 2.244995\nsample estimates:\nmean of x \n        2 \n\n\nYou can also make implement from the formular: reference this passage: https://cran.r-project.org/web/packages/distributions3/vignettes/one-sample-z-test.html\n\n\n4.1.2 t-test\n\nx &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\ny &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\nt.test(x)\n\n\n    One Sample t-test\n\ndata:  x\nt = 3.1298, df = 15, p-value = 0.006884\nalternative hypothesis: true mean is not equal to 0\n95 percent confidence interval:\n 0.6379832 3.3620168\nsample estimates:\nmean of x \n        2 \n\nt.test(x,y)\n\n\n    Welch Two Sample t-test\n\ndata:  x and y\nt = 0, df = 30, p-value = 1\nalternative hypothesis: true difference in means is not equal to 0\n95 percent confidence interval:\n -1.845594  1.845594\nsample estimates:\nmean of x mean of y \n        2         2 \n\nt.test(x,y, mu = 2, alter = \"two.sided\", var.equal = T)\n\n\n    Two Sample t-test\n\ndata:  x and y\nt = -2.2131, df = 30, p-value = 0.03464\nalternative hypothesis: true difference in means is not equal to 2\n95 percent confidence interval:\n -1.845594  1.845594\nsample estimates:\nmean of x mean of y \n        2         2",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Hypothesis Test</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Hypothesis Test</span>"
     ]
   },
   {
     "objectID": "HypothesisTest.html#variance-inference",
     "href": "HypothesisTest.html#variance-inference",
-    "title": "3  Hypothesis Test",
-    "section": "3.2 variance inference",
-    "text": "3.2 variance inference\nTry to type ?var.test to get the help document.\n\nvar.test(x,y)\n\n\n    F test to compare two variances\n\ndata:  x and y\nF = 1, num df = 15, denom df = 15, p-value = 1\nalternative hypothesis: true ratio of variances is not equal to 1\n95 percent confidence interval:\n 0.3493947 2.8620925\nsample estimates:\nratio of variances \n                 1",
+    "title": "4  Hypothesis Test",
+    "section": "4.2 variance inference",
+    "text": "4.2 variance inference\nTry to type ?var.test to get the help document.\n\nvar.test(x,y)\n\n\n    F test to compare two variances\n\ndata:  x and y\nF = 1, num df = 15, denom df = 15, p-value = 1\nalternative hypothesis: true ratio of variances is not equal to 1\n95 percent confidence interval:\n 0.3493947 2.8620925\nsample estimates:\nratio of variances \n                 1",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Hypothesis Test</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Hypothesis Test</span>"
     ]
   },
   {
     "objectID": "HypothesisTest.html#goodness-of-fitness-test",
     "href": "HypothesisTest.html#goodness-of-fitness-test",
-    "title": "3  Hypothesis Test",
-    "section": "3.3 goodness of fitness test",
-    "text": "3.3 goodness of fitness test\nTest whether a sample data fit a distribution or not.\n\n3.3.1 Normal Test",
+    "title": "4  Hypothesis Test",
+    "section": "4.3 goodness of fitness test",
+    "text": "4.3 goodness of fitness test\nTest whether a sample data fit a distribution or not.\n\n4.3.1 Normal Test",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Hypothesis Test</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Hypothesis Test</span>"
     ]
   },
   {
     "objectID": "HypothesisTest.html#correlation",
     "href": "HypothesisTest.html#correlation",
-    "title": "3  Hypothesis Test",
-    "section": "3.4 correlation",
-    "text": "3.4 correlation\n\nx &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\ny &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\ncor.test(x, y)\n\n\n    Pearson's product-moment correlation\n\ndata:  x and y\nt = Inf, df = 14, p-value &lt; 2.2e-16\nalternative hypothesis: true correlation is not equal to 0\n95 percent confidence interval:\n 1 1\nsample estimates:\ncor \n  1 \n\n\nThe default method, Pearson linear correlation is widely used.",
+    "title": "4  Hypothesis Test",
+    "section": "4.4 correlation",
+    "text": "4.4 correlation\n\nx &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\ny &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\ncor.test(x, y)\n\n\n    Pearson's product-moment correlation\n\ndata:  x and y\nt = Inf, df = 14, p-value &lt; 2.2e-16\nalternative hypothesis: true correlation is not equal to 0\n95 percent confidence interval:\n 1 1\nsample estimates:\ncor \n  1 \n\n\nThe default method, Pearson linear correlation is widely used.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Hypothesis Test</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Hypothesis Test</span>"
     ]
   },
   {
     "objectID": "HypothesisTest.html#median-inference-non-para-test",
     "href": "HypothesisTest.html#median-inference-non-para-test",
-    "title": "3  Hypothesis Test",
-    "section": "3.5 median inference (non-para test)",
-    "text": "3.5 median inference (non-para test)\nAlthough it’s non-parametric test based on median, the function also require to pass parameter as mu.\n\nx &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\ny &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\nwilcox.test(x)\n\nWarning in wilcox.test.default(x): cannot compute exact p-value with ties\n\n\n\n    Wilcoxon signed rank test with continuity correction\n\ndata:  x\nV = 136, p-value = 0.0002424\nalternative hypothesis: true location is not equal to 0\n\nwilcox.test(x,y)\n\nWarning in wilcox.test.default(x, y): cannot compute exact p-value with ties\n\n\n\n    Wilcoxon rank sum test with continuity correction\n\ndata:  x and y\nW = 128, p-value = 1\nalternative hypothesis: true location shift is not equal to 0\n\nwilcox.test(x,y, mu = 2, alter = \"two.sided\", var.equal = T)\n\nWarning in wilcox.test.default(x, y, mu = 2, alter = \"two.sided\", var.equal =\nT): cannot compute exact p-value with ties\n\n\n\n    Wilcoxon rank sum test with continuity correction\n\ndata:  x and y\nW = 33.5, p-value = 0.0001599\nalternative hypothesis: true location shift is not equal to 2",
+    "title": "4  Hypothesis Test",
+    "section": "4.5 median inference (non-para test)",
+    "text": "4.5 median inference (non-para test)\nAlthough it’s non-parametric test based on median, the function also require to pass parameter as mu.\n\nx &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\ny &lt;- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)\nwilcox.test(x)\n\nWarning in wilcox.test.default(x): cannot compute exact p-value with ties\n\n\n\n    Wilcoxon signed rank test with continuity correction\n\ndata:  x\nV = 136, p-value = 0.0002424\nalternative hypothesis: true location is not equal to 0\n\nwilcox.test(x,y)\n\nWarning in wilcox.test.default(x, y): cannot compute exact p-value with ties\n\n\n\n    Wilcoxon rank sum test with continuity correction\n\ndata:  x and y\nW = 128, p-value = 1\nalternative hypothesis: true location shift is not equal to 0\n\nwilcox.test(x,y, mu = 2, alter = \"two.sided\", var.equal = T)\n\nWarning in wilcox.test.default(x, y, mu = 2, alter = \"two.sided\", var.equal =\nT): cannot compute exact p-value with ties\n\n\n\n    Wilcoxon rank sum test with continuity correction\n\ndata:  x and y\nW = 33.5, p-value = 0.0001599\nalternative hypothesis: true location shift is not equal to 2",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Hypothesis Test</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Hypothesis Test</span>"
     ]
   },
   {
     "objectID": "LinearRegression.html",
     "href": "LinearRegression.html",
-    "title": "4  Linear Regression",
+    "title": "5  Linear Regression",
     "section": "",
-    "text": "4.1 Theoritical Knowledge\nThe multivariate linear Regression \\(y = X \\beta\\) with loss function \\(Q = (y - X \\beta) ^T (y - X \\beta)\\)\n\\[\n\\frac{\\partial Q}{\\partial \\beta} = -2X^Ty + 2X^TX\\beta = 0 \\\\\n\\to \\hat{\\beta} = {(X^TX)}^{-1}X^Ty\n\\]\nH is called Hat Matrix where: \\(\\hat{y} = X \\hat{\\beta} = X (X^TX)^{-1}X^Ty = Hy\\)\nNormal Equation: \\((X^TX)\\hat{\\beta} = X^Ty \\to X^T(y-X\\hat{\\beta}) = 0\\)\n\\[ R^2 = \\frac{SSR}{SST} = 1 - \\frac{SSE}{SST} \\]\n\\[ \\text{Adjusted-}R^2 = \\frac{SSR/k}{SST/(n-1)} = 1- \\frac{SSE/(n-k-1)}{SST/(n-1)} \\]\nNotice that here SSE means Sum Square Error, and SSR means Sum Square Regression. Sometimes you might see ESS which is Explained Sum Square which equals to SSR here, and RSS is Residual Sum Square.\nIn R, use lm() to fit a linear regression model.",
+    "text": "5.1 Theoritical Knowledge\nThe multivariate linear Regression \\(y = X \\beta\\) with loss function \\(Q = (y - X \\beta) ^T (y - X \\beta)\\)\n\\[\n\\frac{\\partial Q}{\\partial \\beta} = -2X^Ty + 2X^TX\\beta = 0 \\\\\n\\to \\hat{\\beta} = {(X^TX)}^{-1}X^Ty\n\\]\nH is called Hat Matrix where: \\(\\hat{y} = X \\hat{\\beta} = X (X^TX)^{-1}X^Ty = Hy\\)\nNormal Equation: \\((X^TX)\\hat{\\beta} = X^Ty \\to X^T(y-X\\hat{\\beta}) = 0\\)\n\\[ R^2 = \\frac{SSR}{SST} = 1 - \\frac{SSE}{SST} \\]\n\\[ \\text{Adjusted-}R^2 = \\frac{SSR/k}{SST/(n-1)} = 1- \\frac{SSE/(n-k-1)}{SST/(n-1)} \\]\nNotice that here SSE means Sum Square Error, and SSR means Sum Square Regression. Sometimes you might see ESS which is Explained Sum Square which equals to SSR here, and RSS is Residual Sum Square.\nIn R, use lm() to fit a linear regression model.",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Linear Regression</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Linear Regression</span>"
     ]
   },
   {
     "objectID": "LinearRegression.html#example",
     "href": "LinearRegression.html#example",
-    "title": "4  Linear Regression",
-    "section": "4.2 Example",
-    "text": "4.2 Example\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\nx &lt;- rnorm(50, 6,3) \ny &lt;- 10+ 2*x - 3 *x^3 -6*x^5 + 0.6 * x^7 + rnorm(50,10,8)\n\nplot(x,y)\n\n\n\n\n\n\n\n\n\nlm(y~x) %&gt;%\n    summary()\n\n\nCall:\nlm(formula = y ~ x)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-1908347 -1584819  -780439   541049 16117008 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) -3102261     922381  -3.363  0.00152 ** \nx             754946     142552   5.296 2.92e-06 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 2810000 on 48 degrees of freedom\nMultiple R-squared:  0.3688,    Adjusted R-squared:  0.3557 \nF-statistic: 28.05 on 1 and 48 DF,  p-value: 2.922e-06\n\n\n\nlm(y~x+I(x^2)+I(x^3)+I(x^4)+I(x^5)+I(x^6)+I(x^7)) %&gt;%\n    summary()\n\n\nCall:\nlm(formula = y ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + \n    I(x^7))\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-14.8062  -4.9498   0.7422   4.2002  10.4932 \n\nCoefficients:\n              Estimate Std. Error  t value Pr(&gt;|t|)    \n(Intercept) 26.0968552  5.8596168    4.454 6.14e-05 ***\nx            5.2124624  5.8491387    0.891    0.378    \nI(x^2)      -3.1679865  2.7067052   -1.170    0.248    \nI(x^3)      -3.2811470  2.6843991   -1.222    0.228    \nI(x^4)       0.4377334  0.8739605    0.501    0.619    \nI(x^5)      -6.0897191  0.1277705  -47.661  &lt; 2e-16 ***\nI(x^6)       0.0072651  0.0087549    0.830    0.411    \nI(x^7)       0.5997893  0.0002286 2623.412  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 6.811 on 42 degrees of freedom\nMultiple R-squared:      1, Adjusted R-squared:      1 \nF-statistic: 1.849e+12 on 7 and 42 DF,  p-value: &lt; 2.2e-16",
+    "title": "5  Linear Regression",
+    "section": "5.2 Example",
+    "text": "5.2 Example\n\nx &lt;- rnorm(50, 6,3) \ny &lt;- 10+ 2*x - 3 *x^3 -6*x^5 + 0.6 * x^7 + rnorm(50,10,8)\n\nplot(x,y)\n\n\n\n\n\n\n\n\n\nlm(y~x) %&gt;%\n    summary()\n\n\nCall:\nlm(formula = y ~ x)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-3096883 -2212592  -988505  1021671 27795850 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) -4538079    1427188  -3.180  0.00258 ** \nx            1086075     223698   4.855 1.32e-05 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 4544000 on 48 degrees of freedom\nMultiple R-squared:  0.3293,    Adjusted R-squared:  0.3154 \nF-statistic: 23.57 on 1 and 48 DF,  p-value: 1.318e-05\n\n\n\nlm(y~x+I(x^2)+I(x^3)+I(x^4)+I(x^5)+I(x^6)+I(x^7)) %&gt;%\n    summary()\n\n\nCall:\nlm(formula = y ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + \n    I(x^7))\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-17.012  -4.728   2.002   5.831  12.402 \n\nCoefficients:\n              Estimate Std. Error  t value Pr(&gt;|t|)    \n(Intercept)  9.384e+00  7.839e+00    1.197  0.23800    \nx            7.769e+01  2.823e+01    2.752  0.00871 ** \nI(x^2)      -7.436e+01  2.832e+01   -2.626  0.01200 *  \nI(x^3)       2.701e+01  1.216e+01    2.222  0.03175 *  \nI(x^4)      -6.064e+00  2.645e+00   -2.293  0.02691 *  \nI(x^5)      -5.354e+00  3.050e-01  -17.552  &lt; 2e-16 ***\nI(x^6)      -3.463e-02  1.774e-02   -1.952  0.05758 .  \nI(x^7)       6.007e-01  4.081e-04 1472.061  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 7.793 on 42 degrees of freedom\nMultiple R-squared:      1, Adjusted R-squared:      1 \nF-statistic: 3.476e+12 on 7 and 42 DF,  p-value: &lt; 2.2e-16",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Linear Regression</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Linear Regression</span>"
     ]
   },
   {
     "objectID": "ANOVA.html",
     "href": "ANOVA.html",
-    "title": "5  ANalysis of VAriance (ANOVA)",
+    "title": "6  ANalysis of VAriance (ANOVA)",
     "section": "",
     "text": "ANalysis of VAriance (ANOVA) is a method to make multiple group mean inference with F statistics based on variance.\n\\[H_0: \\mu_1 = \\mu_2 = \\mu_3 = \\dots \\mu_p \\quad H_a:\\text{At least one of them different from others}\\]\nANOVA tries to calculate the variance with in groups and variance for all groups, and have a F-test.",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANalysis of VAriance (ANOVA)</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>ANalysis of VAriance (ANOVA)</span>"
     ]
   },
   {
     "objectID": "LogisticsRegression.html",
     "href": "LogisticsRegression.html",
-    "title": "6  Logistics Regression",
+    "title": "7  Logistics Regression",
     "section": "",
-    "text": "6.1 Theoritical Knowledge\nAssume you’re predicting binary categorical data with OLS:\n\\[ Y = \\alpha + \\beta X + \\varepsilon \\]\nThe problem is, \\(Y \\sim Bin(p)\\) rather than \\(N(\\mu, \\sigma^2)\\). The target should be from \\([0,1]\\), indicating the probability which category this sample likely belongs to. However, the predicated value may greater than 1 or less than 0, which cause a problem.\nBut you can have a function to map \\((-\\infty, \\infty)\\) to \\((0,1)\\) which is \\(y = \\frac{1}{1+e^{-x}}\\) (logistic function, aka. sigmoid function as activation function in neural network)\nx &lt;- seq(-20,20,0.1)\nplot(x, 1/(1+exp(-x)), 'l')\ntitle('Logistics Function')\nLet \\(p = \\frac{1}{1+e^{-\\eta}}\\). Thus the model is,\n\\[ \\eta = \\log{\\frac{p}{1-p}} = \\alpha + \\beta X + \\varepsilon \\]\nHere we define Odds (\\(\\eta = \\log{Odds}\\)) helps explain the model.\n\\[ Odds = \\frac{p}{1-p} \\]\nWe use MLE to estimate, and solve by iteration. In R, we use glm function with family = binomial.\nMLE function is given by\n\\[\nL = \\prod_{i = 1}^{n} {(1-p)}^{1-y_i} {p}^{y_i}  =  {(1-p)}^{n-\\sum y_i} {p}^{\\sum y_i}\n\\]\n\\[\nl = {(n-\\sum y_i)}\\log{(1-p)} + {(\\sum y_i)}\\log{p}\n\\]\nR utilize Iteratively Reweighted Least Squares (IRLS) to calculate the coefficients of the regression. Guess first, then iteration until likelihood function no longer increase.\nFor generalized model, p variables,\n\\[\n\\log{\\frac{p}{1-p}} = \\beta_0 + \\beta_1 x_1 + \\beta_2 x_2 + \\dots + \\beta_p x_p\n\\]\n\\[\nP(Y = 1) = \\frac{e^{ \\beta_0 + \\beta_1 x_1 + \\beta_2 x_2 + \\dots + \\beta_p x_p}}{1 + e^{ \\beta_0 + \\beta_1 x_1 + \\beta_2 x_2 + \\dots + \\beta_p x_p}}\n\\]\n\\[\n\\text{Odds Ratio} = OR = \\frac{Odds_1}{Odds_2}\n\\]\n\\[\n\\text{Relative Risk} = RR = \\frac{p_1}{p_2} \\rightarrow OR = RR \\times \\frac{1-p_1}{1-p_2}\n\\]\nNote that when p is small, \\(OR \\approx RR\\)\nto explain the model, we can write\n\\[\n\\frac{p}{1-p} = e^{\\beta_0} (e^{\\beta_1 })^{x_1} (e^{\\beta_2 })^{x_2} \\dots (e^{\\beta_p })^{x_p}\n\\]\nwhen reply \\(X\\) by \\(X+1\\) then \\[\n\\frac{e^{\\beta_0 + \\beta_1 (X+1)}}{e^{\\beta_0 + \\beta_1 X}} = e^{\\beta_1}\n\\]",
+    "text": "7.1 Theoritical Knowledge\nAssume you’re predicting binary categorical data with OLS:\n\\[ Y = \\alpha + \\beta X + \\varepsilon \\]\nThe problem is, \\(Y \\sim Bin(p)\\) rather than \\(N(\\mu, \\sigma^2)\\). The target should be from \\([0,1]\\), indicating the probability which category this sample likely belongs to. However, the predicated value may greater than 1 or less than 0, which cause a problem.\nBut you can have a function to map \\((-\\infty, \\infty)\\) to \\((0,1)\\) which is \\(y = \\frac{1}{1+e^{-x}}\\) (logistic function, aka. sigmoid function as activation function in neural network)\nx &lt;- seq(-20,20,0.1)\nplot(x, 1/(1+exp(-x)), 'l')\ntitle('Logistics Function')\nLet \\(p = \\frac{1}{1+e^{-\\eta}}\\). Thus the model is,\n\\[ \\eta = \\log{\\frac{p}{1-p}} = \\alpha + \\beta X + \\varepsilon \\]\nHere we define Odds (\\(\\eta = \\log{Odds}\\)) helps explain the model.\n\\[ Odds = \\frac{p}{1-p} \\]\nWe use MLE to estimate, and solve by iteration. In R, we use glm function with family = binomial.\nMLE function is given by\n\\[\nL = \\prod_{i = 1}^{n} {(1-p)}^{1-y_i} {p}^{y_i}  =  {(1-p)}^{n-\\sum y_i} {p}^{\\sum y_i}\n\\]\n\\[\nl = {(n-\\sum y_i)}\\log{(1-p)} + {(\\sum y_i)}\\log{p}\n\\]\nR utilize Iteratively Reweighted Least Squares (IRLS) to calculate the coefficients of the regression. Guess first, then iteration until likelihood function no longer increase.\nFor generalized model, p variables,\n\\[\n\\log{\\frac{p}{1-p}} = \\beta_0 + \\beta_1 x_1 + \\beta_2 x_2 + \\dots + \\beta_p x_p\n\\]\n\\[\nP(Y = 1) = \\frac{e^{ \\beta_0 + \\beta_1 x_1 + \\beta_2 x_2 + \\dots + \\beta_p x_p}}{1 + e^{ \\beta_0 + \\beta_1 x_1 + \\beta_2 x_2 + \\dots + \\beta_p x_p}}\n\\]\n\\[\n\\text{Odds Ratio} = OR = \\frac{Odds_1}{Odds_2}\n\\]\n\\[\n\\text{Relative Risk} = RR = \\frac{p_1}{p_2} \\rightarrow OR = RR \\times \\frac{1-p_1}{1-p_2}\n\\]\nNote that when p is small, \\(OR \\approx RR\\)\nto explain the model, we can write\n\\[\n\\frac{p}{1-p} = e^{\\beta_0} (e^{\\beta_1 })^{x_1} (e^{\\beta_2 })^{x_2} \\dots (e^{\\beta_p })^{x_p}\n\\]\nwhen reply \\(X\\) by \\(X+1\\) then \\[\n\\frac{e^{\\beta_0 + \\beta_1 (X+1)}}{e^{\\beta_0 + \\beta_1 X}} = e^{\\beta_1}\n\\]",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Logistics Regression</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Logistics Regression</span>"
     ]
   },
   {
     "objectID": "LogisticsRegression.html#r-code",
     "href": "LogisticsRegression.html#r-code",
-    "title": "6  Logistics Regression",
-    "section": "6.2 R code",
-    "text": "6.2 R code\n\nset.seed(3306)\n\ny &lt;- sample(c(0,1), 20, T)\nx &lt;- y * 5 -y^2  + runif(20, 5, 10)+ rnorm(20, 5, 10)\nplot(x,y)\n\n\n\n\n\n\n\nmodel &lt;- glm(y ~ x, family = binomial)\nsummary(model)\n\n\nCall:\nglm(formula = y ~ x, family = binomial)\n\nCoefficients:\n            Estimate Std. Error z value Pr(&gt;|z|)  \n(Intercept) -1.73353    1.00181   -1.73   0.0836 .\nx            0.13851    0.07067    1.96   0.0500 *\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n(Dispersion parameter for binomial family taken to be 1)\n\n    Null deviance: 27.726  on 19  degrees of freedom\nResidual deviance: 21.951  on 18  degrees of freedom\nAIC: 25.951\n\nNumber of Fisher Scoring iterations: 4\n\nlog_or &lt;- coef(model)[\"x\"]\nor &lt;- exp(log_or)\nlist(log_or = log_or, or = or)\n\n$log_or\n        x \n0.1385138 \n\n$or\n       x \n1.148566 \n\nconfint(model)\n\nWaiting for profiling to be done...\n\n\n                  2.5 %      97.5 %\n(Intercept) -4.08999874 -0.00682785\nx            0.02215079  0.30995357",
+    "title": "7  Logistics Regression",
+    "section": "7.2 R code",
+    "text": "7.2 R code\n\nset.seed(3306)\n\ny &lt;- sample(c(0,1), 20, T)\nx &lt;- y * 5 -y^2  + runif(20, 5, 10)+ rnorm(20, 5, 10)\nplot(x,y)\n\n\n\n\n\n\n\nmodel &lt;- glm(y ~ x, family = binomial)\nsummary(model)\n\n\nCall:\nglm(formula = y ~ x, family = binomial)\n\nCoefficients:\n            Estimate Std. Error z value Pr(&gt;|z|)  \n(Intercept) -1.73353    1.00181   -1.73   0.0836 .\nx            0.13851    0.07067    1.96   0.0500 *\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n(Dispersion parameter for binomial family taken to be 1)\n\n    Null deviance: 27.726  on 19  degrees of freedom\nResidual deviance: 21.951  on 18  degrees of freedom\nAIC: 25.951\n\nNumber of Fisher Scoring iterations: 4\n\nlog_or &lt;- coef(model)[\"x\"]\nor &lt;- exp(log_or)\nlist(log_or = log_or, or = or)\n\n$log_or\n        x \n0.1385138 \n\n$or\n       x \n1.148566 \n\nconfint(model)\n\nWaiting for profiling to be done...\n\n\n                  2.5 %      97.5 %\n(Intercept) -4.08999874 -0.00682785\nx            0.02215079  0.30995357",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Logistics Regression</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Logistics Regression</span>"
     ]
   },
   {
     "objectID": "LogisticsRegression.html#performance",
     "href": "LogisticsRegression.html#performance",
-    "title": "6  Logistics Regression",
-    "section": "6.3 Performance",
-    "text": "6.3 Performance\nFor classfication models like logitics regression, Confusion Matrix is a good method to evaluate your model.\n\n6.3.1 Binary Classification: Confusion Matrix\n\n\n\n\n\n\n\n\n\n\nPredicted: NO (0) (Not to Reject)\nPredicted: YES (1) (Reject Null Hypothesis)\nTotal\n\n\n\n\nActual: NO (0) (Alter is Wrong)\nTrue Negative (TN)\nFalse Positive (FP) (Type I Error)\n\\(N\\)\n\n\nActual: YES (1) (Alter is Correct)\nFalse Negative (FN) (Type II Error)\nTrue Positive (TP) (Power)\n\\(P\\)\n\n\nTotal\n\\(N_{pred}\\)\n\\(P_{pred}\\)\nTotal (N)\n\n\n\nYou can see there’s also a link between statistics inference and machine learning. Interesting! Note that in statistics we prefer writing \\(H_0\\) (Null Hypothesis) is true or false rather than then \\(H_1\\) (or \\(H_a\\), alternative hypothesis).\nThe first letter T or F means whether this case is correctly identified; the second letter P or N means which sample the case belongs to.\n\nprob &lt;- predict(model, list(x), type = \"response\")\npredicted.classes &lt;- ifelse(prob &gt; 0.5, \"c1\", \"c0\")\ntable(predicted.classes,y)\n\n                 y\npredicted.classes 0 1\n               c0 7 3\n               c1 3 7\n\n\nFrom the confusion matrix, we can tell \\(7+9 =16\\) samples correctly classificated, and 2 of Positive and 2 of Negative mistakenly classfied into Negative and Positive respectively.\nSo the TP = TN = 7, FP = FN = 3.\n\n6.3.1.1 Accuracy\n\\[\\text{Accuracy} = \\frac{TP+TN}{TP+TN+FP+FN}\\]\n\n\n6.3.1.2 Recall (or Sensitive):\n\\[\\text{Recall} = \\frac{TP}{TP+FN}\\]\nRecall is used to measure how many Positive Samples being correctly recognized. Assume you’re predicating whether a product has an issue, and your target is to recall samples with an issue. Recall reports in what extend you find the real issue samples.\n\n\n6.3.1.3 Specificity:\n\\[\\text{Specificity} = \\frac{TN}{TN+FP}\\]\nSpecificity is opposite to the Recall. The target is to find how many Negative Samples beging correctly recognized.\n\n\n6.3.1.4 Precision\n\\[\\text{Precision} = \\frac{TP}{TP+FP}\\]\nPrecision is different from either Recall and Specificity, since it measures how many samples with Positive Results really from Positive Samples. Assume you’re predicating whether a product has an issue, Precision reports whether a sample you’re recalling is really recall-needed one.\n\n\n6.3.1.5 F-1 Score\nLet’s make an example. You’re doing a model about fraud detection. The higher recall indicate you find almost most fraud, while you may interupt some non-fraud transcations; the higher Precision means you’re not interupt most non-fraud transcations while may miss some fraud transcations.\nF-1 Score is the Harmonic Mean of Recall and Precision\n\\[\n\\text{F-1 Score} = \\frac{2}{\\frac{1}{Recall}+\\frac{1}{Precision}} = 2 \\frac{Recall \\times Precision}{Recall + Precision}\n\\]",
+    "title": "7  Logistics Regression",
+    "section": "7.3 Performance",
+    "text": "7.3 Performance\nFor classfication models like logitics regression, Confusion Matrix is a good method to evaluate your model.\n\n7.3.1 Binary Classification: Confusion Matrix\n\n\n\n\n\n\n\n\n\n\nPredicted: NO (0) (Not to Reject)\nPredicted: YES (1) (Reject Null Hypothesis)\nTotal\n\n\n\n\nActual: NO (0) (Alter is Wrong)\nTrue Negative (TN)\nFalse Positive (FP) (Type I Error)\n\\(N\\)\n\n\nActual: YES (1) (Alter is Correct)\nFalse Negative (FN) (Type II Error)\nTrue Positive (TP) (Power)\n\\(P\\)\n\n\nTotal\n\\(N_{pred}\\)\n\\(P_{pred}\\)\nTotal (N)\n\n\n\nYou can see there’s also a link between statistics inference and machine learning. Interesting! Note that in statistics we prefer writing \\(H_0\\) (Null Hypothesis) is true or false rather than then \\(H_1\\) (or \\(H_a\\), alternative hypothesis).\nThe first letter T or F means whether this case is correctly identified; the second letter P or N means which sample the case belongs to.\n\nprob &lt;- predict(model, list(x), type = \"response\")\npredicted.classes &lt;- ifelse(prob &gt; 0.5, \"c1\", \"c0\")\ntable(predicted.classes,y)\n\n                 y\npredicted.classes 0 1\n               c0 7 3\n               c1 3 7\n\n\nFrom the confusion matrix, we can tell \\(7+9 =16\\) samples correctly classificated, and 2 of Positive and 2 of Negative mistakenly classfied into Negative and Positive respectively.\nSo the TP = TN = 7, FP = FN = 3.\n\n7.3.1.1 Accuracy\n\\[\\text{Accuracy} = \\frac{TP+TN}{TP+TN+FP+FN}\\]\n\n\n7.3.1.2 Recall (or Sensitive):\n\\[\\text{Recall} = \\frac{TP}{TP+FN}\\]\nRecall is used to measure how many Positive Samples being correctly recognized. Assume you’re predicating whether a product has an issue, and your target is to recall samples with an issue. Recall reports in what extend you find the real issue samples.\n\n\n7.3.1.3 Specificity:\n\\[\\text{Specificity} = \\frac{TN}{TN+FP}\\]\nSpecificity is opposite to the Recall. The target is to find how many Negative Samples beging correctly recognized.\n\n\n7.3.1.4 Precision\n\\[\\text{Precision} = \\frac{TP}{TP+FP}\\]\nPrecision is different from either Recall and Specificity, since it measures how many samples with Positive Results really from Positive Samples. Assume you’re predicating whether a product has an issue, Precision reports whether a sample you’re recalling is really recall-needed one.\n\n\n7.3.1.5 F-1 Score\nLet’s make an example. You’re doing a model about fraud detection. The higher recall indicate you find almost most fraud, while you may interupt some non-fraud transcations; the higher Precision means you’re not interupt most non-fraud transcations while may miss some fraud transcations.\nF-1 Score is the Harmonic Mean of Recall and Precision\n\\[\n\\text{F-1 Score} = \\frac{2}{\\frac{1}{Recall}+\\frac{1}{Precision}} = 2 \\frac{Recall \\times Precision}{Recall + Precision}\n\\]",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Logistics Regression</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Logistics Regression</span>"
     ]
   },
   {
     "objectID": "Classification.html",
     "href": "Classification.html",
-    "title": "7  Classification Models",
+    "title": "8  Classification Models",
     "section": "",
-    "text": "7.1 Performance\nPlease see Logistics -&gt; Performance",
+    "text": "8.1 Performance\nPlease see Logistics -&gt; Performance",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Classification Models</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Classification Models</span>"
+    ]
+  },
+  {
+    "objectID": "NeuralNetwork.html",
+    "href": "NeuralNetwork.html",
+    "title": "9  Neural Network",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(caret)\nlibrary(neuralnet)\n\n\ndata(diamonds)\nhead(diamonds)\n\n# A tibble: 6 × 10\n  carat cut       color clarity depth table price     x     y     z\n  &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1  0.23 Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43\n2  0.21 Premium   E     SI1      59.8    61   326  3.89  3.84  2.31\n3  0.23 Good      E     VS1      56.9    65   327  4.05  4.07  2.31\n4  0.29 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63\n5  0.31 Good      J     SI2      63.3    58   335  4.34  4.35  2.75\n6  0.24 Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48\n\nsum(is.na(diamonds))\n\n[1] 0\n\nstr(diamonds)\n\ntibble [53,940 × 10] (S3: tbl_df/tbl/data.frame)\n $ carat  : num [1:53940] 0.23 0.21 0.23 0.29 0.31 0.24 0.24 0.26 0.22 0.23 ...\n $ cut    : Ord.factor w/ 5 levels \"Fair\"&lt;\"Good\"&lt;..: 5 4 2 4 2 3 3 3 1 3 ...\n $ color  : Ord.factor w/ 7 levels \"D\"&lt;\"E\"&lt;\"F\"&lt;\"G\"&lt;..: 2 2 2 6 7 7 6 5 2 5 ...\n $ clarity: Ord.factor w/ 8 levels \"I1\"&lt;\"SI2\"&lt;\"SI1\"&lt;..: 2 3 5 4 2 6 7 3 4 5 ...\n $ depth  : num [1:53940] 61.5 59.8 56.9 62.4 63.3 62.8 62.3 61.9 65.1 59.4 ...\n $ table  : num [1:53940] 55 61 65 58 58 57 57 55 61 61 ...\n $ price  : int [1:53940] 326 326 327 334 335 336 336 337 337 338 ...\n $ x      : num [1:53940] 3.95 3.89 4.05 4.2 4.34 3.94 3.95 4.07 3.87 4 ...\n $ y      : num [1:53940] 3.98 3.84 4.07 4.23 4.35 3.96 3.98 4.11 3.78 4.05 ...\n $ z      : num [1:53940] 2.43 2.31 2.31 2.63 2.75 2.48 2.47 2.53 2.49 2.39 ...\n\n\n\nnew_diamonds &lt;- diamonds %&gt;% \n    predict(dummyVars(price ~ ., data = .), newdata = .) %&gt;%\n    as.data.frame() %&gt;%\n    mutate(price = diamonds$price)\n\n\nset.seed(42)\n\ntraining.idx &lt;- new_diamonds$price %&gt;%\n    createDataPartition(p = 0.75, list = F)\ntrainset &lt;- new_diamonds[training.idx, ]\ntestset &lt;- new_diamonds[-training.idx, ]\n\n\nprepproc &lt;- preProcess(trainset[, -ncol(trainset)], method = c(\"center\", \"scale\"))\ntrain.x &lt;- predict(prepproc, trainset[,-ncol(trainset)])\ntest.x &lt;- predict(prepproc, testset[,-ncol(trainset)])\n\ntrainset.scaled &lt;- data.frame(train.x, price = trainset$price)\ntestset.scaled  &lt;- data.frame(test.x, price = testset$price)\n\n\nmodel &lt;- neuralnet(price ~ ., data = trainset.scaled, hidden = 0, err.fct = \"sse\", linear.output = T)\nplot(model, rep = 'best')\n\n\n\n\n\n\n\n\n\ninit_weights &lt;- runif(19, min = -1, max = 1)\nmodel_w &lt;- neuralnet(price~., data = trainset.scaled, hidden = 3, err.fct = \"sse\", linear.output = T, startweights = init_weights)\nplot(model_w, rep = \"best\")",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Neural Network</span>"
     ]
   },
   {
     "objectID": "Random.html",
     "href": "Random.html",
-    "title": "8  Generate Random Variables",
+    "title": "10  Generate Random Variables",
     "section": "",
-    "text": "8.1 Remember to Set the Random Seed\nReference: Rizzo (2019) Chapter 3\nset.seed(42)\nIf the seed is not set by a default value, each time I render the webpage, the R codes will run, and different results may given. In some documents, the text will require to change in order to match the code output. In your project, set it whatever you like, 42, 2026, 3306, 3389, 65535, 114514, …",
+    "text": "10.1 Remember to Set the Random Seed\nReference: Rizzo (2019) Chapter 3\nset.seed(42)\nIf the seed is not set by a default value, each time I render the webpage, the R codes will run, and different results may given. In some documents, the text will require to change in order to match the code output. In your project, set it whatever you like, 42, 2026, 3306, 3389, 65535, 114514, …",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Generate Random Variables</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Generate Random Variables</span>"
     ]
   },
   {
     "objectID": "Random.html#direct-approach-in-r",
     "href": "Random.html#direct-approach-in-r",
-    "title": "8  Generate Random Variables",
-    "section": "8.2 Direct approach in R",
-    "text": "8.2 Direct approach in R\n\n# Uniform (0,1)\nrunif(n = 10, min = 0, max = 1)\n\n [1] 0.9148060 0.9370754 0.2861395 0.8304476 0.6417455 0.5190959 0.7365883\n [8] 0.1346666 0.6569923 0.7050648\n\n# Bin(30, 0.6)\nrbinom(n = 10, size = 30, prob = 0.6)\n\n [1] 18 16 14 20 18 14 13 21 18 18\n\n# Poisson(7)\nrpois(n = 5, lambda = 7)\n\n[1] 11  4 14 12  4\n\n# Beta(5,3)\nrbeta(n = 10, shape1 = 5, shape2 = 3)\n\n [1] 0.6180147 0.3383139 0.4158620 0.4378221 0.5261561 0.4187009 0.7703246\n [8] 0.5679070 0.6560498 0.5524067",
+    "title": "10  Generate Random Variables",
+    "section": "10.2 Direct approach in R",
+    "text": "10.2 Direct approach in R\n\n# Uniform (0,1)\nrunif(n = 10, min = 0, max = 1)\n\n [1] 0.9148060 0.9370754 0.2861395 0.8304476 0.6417455 0.5190959 0.7365883\n [8] 0.1346666 0.6569923 0.7050648\n\n# Bin(30, 0.6)\nrbinom(n = 10, size = 30, prob = 0.6)\n\n [1] 18 16 14 20 18 14 13 21 18 18\n\n# Poisson(7)\nrpois(n = 5, lambda = 7)\n\n[1] 11  4 14 12  4\n\n# Beta(5,3)\nrbeta(n = 10, shape1 = 5, shape2 = 3)\n\n [1] 0.6180147 0.3383139 0.4158620 0.4378221 0.5261561 0.4187009 0.7703246\n [8] 0.5679070 0.6560498 0.5524067",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Generate Random Variables</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Generate Random Variables</span>"
     ]
   },
   {
     "objectID": "Random.html#inverse-cdf",
     "href": "Random.html#inverse-cdf",
-    "title": "8  Generate Random Variables",
-    "section": "8.3 Inverse CDF",
-    "text": "8.3 Inverse CDF\nFor any continuous random variable, the random variable defined by its Cumulative Distribution Function (CDF) evaluated at itself follows a U(0,1) distribution.\nThus you can get the random value from the inverse of CDF.\n\n8.3.1 Example: Beta(5,3)\n\\[f(x) = \\frac{1}{Beta(5,3)} x^4 (1-x)^2\\]\n\nReverseCDF &lt;- function(N) {\n    return(qbeta(runif(N),5,3))\n}\n\nb0 &lt;- ReverseCDF(50)\nhist(b0, freq = F, ylim = c(0, 2.8))\ncurve(dbeta(x, 5, 3), add = T)",
+    "title": "10  Generate Random Variables",
+    "section": "10.3 Inverse CDF",
+    "text": "10.3 Inverse CDF\nFor any continuous random variable, the random variable defined by its Cumulative Distribution Function (CDF) evaluated at itself follows a U(0,1) distribution.\nThus you can get the random value from the inverse of CDF.\n\n10.3.1 Example: Beta(5,3)\n\\[f(x) = \\frac{1}{Beta(5,3)} x^4 (1-x)^2\\]\n\nReverseCDF &lt;- function(N) {\n    return(qbeta(runif(N),5,3))\n}\n\nb0 &lt;- ReverseCDF(50)\nhist(b0, freq = F, ylim = c(0, 2.8))\ncurve(dbeta(x, 5, 3), add = T)",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Generate Random Variables</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Generate Random Variables</span>"
     ]
   },
   {
     "objectID": "Random.html#acceptance-rejection-method",
     "href": "Random.html#acceptance-rejection-method",
-    "title": "8  Generate Random Variables",
-    "section": "8.4 Acceptance-Rejection Method",
-    "text": "8.4 Acceptance-Rejection Method\nAssume you have \\(X\\sim f_X\\), \\(Y\\sim g_Y\\), and \\[ \\frac{f(t)}{g(t)}\\leq c, \\forall t s.t. f(t)&gt;0 \\]\nThen generate \\(u\\) from \\(U \\sim U(0,1)\\) and \\(y\\) from \\(Y\\sim g_Y\\), accept \\(y\\) if \\(u &lt; \\frac{f(t)}{c g(t)}\\), otherwise drop it.\nIn some textbooks, \\(M = sup \\frac{f(t)}{g(t)} &lt; \\infty \\Rightarrow \\frac{f(t)}{Mg(t)}\\leq 1\\). The \\(M\\) here is equal to the \\(c\\) mentioned earlier.\n\n8.4.1 Example: Beta(5,3)\n\\[f(x) = \\frac{1}{Beta(5,3)} x^4 (1-x)^2\\]\n\\[f'(x) = \\frac{1}{Beta(5,3)} [4x^3 (1-x)^2 - 2x^4 (1-x)] =  \\frac{2x^3(1-x)(2-3x)}{Beta(5,3)}  \\]\nThen we have \\(M = sup \\frac{f(t)}{g(t)}  =  f(\\frac{2}{3})\\)\n\nb1 &lt;- rbeta(50, 5,3)\nhist(b1, freq = F, ylim = c(0, 2.8))\ncurve(dbeta(x, 5, 3), add = T)\n\n\n\n\n\n\n\nb2 &lt;- c()\nM &lt;- dbeta(2/3, 5,3)\nwhile (length(b2) &lt; 50){\n    u1 &lt;- runif(1)\n    y &lt;- runif(1)\n    if(u1 &lt; dbeta(y,5,3)/M){\n        b2 &lt;- c(b2,y)\n    }\n}\nhist(b2, freq = F, ylim = c(0, 2.8))\ncurve(dbeta(x, 5, 3), add = T)\n\n\n\n\n\n\n\n\nThere’re some performance weakness: - bad append operation b2 &lt;- c(b2,y) - non-vectorized operation\nLet’s optimize!\n\nN &lt;- 50\nM &lt;- dbeta(2/3, 5,3)\nN1 &lt;- as.integer(N * M * 1.2)\n\nu &lt;- runif(N1)\ny &lt;- runif(N1)\nb3 &lt;- y[u &lt; dbeta(y,5,3)/M]\nprint(paste(c(\"target is\", N, \", and we generated\", N1, \"finally get\", length(b3)), collapse = \" \"))\n\n[1] \"target is 50 , and we generated 138 finally get 61\"\n\nb3 &lt;- b3[1:N]\nhist(b3, freq = F, ylim = c(0, 2.8))\ncurve(dbeta(x, 5, 3), add = T)",
+    "title": "10  Generate Random Variables",
+    "section": "10.4 Acceptance-Rejection Method",
+    "text": "10.4 Acceptance-Rejection Method\nAssume you have \\(X\\sim f_X\\), \\(Y\\sim g_Y\\), and \\[ \\frac{f(t)}{g(t)}\\leq c, \\forall t s.t. f(t)&gt;0 \\]\nThen generate \\(u\\) from \\(U \\sim U(0,1)\\) and \\(y\\) from \\(Y\\sim g_Y\\), accept \\(y\\) if \\(u &lt; \\frac{f(t)}{c g(t)}\\), otherwise drop it.\nIn some textbooks, \\(M = sup \\frac{f(t)}{g(t)} &lt; \\infty \\Rightarrow \\frac{f(t)}{Mg(t)}\\leq 1\\). The \\(M\\) here is equal to the \\(c\\) mentioned earlier.\n\n10.4.1 Example: Beta(5,3)\n\\[f(x) = \\frac{1}{Beta(5,3)} x^4 (1-x)^2\\]\n\\[f'(x) = \\frac{1}{Beta(5,3)} [4x^3 (1-x)^2 - 2x^4 (1-x)] =  \\frac{2x^3(1-x)(2-3x)}{Beta(5,3)}  \\]\nThen we have \\(M = sup \\frac{f(t)}{g(t)}  =  f(\\frac{2}{3})\\)\n\nb1 &lt;- rbeta(50, 5,3)\nhist(b1, freq = F, ylim = c(0, 2.8))\ncurve(dbeta(x, 5, 3), add = T)\n\n\n\n\n\n\n\nb2 &lt;- c()\nM &lt;- dbeta(2/3, 5,3)\nwhile (length(b2) &lt; 50){\n    u1 &lt;- runif(1)\n    y &lt;- runif(1)\n    if(u1 &lt; dbeta(y,5,3)/M){\n        b2 &lt;- c(b2,y)\n    }\n}\nhist(b2, freq = F, ylim = c(0, 2.8))\ncurve(dbeta(x, 5, 3), add = T)\n\n\n\n\n\n\n\n\nThere’re some performance weakness: - bad append operation b2 &lt;- c(b2,y) - non-vectorized operation\nLet’s optimize!\n\nN &lt;- 50\nM &lt;- dbeta(2/3, 5,3)\nN1 &lt;- as.integer(N * M * 1.2)\n\nu &lt;- runif(N1)\ny &lt;- runif(N1)\nb3 &lt;- y[u &lt; dbeta(y,5,3)/M]\nprint(paste(c(\"target is\", N, \", and we generated\", N1, \"finally get\", length(b3)), collapse = \" \"))\n\n[1] \"target is 50 , and we generated 138 finally get 61\"\n\nb3 &lt;- b3[1:N]\nhist(b3, freq = F, ylim = c(0, 2.8))\ncurve(dbeta(x, 5, 3), add = T)",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Generate Random Variables</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Generate Random Variables</span>"
     ]
   },
   {
     "objectID": "Random.html#benchmark",
     "href": "Random.html#benchmark",
-    "title": "8  Generate Random Variables",
-    "section": "8.5 Benchmark",
-    "text": "8.5 Benchmark\n\nlibrary(microbenchmark)\n\nrejection_scalar &lt;- function(N) {\n    b2 &lt;- numeric(N)\n    M &lt;- dbeta(2/3, 5, 3)\n    count &lt;- 0\n    while (count &lt; N) {\n        u1 &lt;- runif(1)\n        y &lt;- runif(1)\n        if (u1 &lt; dbeta(y, 5, 3) / M) {\n            count &lt;- count + 1\n            b2[count] &lt;- y\n        }\n    }\n    return(b2)\n}\n\nrejection_vectorized &lt;- function(N) {\n    M &lt;- dbeta(2/3, 5,3)\n    N1 &lt;- as.integer(N * M * 1.2)\n\n    u &lt;- runif(N1)\n    y &lt;- runif(N1)\n    b3 &lt;- y[u &lt; dbeta(y,5,3)/M]\n    return(b3[1:N])\n}\n\nresults &lt;- microbenchmark(\n    Reverse = ReverseCDF(5000),\n    Scalar_Loop = rejection_scalar(5000),\n    Vectorized  = rejection_vectorized(5000),\n    Built_in = rbeta(5000, 5, 3),\n    times = 100\n)\n\nWarning in microbenchmark(Reverse = ReverseCDF(5000), Scalar_Loop =\nrejection_scalar(5000), : less accurate nanosecond times to avoid potential\ninteger overflows\n\nresults\n\nUnit: microseconds\n        expr       min         lq       mean     median        uq       max\n     Reverse  1924.294  2016.1545  2034.6463  2037.0440  2047.007  2467.257\n Scalar_Loop 11490.168 11852.3825 12226.5756 12127.7795 12520.601 14168.780\n  Vectorized   669.448   720.6980   748.0917   730.1690   744.601  2300.633\n    Built_in   227.755   249.2185   252.1721   252.6215   255.676   279.087\n neval\n   100\n   100\n   100\n   100\n\n\n\n\n\n\nRizzo, Maria L. 2019. Statistical Computing with r. 2nd ed. CRC Press.",
+    "title": "10  Generate Random Variables",
+    "section": "10.5 Benchmark",
+    "text": "10.5 Benchmark\n\nlibrary(microbenchmark)\n\nrejection_scalar &lt;- function(N) {\n    b2 &lt;- numeric(N)\n    M &lt;- dbeta(2/3, 5, 3)\n    count &lt;- 0\n    while (count &lt; N) {\n        u1 &lt;- runif(1)\n        y &lt;- runif(1)\n        if (u1 &lt; dbeta(y, 5, 3) / M) {\n            count &lt;- count + 1\n            b2[count] &lt;- y\n        }\n    }\n    return(b2)\n}\n\nrejection_vectorized &lt;- function(N) {\n    M &lt;- dbeta(2/3, 5,3)\n    N1 &lt;- as.integer(N * M * 1.2)\n\n    u &lt;- runif(N1)\n    y &lt;- runif(N1)\n    b3 &lt;- y[u &lt; dbeta(y,5,3)/M]\n    return(b3[1:N])\n}\n\nresults &lt;- microbenchmark(\n    Reverse = ReverseCDF(5000),\n    Scalar_Loop = rejection_scalar(5000),\n    Vectorized  = rejection_vectorized(5000),\n    Built_in = rbeta(5000, 5, 3),\n    times = 100\n)\n\nWarning in microbenchmark(Reverse = ReverseCDF(5000), Scalar_Loop =\nrejection_scalar(5000), : less accurate nanosecond times to avoid potential\ninteger overflows\n\nresults\n\nUnit: microseconds\n        expr       min        lq       mean     median        uq       max\n     Reverse  2285.012  2939.023  3746.9761  3345.8870  3816.546 17516.881\n Scalar_Loop 13662.922 18500.963 21716.7115 20487.0850 22025.979 88805.098\n  Vectorized   829.266  1036.644  1335.6377  1164.9945  1398.572  5759.844\n    Built_in   284.130   319.841   386.7382   358.9345   419.676   980.597\n neval\n   100\n   100\n   100\n   100\n\n\n\n\n\n\nRizzo, Maria L. 2019. Statistical Computing with r. 2nd ed. CRC Press.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Generate Random Variables</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Generate Random Variables</span>"
+    ]
+  },
+  {
+    "objectID": "MonteCarlo.html",
+    "href": "MonteCarlo.html",
+    "title": "11  Monte Carlo",
+    "section": "",
+    "text": "11.1 Monte Carlo Simulation of Intergation",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Monte Carlo</span>"
+    ]
+  },
+  {
+    "objectID": "MonteCarlo.html#monte-carlo-simulation-of-intergation",
+    "href": "MonteCarlo.html#monte-carlo-simulation-of-intergation",
+    "title": "11  Monte Carlo",
+    "section": "",
+    "text": "11.1.1 Example 1\nEstimating this intergal by Monte Carlo: \\[\n\\theta = \\int_{0}^{1} {e^x} dx = e-1\n\\]\nThe real integation is \\(e-1\\). But this is meaningless for those we can’t integrate easily.\nThe idea of Monte Carlo is, assuming there’s a area x from 0 to 1, y from 0 to M (a large number, greater than the maximum of function we’re estimating)\n\n\n\n\n\n\n\n\n\nWe’re calculting the green area in the plot, note that there’s a probability of random point in the green area is equal to their ratio of area.\nFind any M, i.e., here we let \\(M = 3 &gt; e\\)\n\\[\np = \\frac{\\text{Area of Green}}{\\text{Area of Rectangular}} = \\frac{S_G}{S_R}\n\\]\nLet \\(X\\) is a random variable with uniform distribution from 0 to 1, \\(Y = e^X\\), then the Intergal \\(\\hat{\\theta} = S_G = p S_R = \\mathbb{E}[\\bar{Y}]\\)\n\nm &lt;- 100000\nx &lt;- runif(m)\nc(\"Monte Carlo\", \"Real Intergation\")\n\n[1] \"Monte Carlo\"      \"Real Intergation\"\n\nc(mean(exp(x)), exp(1)-1)\n\n[1] 1.718873 1.718282\n\n\n\n\n11.1.2 Example 2: Improper Integral\nEstimating this intergal by Monte Carlo: (F(x) here is CDF of normal distribution) \\[\n\\theta = \\int_{-\\infty}^{x} {e^{-\\frac{t^2}{2}}} dt  = \\sqrt{2\\pi} F(x)\n\\]\n\nLet’s make transformation first:\n\\[\\theta = \\sqrt{2\\pi} (0.5+ \\int_{0}^{x} {e^{-\\frac{t^2}{2}}} dt )=\\sqrt{\\frac{\\pi}{2}}+ \\sqrt{2\\pi} \\int_{0}^{1} xe^{\\frac{(xy)^2}{2}}dy\\]\n\nm &lt;- 100000\ny &lt;- runif(m)\nx &lt;- 1\nc(\"Monte Carlo\", \"Real Intergation\")\n\n[1] \"Monte Carlo\"      \"Real Intergation\"\n\nc(sqrt(pi)/2+ x * mean(exp((x*y)^2/2)),sqrt(pi*2) * pnorm(1))\n\n[1] 2.080523 2.108939\n\n\nAnother idea is that, the sample EDF will converge to CDF. Thus, let’s generate normal random variables.\n\nm &lt;- 100000\ny &lt;- rnorm(m)\nx &lt;- 1\n\nc(sqrt(pi*2) * mean(y&lt;=x) ,sqrt(pi*2) * pnorm(1))\n\n[1] 2.108325 2.108939\n\n\n\n\n11.1.3 Variance\nIn the first example we use \\(Y = e^X\\) to estimate $ = _{0}^{1} {e^x} dx $\nAs \\(X\\sim U(0,1)\\), it’s unbiased estimation since \\(\\mathbb{E}[Y] = \\mathbb{E}[e^X] = e-1 = \\theta\\).\nThe variance is \\(Var[Y] = \\mathbb{E}[Y^2] - {[\\mathbb{E}[Y]]}^2 = \\frac{(e-1)(3-e)}{2} = 0.2420\\)\n\n\n[1] \"variance is, 0.242035607452765\"\n\n\nFor the second example, we have two estimation:\n\\[X_1 \\sim U(0,1) \\Rightarrow Y_1 = \\frac{\\sqrt{\\pi}}{2} + x e^{\\frac{xX_1}{2}}\\]\n\nm &lt;- 100000\nx_1 &lt;- runif(m)\nx &lt;- 1\ny_1 &lt;- sqrt(pi)/2+ x * exp((x*x_1)^2/2)\nvar(y_1)\n\n[1] 0.03488502\n\n\n\\[X_2 \\sim N(0,1) \\Rightarrow \\frac{Y_2}{\\sqrt{2\\pi}}\\sim B(1,p)\\]\n\nm &lt;- 100000\nx_2 &lt;- rnorm(m)\nx &lt;- 1\ny_2 &lt;- sqrt(pi*2) * (y&lt;=x)\n\nvar(y_2)\n\n[1] 0.8397611",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Monte Carlo</span>"
     ]
   },
   {
