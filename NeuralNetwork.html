@@ -235,8 +235,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#neuralnet" id="toc-neuralnet" class="nav-link active" data-scroll-target="#neuralnet"><span class="header-section-number">9.1</span> neuralnet</a></li>
+  <li><a href="#torch" id="toc-torch" class="nav-link" data-scroll-target="#torch"><span class="header-section-number">9.2</span> torch</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -260,6 +267,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>Note that dataset <code>diamonds</code> actually can be fit by simple models.</p>
+<section id="neuralnet" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="neuralnet"><span class="header-section-number">9.1</span> neuralnet</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
@@ -302,12 +312,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>new_diamonds <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict</span>(<span class="fu">dummyVars</span>(price <span class="sc">~</span> ., <span class="at">data =</span> ., <span class="at">sep =</span> <span class="st">"_"</span>, <span class="at">levelsOnly =</span> <span class="cn">FALSE</span>), <span class="at">newdata =</span> .) <span class="sc">%&gt;%</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">price =</span> diamonds<span class="sc">$</span>price)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">logprice =</span> <span class="fu">log</span>(diamonds<span class="sc">$</span>price))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(new_diamonds) <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">^"</span>, <span class="st">"_"</span>, <span class="fu">colnames</span>(new_diamonds))</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>training.idx <span class="ot">&lt;-</span> new_diamonds<span class="sc">$</span>price <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>training.idx <span class="ot">&lt;-</span> new_diamonds<span class="sc">$</span>logprice <span class="sc">%&gt;%</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">createDataPartition</span>(<span class="at">p =</span> <span class="fl">0.75</span>, <span class="at">list =</span> F)</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>trainset <span class="ot">&lt;-</span> new_diamonds[training.idx, ]</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>testset <span class="ot">&lt;-</span> new_diamonds[<span class="sc">-</span>training.idx, ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -315,21 +325,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>prepproc <span class="ot">&lt;-</span> <span class="fu">preProcess</span>(trainset[, <span class="sc">-</span><span class="fu">ncol</span>(trainset)], <span class="at">method =</span> <span class="fu">c</span>(<span class="st">"center"</span>, <span class="st">"scale"</span>))</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>train.x <span class="ot">&lt;-</span> <span class="fu">predict</span>(prepproc, trainset[,<span class="sc">-</span><span class="fu">ncol</span>(trainset)])</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>test.x <span class="ot">&lt;-</span> <span class="fu">predict</span>(prepproc, testset[,<span class="sc">-</span><span class="fu">ncol</span>(trainset)])</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>test.x <span class="ot">&lt;-</span> <span class="fu">predict</span>(prepproc, testset[,<span class="sc">-</span><span class="fu">ncol</span>(testset)])</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>trainset.scaled <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(train.x, <span class="at">price =</span> trainset<span class="sc">$</span>price)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>testset.scaled  <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(test.x, <span class="at">price =</span> testset<span class="sc">$</span>price)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>trainset.scaled <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(train.x, <span class="at">logprice =</span> trainset<span class="sc">$</span>logprice)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>testset.scaled  <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(test.x, <span class="at">logprice =</span> testset<span class="sc">$</span>logprice)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>prepproc <span class="ot">&lt;-</span> <span class="fu">preProcess</span>(trainset, <span class="at">method =</span> <span class="fu">c</span>(<span class="st">"center"</span>, <span class="st">"scale"</span>))</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>trainset.scaled <span class="ot">&lt;-</span> <span class="fu">predict</span>(prepproc, trainset)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>testset.scaled <span class="ot">&lt;-</span> <span class="fu">predict</span>(prepproc, testset)</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> prepproc<span class="sc">$</span>mean[<span class="st">"price"</span>]</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> prepproc<span class="sc">$</span>std[<span class="st">"price"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> prepproc<span class="sc">$</span>mean[<span class="st">"logprice"</span>]</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> prepproc<span class="sc">$</span>std[<span class="st">"logprice"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">neuralnet</span>(price <span class="sc">~</span> ., <span class="at">data =</span> trainset.scaled, <span class="at">hidden =</span> <span class="dv">0</span>, <span class="at">err.fct =</span> <span class="st">"sse"</span>, <span class="at">linear.output =</span> T)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">neuralnet</span>(logprice <span class="sc">~</span> ., <span class="at">data =</span> trainset.scaled, <span class="at">hidden =</span> <span class="dv">0</span>, <span class="at">err.fct =</span> <span class="st">"sse"</span>, <span class="at">linear.output =</span> T)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model, <span class="at">rep =</span> <span class="st">'best'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
@@ -338,19 +348,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pred_scaled <span class="ot">&lt;-</span> <span class="fu">compute</span>(model, testset.scaled <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>price))<span class="sc">$</span>net.result</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>pred_usd <span class="ot">&lt;-</span> pred_scaled <span class="sc">*</span> sigma <span class="sc">+</span> mu</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pred_scaled <span class="ot">&lt;-</span> <span class="fu">compute</span>(model, testset.scaled <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>logprice))<span class="sc">$</span>net.result</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>pred_usd <span class="ot">&lt;-</span> <span class="fu">exp</span>(pred_scaled <span class="sc">*</span> sigma <span class="sc">+</span> mu)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>performance <span class="ot">&lt;-</span> <span class="fu">postResample</span>(<span class="at">pred =</span> pred_usd, <span class="at">obs =</span> testset.scaled<span class="sc">$</span>price)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>performance <span class="ot">&lt;-</span> <span class="fu">postResample</span>(<span class="at">pred =</span> pred_usd, <span class="at">obs =</span> testset.scaled<span class="sc">$</span>logprice)</span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>performance</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        RMSE     Rsquared          MAE 
-5507.3510364    0.9205582 4030.5698498 </code></pre>
+5848.2315253    0.7159979 3955.0920002 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>init_weights <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">19</span>, <span class="at">min =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">max =</span> <span class="dv">1</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>model_w <span class="ot">&lt;-</span> <span class="fu">neuralnet</span>(price<span class="sc">~</span>., <span class="at">data =</span> trainset.scaled, <span class="at">hidden =</span> <span class="dv">3</span>, <span class="at">err.fct =</span> <span class="st">"sse"</span>, <span class="at">linear.output =</span> T, <span class="at">startweights =</span> init_weights)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>init_weights <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">67</span>, <span class="at">min =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">max =</span> <span class="dv">1</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>model_w <span class="ot">&lt;-</span> <span class="fu">neuralnet</span>(logprice<span class="sc">~</span>., <span class="at">data =</span> trainset.scaled, <span class="at">hidden =</span> <span class="dv">3</span>, <span class="at">err.fct =</span> <span class="st">"sse"</span>, <span class="at">linear.output =</span> T, <span class="at">startweights =</span> init_weights)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_w, <span class="at">rep =</span> <span class="st">"best"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
@@ -359,26 +369,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>pred_w_scaled <span class="ot">&lt;-</span> <span class="fu">compute</span>(model_w, testset.scaled <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>price))<span class="sc">$</span>net.result</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>pred_w_usd <span class="ot">&lt;-</span> pred_scaled <span class="sc">*</span> sigma <span class="sc">+</span> mu</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>pred_w_scaled <span class="ot">&lt;-</span> <span class="fu">compute</span>(model_w, testset.scaled <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>logprice))<span class="sc">$</span>net.result</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>pred_w_usd <span class="ot">&lt;-</span> <span class="fu">exp</span>(pred_w_scaled <span class="sc">*</span> sigma <span class="sc">+</span> mu)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>performance_w <span class="ot">&lt;-</span> <span class="fu">postResample</span>(<span class="at">pred =</span> pred_w_usd, <span class="at">obs =</span> testset.scaled<span class="sc">$</span>price)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>performance_w <span class="ot">&lt;-</span> <span class="fu">postResample</span>(<span class="at">pred =</span> pred_w_usd, <span class="at">obs =</span> testset.scaled<span class="sc">$</span>logprice)</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>performance_w</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        RMSE     Rsquared          MAE 
-5507.3510364    0.9205582 4030.5698498 </code></pre>
+5551.4706951    0.7914741 3906.2047833 </code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(performance, performance_w)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                  RMSE  Rsquared     MAE
-performance   5507.351 0.9205582 4030.57
-performance_w 5507.351 0.9205582 4030.57</code></pre>
+<pre><code>                  RMSE  Rsquared      MAE
+performance   5848.232 0.7159979 3955.092
+performance_w 5551.471 0.7914741 3906.205</code></pre>
 </div>
 </div>
+</section>
+<section id="torch" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="torch"><span class="header-section-number">9.2</span> torch</h2>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -335,18 +335,18 @@ lm(formula = y ~ x)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--4121016 -3477740 -1109724  1673420 27163387 
+-1796417 -1161759  -375411   662172 12819470 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) -8065761    1885405  -4.278 8.94e-05 ***
-x            1626685     273350   5.951 2.98e-07 ***
+(Intercept) -3049582     747717  -4.079  0.00017 ***
+x             733286     125292   5.853 4.21e-07 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 5177000 on 48 degrees of freedom
-Multiple R-squared:  0.4246,    Adjusted R-squared:  0.4126 
-F-statistic: 35.41 on 1 and 48 DF,  p-value: 2.979e-07</code></pre>
+Residual standard error: 2175000 on 48 degrees of freedom
+Multiple R-squared:  0.4164,    Adjusted R-squared:  0.4043 
+F-statistic: 34.25 on 1 and 48 DF,  p-value: 4.207e-07</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -360,24 +360,24 @@ lm(formula = y ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) +
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--16.758  -3.817   0.110   4.641  23.997 
+-16.752  -4.263  -1.077   3.136  18.296 
 
 Coefficients:
-              Estimate Std. Error  t value Pr(&gt;|t|)    
-(Intercept)  5.051e+01  8.217e+01    0.615    0.542    
-x           -4.369e+01  1.403e+02   -0.311    0.757    
-I(x^2)       2.276e+01  8.969e+01    0.254    0.801    
-I(x^3)      -8.453e+00  2.850e+01   -0.297    0.768    
-I(x^4)       6.989e-01  4.958e+00    0.141    0.889    
-I(x^5)      -6.048e+00  4.792e-01  -12.619 7.02e-16 ***
-I(x^6)       1.506e-03  2.410e-02    0.063    0.950    
-I(x^7)       6.000e-01  4.906e-04 1222.845  &lt; 2e-16 ***
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -7.241e+01  8.870e+01  -0.816    0.419    
+x            1.904e+02  1.721e+02   1.106    0.275    
+I(x^2)      -1.374e+02  1.225e+02  -1.121    0.269    
+I(x^3)       4.568e+01  4.339e+01   1.053    0.298    
+I(x^4)      -9.330e+00  8.457e+00  -1.103    0.276    
+I(x^5)      -5.014e+00  9.204e-01  -5.448 2.46e-06 ***
+I(x^6)      -5.394e-02  5.233e-02  -1.031    0.309    
+I(x^7)       6.012e-01  1.208e-03 497.752  &lt; 2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 8.854 on 42 degrees of freedom
+Residual standard error: 7.715 on 42 degrees of freedom
 Multiple R-squared:      1, Adjusted R-squared:      1 
-F-statistic: 4.073e+12 on 7 and 42 DF,  p-value: &lt; 2.2e-16</code></pre>
+F-statistic: 9.34e+11 on 7 and 42 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 
