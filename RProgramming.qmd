@@ -1,6 +1,6 @@
 # R Programming for Data Analysis
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 library(dplyr)
 ```
 
@@ -9,7 +9,7 @@ library(dplyr)
 ```{r}
 iris <- iris %>%
   mutate(Petal.Ratio = Petal.Length / Petal.Width)
-iris
+head(iris)
 ```
 
 ```{r}
@@ -20,12 +20,22 @@ iris %>%
 
 ## Split Dataset
 
-Please use ```y``` (target variable) as the variable into ```createDataPartition```, rather than any other variables. p is the portition of training set. 
+There's how you can get random sample.
 ```{r}
+iris %>% sample_n(10)
+iris[sample(nrow(iris), 10), ]
+```
+
+Please use ```y``` (target variable) as the variable into ```createDataPartition```, rather than any other variables. p is the portition of training set. 
+
+```{r, warning=FALSE, message=FALSE}
 library(caret)
+```
+```{r}
 training.samples = iris$Species %>%
   createDataPartition(p = 0.70, list = FALSE)
 
 traindf = iris[training.samples,]
 testdf = iris[-training.samples,]
 ```
+

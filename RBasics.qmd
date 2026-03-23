@@ -79,7 +79,7 @@ c(astr, bstr, cstr)
 
 
 
-
+### length of a string
 ```{r}
 nchar(astr)
 ```
@@ -91,18 +91,14 @@ c(toupper(cstr), tolower(cstr))
 ```
 
 
-replace by vector
-```{r}
-chartr("U", "L", bstr)
-chartr("UL", "AI", bstr)
 
-```
+### substring
 
-
-substr
+both ```substr``` and ```substring``` can extract substring, and ```substring``` defined with default value for the ```last = 1000000L```. Also, ```substring``` can exact multiple substrings while ```substr``` can't.
 ```{r}
 substr("HELLO", 2,3)
-
+substr("HELLO", c(1,2,3),c(3,4,5))
+substring("HELLO", c(1,2,3),c(3,4,5))
 ```
 
 
@@ -125,7 +121,7 @@ a
 
 
 
-
+### combine strings
 ```{r}
 
 a = "12345"
@@ -135,17 +131,21 @@ b = "6789"
 paste(a,b)
 paste(a,b,sep="")
 paste(a,b,sep="-")
-paste(a,b,sep = "honda")
+paste(a,b,sep = "toyota")
 
-a <- c('Taipei', "Tokyo", 'Singapore', 'Hong Kong', "Johor Baru", "Kuala Lumpr")
+a <- c('Taipei', "Tokyo", 'Singapore', 'Hong Kong', "Johor Bahru", "Kuala Lumpur")
 paste(a)
 paste(a, "?", sep = "")
 paste(a, "is where", sep = " ")
 paste(a, "is where", sep = " ", collapse = ", and ")
 
+
+paste(c("a","b"), c("1","2","3"))
+paste(c("a","b","c","d"), c("1","2","3"))
+
 ```
 
-
+### split strings
 ```{r}
 strsplit(",,a,bb,", split = ",")
 strsplit(",,a,,", split = ",")
@@ -153,8 +153,27 @@ strsplit(",,a,", split = ",")
 ```
 
 
+### replace
 
+replace by vector
+```{r}
+s <- "ccccaaaassssaaa"
+chartr("s", "A", s)
+chartr("sc", "AI", s)
+sub("a", "b", s)
+gsub("a", "b", s)
 
+```
+
+Note that ```chartr``` is vector-behavior function, which changes char-by-char; as ```gsub``` replaces the whole target substring globally, ```sub``` only changes the first occurance. 
+### Regular Expression 
+try: type ```?grep``` in your console. Then see the help page "Pattern Matching and Replacement"
+
+```{r}
+# grep()
+```
+
+## todo
 
 ```{r}
 c("Hello")
@@ -245,27 +264,64 @@ c("Hello")
 
 ```
 
-
+## tricks
+### deal with potential exception
+pass a string of the variable name to check if it's defined, return NULL if not found.
 ```{r}
-c("Hello")
+x0 <- "demo"
+get0("x0")
+get0("xa_nondefined")
 
 ```
 
+### RMarkdown features
 
+When you write {r} after three ` signs you can give some features: 
+
+You can leave {r} by default and get very annoying outputs
 ```{r}
-c("Hello")
+library(dplyr)
+library(tidyverse)
+```
 
+you can write ```{r, warning=FALSE, message=FALSE}``` means no suppresses warnings and no suppresses messages.
+
+```{r, warning=FALSE, message=FALSE}
+library(dplyr)
+library(tidyverse)
+```
+
+```echo = FALSE``` means to hide the code trunk
+
+```include=FALSE``` means to hide the code trunk and the result
+
+```{r, echo = FALSE}
+library(dplyr)
+library(tidyverse)
 ```
 
 
-```{r}
-c("Hello")
+```eval = FALSE``` show but no executing
 
+
+```results = 'hide'``` will hide the code 
+
+
+```error = TRUE``` continue to knit even there's error
+
+
+### package management
+install if not exists then load the package.
+```{r, warning=FALSE, message=FALSE}
+if (!requireNamespace("tidyverse")) install.packages('tidyverse')
+library(tidyverse)
 ```
 
 
-```{r}
-c("Hello")
+This can also be made with package ```pacman```.
+```{r, warning=FALSE, message=FALSE}
+library(pacman)
+pacman::p_load(mblm)
 
 ```
 

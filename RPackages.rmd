@@ -1,0 +1,36 @@
+# R Data Science & Machine Learning Stack
+
+## tidyverse (The Foundation / Data Wrangling)
+`tidyverse` 不是一個單一的包，而是一個生態系統（包含 `ggplot2`, `dplyr`, `tidyr`, `readr` 等）。
+* **核心功能**：數據清洗 (Cleaning)、轉換 (Transformation) 與視覺化 (Visualization)。
+* **主要工具**：
+    * `dplyr`: 用 `filter()`, `mutate()`, `summarize()` 進行邏輯操作。
+    * `ggplot2`: 基於圖形語法 (Grammar of Graphics) 製作專業圖表。
+    * `pipe (%>%)`: 讓代碼像流水線一樣易讀。
+* **適用場景**：在進入模型之前，將原始數據 (Raw Data) 轉化為「整潔數據」(Tidy Data)。
+
+## caret (The Workflow Manager / Classification And REgression Training)
+`caret` 是 R 中最著名的機器學習整合平台（類似於 Python 的 `scikit-learn`）。
+* **核心功能**：統一了數百種不同算法的調用接口。
+* **主要工具**：
+    * `train()`: 一行代碼調用隨機森林、SVM 或回歸。
+    * `trainControl()`: 進行交叉驗證 (Cross-validation) 和參數調優 (Hyperparameter Tuning)。
+    * `confusionMatrix()`: 評估模型準確度、召回率等指標。
+* **適用場景**：當你需要比較不同模型的性能，或需要標準化的特徵縮放 (Feature Scaling) 時。
+
+## neuralnet (Specialized / Artificial Neural Networks)
+這是一個專注於**人工神經網絡 (ANN)** 的輕量級工具包。
+* **核心功能**：訓練具備反向傳播 (Backpropagation) 機制的多層感知器。
+* **主要工具**：
+    * `neuralnet()`: 定義隱藏層結構 (Hidden Layers) 並進行訓練。
+    * `gwplot()`: 視覺化神經網絡的權重 (Weights) 與偏置 (Bias)。
+* **適用場景**：適合教學、學術研究或處理非線性關係較強的小型數據集。相比於 `Keras` 或 `PyTorch`，它在 R 裡面更直接、更適合統計背景的用戶。
+
+## e1071 (Specialized / Statistical Functions)
+由維也納科技大學統計系開發，是 R 進行數據挖掘的必備包。
+* **核心功能**：提供 **支持向量機 (SVM)** 的經典實現，以及各種統計分佈分析。
+* **主要工具**：
+    * `svm()`: 最常用的支持向量機函數。
+    * `naiveBayes()`: 樸素貝葉斯分類。
+    * `skewness()` / `kurtosis()`: 計算數據的偏態與峰度。
+* **適用場景**：當你需要構建 SVM 模型進行分類或回歸，或者需要檢驗數據是否符合正態分佈 (Normal Distribution) 時。

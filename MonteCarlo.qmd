@@ -1,0 +1,124 @@
+# Monte Carlo
+
+```{r, echo = FALSE}
+set.seed(114514)
+```
+## Monte Carlo Simulation of Intergation
+
+### Example 1
+Estimating this intergal by Monte Carlo:
+$$
+\theta = \int_{0}^{1} {e^x} dx = e-1
+$$
+
+The real integation is $e-1$. But this is meaningless for those we can't integrate easily.
+
+The idea of Monte Carlo is, assuming there's a area x from 0 to 1, y from 0 to M (a large number, greater than the maximum of function we're estimating)
+
+```{r, echo = FALSE}
+curve(exp(x), from = 0, to = 1, xlim = c(-0.5, 1.5), ylim = c(-0.5, 4))
+lines(c(-0.5, 1.5), c(0,0))
+lines(c(0, 1), c(3,3))
+lines(c(0,0), c(-0.5, 4))
+lines(c(1,1), c(0, 4))
+
+x_shade <- seq(0, 1, 0.01)
+y_shade <- exp(x_shade)
+
+polygon(c(0, x_shade, 1), c(0, y_shade, 0), 
+        col = rgb(0.1, 0.6, 0.1, alpha = 0.3), border = NA)
+
+text(0.5, 1.2, labels = expression(e^x), cex = 1.5, col = "darkblue")
+text(1.1, exp(1), labels = "e", pos = 4)
+text(0.5, 0.5, labels = "Area", font = 2)
+```
+
+We're calculting the green area in the plot, note that there's a probability of random point in the green area is equal to their ratio of area.
+
+Find any M, i.e., here we let $M = 3 > e$
+
+$$
+p = \frac{\text{Area of Green}}{\text{Area of Rectangular}} = \frac{S_G}{S_R}
+$$
+
+Let $X$ is a random variable with uniform distribution from 0 to 1,  $Y = e^X$, then the Intergal $\hat{\theta} = S_G = p S_R = \mathbb{E}[\bar{Y}]$
+
+
+```{r}
+m <- 100000
+x <- runif(m)
+c("Monte Carlo", "Real Intergation")
+c(mean(exp(x)), exp(1)-1)
+```
+
+### Example 2: Improper Integral
+
+
+Estimating this intergal by Monte Carlo: (F(x) here is CDF of normal distribution)
+$$
+\theta = \int_{-\infty}^{x} {e^{-\frac{t^2}{2}}} dt  = \sqrt{2\pi} F(x)
+$$
+
+
+<!-- = \frac{1}{2} + \frac{\sqrt{\pi}}{2} erf(x) -->
+
+Let's make transformation first:
+
+$$\theta = \sqrt{2\pi} (0.5+ \int_{0}^{x} {e^{-\frac{t^2}{2}}} dt )=\sqrt{\frac{\pi}{2}}+ \sqrt{2\pi} \int_{0}^{1} xe^{\frac{(xy)^2}{2}}dy$$
+
+```{r}
+m <- 100000
+y <- runif(m)
+x <- 1
+c("Monte Carlo", "Real Intergation")
+c(sqrt(pi)/2+ x * mean(exp((x*y)^2/2)),sqrt(pi*2) * pnorm(1))
+```
+
+Another idea is that, the sample EDF will converge to CDF. Thus, let's generate normal random variables.
+
+```{r}
+m <- 100000
+y <- rnorm(m)
+x <- 1
+
+c(sqrt(pi*2) * mean(y<=x) ,sqrt(pi*2) * pnorm(1))
+```
+
+
+### Variance
+
+
+In the first example we use $Y = e^X$ to estimate $ \theta = \int_{0}^{1} {e^x} dx $
+
+As $X\sim U(0,1)$, it's unbiased estimation since $\mathbb{E}[Y] = \mathbb{E}[e^X] = e-1 = \theta$.
+
+The variance is $Var[Y] = \mathbb{E}[Y^2] - {[\mathbb{E}[Y]]}^2 = \frac{(e-1)(3-e)}{2} = 0.2420$
+
+```{r, echo = F}
+print(paste(c("variance is, ",(exp(1)-1)*(3-exp(1))/2),sep = "", collapse= ""))
+```
+
+For the second example, we have two estimation: 
+
+$$X_1 \sim U(0,1) \Rightarrow Y_1 = \frac{\sqrt{\pi}}{2} + x e^{\frac{xX_1}{2}}$$
+
+
+```{r}
+m <- 100000
+x_1 <- runif(m)
+x <- 1
+y_1 <- sqrt(pi)/2+ x * exp((x*x_1)^2/2)
+var(y_1)
+```
+
+$$X_2 \sim N(0,1) \Rightarrow \frac{Y_2}{\sqrt{2\pi}}\sim B(1,p)$$
+
+
+```{r}
+m <- 100000
+x_2 <- rnorm(m)
+x <- 1
+y_2 <- sqrt(pi*2) * (y<=x)
+
+var(y_2)
+```

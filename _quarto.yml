@@ -1,28 +1,50 @@
 project:
   type: book
-
+  resources:
+    - CNAME
+    
 book:
   title: "R Note for Statistics Learning and Computing"
   author: "Daniel Cheung"
-  date: "3/2/2026"
+  date: "3/10/2026"
   chapters:
     - index.qmd
-    # - intro.qmd
-    # - summary.qmd
+
+    # Basics of R
     - RBasics.qmd
     - RProgramming.qmd
+    - DataSets.qmd
+    # - EDA.qmd
+
+    # Statistics with R
     - HypothesisTest.qmd
     - LinearRegression.qmd
+    - ANOVA.qmd
+
+    # Statistics Learning with R
     - LogisticsRegression.qmd
+    - Classification.qmd
+    - NeuralNetwork.qmd
+
+    # Statistics Computing with R
+    - Random.qmd
+    - MonteCarlo.qmd
+    
     - references.qmd
+  site-url: https://r.danieldata.com
+
 
 bibliography: references.bib
+
+website:
+  site-url: https://r.danieldata.com
 
 format:
   html:
     theme:
       - cosmo
       - brand
+    include-in-header: analytics.html
   pdf:
     documentclass: scrreprt
 

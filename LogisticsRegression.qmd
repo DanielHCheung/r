@@ -1,2 +1,154 @@
 # Logistics Regression
+## Theoritical Knowledge
 
+Assume you're predicting binary categorical data with OLS:
+
+$$ Y = \alpha + \beta X + \varepsilon $$
+
+The problem is, $Y \sim Bin(p)$ rather than $N(\mu, \sigma^2)$. The target should be from $[0,1]$, indicating the probability which category this sample likely belongs to. However, the predicated value may greater than 1 or less than 0, which cause a problem.
+
+But you can have a function to map $(-\infty, \infty)$ to $(0,1)$ which is $y = \frac{1}{1+e^{-x}}$ (logistic function, aka. sigmoid function as activation function in neural network)
+
+```{r}
+x <- seq(-20,20,0.1)
+plot(x, 1/(1+exp(-x)), 'l')
+title('Logistics Function')
+```
+
+Let $p = \frac{1}{1+e^{-\eta}}$. Thus the model is, 
+
+$$ \eta = \log{\frac{p}{1-p}} = \alpha + \beta X + \varepsilon $$
+
+
+Here we define Odds ($\eta = \log{Odds}$) helps explain the model.
+
+$$ Odds = \frac{p}{1-p} $$
+
+
+We use MLE to estimate, and solve by iteration. In R, we use ```glm``` function with ```family = binomial```.
+
+MLE function is given by
+
+$$
+L = \prod_{i = 1}^{n} {(1-p)}^{1-y_i} {p}^{y_i}  =  {(1-p)}^{n-\sum y_i} {p}^{\sum y_i} 
+$$
+
+$$
+l = {(n-\sum y_i)}\log{(1-p)} + {(\sum y_i)}\log{p}
+$$
+
+R utilize Iteratively Reweighted Least Squares (IRLS) to calculate the coefficients of the regression. Guess first, then iteration until likelihood function no longer increase.
+
+For generalized model, p variables,
+
+$$
+\log{\frac{p}{1-p}} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p
+$$
+
+$$
+P(Y = 1) = \frac{e^{ \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p}}{1 + e^{ \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p}}
+$$
+
+
+$$
+\text{Odds Ratio} = OR = \frac{Odds_1}{Odds_2}
+$$
+
+$$
+\text{Relative Risk} = RR = \frac{p_1}{p_2} \rightarrow OR = RR \times \frac{1-p_1}{1-p_2}
+$$
+
+Note that when p is small, $OR \approx RR$
+
+to explain the model, we can write
+
+$$
+\frac{p}{1-p} = e^{\beta_0} (e^{\beta_1 })^{x_1} (e^{\beta_2 })^{x_2} \dots (e^{\beta_p })^{x_p}
+$$
+
+when reply $X$ by $X+1$ then 
+$$
+\frac{e^{\beta_0 + \beta_1 (X+1)}}{e^{\beta_0 + \beta_1 X}} = e^{\beta_1}
+$$
+
+## R code
+```{r}
+set.seed(3306)
+
+y <- sample(c(0,1), 20, T)
+x <- y * 5 -y^2  + runif(20, 5, 10)+ rnorm(20, 5, 10)
+plot(x,y)
+
+model <- glm(y ~ x, family = binomial)
+summary(model)
+
+log_or <- coef(model)["x"]
+or <- exp(log_or)
+list(log_or = log_or, or = or)
+
+confint(model)
+```
+
+
+## Performance
+
+For classfication models like logitics regression, **Confusion Matrix** is a good method to evaluate your model. 
+
+### Binary Classification: Confusion Matrix
+
+| | Predicted: NO (0) <br>*(Not to Reject)* | Predicted: YES (1) <br>*(Reject Null Hypothesis)* | Total |
+| :--- | :---: | :---: | :---: |
+| Actual: NO (0) <br>*(Alter is Wrong)* | True Negative (TN) | False Positive (FP) <br>*(Type I Error)* | $N$ |
+| Actual: YES (1) <br>*(Alter is Correct)* | False Negative (FN) <br>*(Type II Error)* | True Positive (TP) <br>*(Power)* | $P$ |
+| Total | $N_{pred}$ | $P_{pred}$ | Total (N) |
+
+You can see there's also a link between statistics inference and machine learning. Interesting! Note that in statistics we prefer writing $H_0$ (Null Hypothesis) is true or false rather than then $H_1$ (or $H_a$, alternative hypothesis). 
+
+The first letter T or F means whether this case is correctly identified; the second letter P or N means which sample the case belongs to.
+
+
+
+```{r}
+prob <- predict(model, list(x), type = "response")
+predicted.classes <- ifelse(prob > 0.5, "c1", "c0")
+table(predicted.classes,y)
+```
+
+From the confusion matrix, we can tell $7+9 =16$ samples correctly classificated, and 2 of Positive and 2 of Negative mistakenly classfied into Negative and Positive respectively.
+
+So the TP = TN = 7, FP = FN = 3.
+
+
+
+#### Accuracy
+
+$$\text{Accuracy} = \frac{TP+TN}{TP+TN+FP+FN}$$
+
+
+#### Recall (or Sensitive): 
+
+$$\text{Recall} = \frac{TP}{TP+FN}$$
+
+Recall is used to measure how many **Positive Samples** being correctly recognized. Assume you're predicating whether a product has an issue, and your target is to recall samples with an issue. Recall reports in what extend you find the real issue samples.
+
+#### Specificity:
+
+$$\text{Specificity} = \frac{TN}{TN+FP}$$
+
+Specificity is opposite to the Recall. The target is to find how many **Negative Samples** beging correctly recognized.
+
+#### Precision
+
+$$\text{Precision} = \frac{TP}{TP+FP}$$
+
+Precision is different from either Recall and Specificity, since it measures how many samples with **Positive Results** really from **Positive Samples**. Assume you're predicating whether a product has an issue, Precision reports whether a sample you're recalling is really recall-needed one.
+
+
+#### F-1 Score
+Let's make an example. You're doing a model about fraud detection. The higher recall indicate you find almost most fraud, while you may interupt some non-fraud transcations; the higher Precision means you're not interupt most non-fraud transcations while may miss some fraud transcations.
+
+F-1 Score is the **Harmonic Mean** of Recall and Precision
+
+$$
+\text{F-1 Score} = \frac{2}{\frac{1}{Recall}+\frac{1}{Precision}} = 2 \frac{Recall \times Precision}{Recall + Precision}
+$$

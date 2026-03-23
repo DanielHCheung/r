@@ -28,6 +28,31 @@ t.test(x,y, mu = 2, alter = "two.sided", var.equal = T)
 ```
 
 
+## variance inference
+
+Try to type ```?var.test``` to get the help document.
+```{r}
+var.test(x,y)
+
+```
+
+
+## goodness of fitness test
+
+Test whether a sample data fit a distribution or not.
+
+### Normal Test
+
+## correlation
+
+```{r}
+x <- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)
+y <- c(1,1,1,1,1,4,3,2,1,1,1,1,1,11,1,1)
+cor.test(x, y)
+
+```
+
+The default method, Pearson linear correlation is widely used. 
 
 ## median inference (non-para test)
 
@@ -42,3 +67,5 @@ wilcox.test(x,y)
 wilcox.test(x,y, mu = 2, alter = "two.sided", var.equal = T)
 
 ```
+
+

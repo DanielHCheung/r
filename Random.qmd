@@ -1,0 +1,150 @@
+# Generate Random Variables
+
+Reference: @rizzo2019statistical Chapter 3
+
+## Remember to Set the Random Seed
+
+```{r}
+set.seed(42)
+```
+
+If the seed is not set by a default value, each time I render the webpage, the R codes will run, and different results may given. In some documents, the text will require to change in order to match the code output. In your project, set it whatever you like, 42, 2026, 3306, 3389, 65535, 114514, ...
+
+## Direct approach in R
+
+```{r}
+# Uniform (0,1)
+runif(n = 10, min = 0, max = 1)
+
+# Bin(30, 0.6)
+rbinom(n = 10, size = 30, prob = 0.6)
+
+# Poisson(7)
+rpois(n = 5, lambda = 7)
+
+# Beta(5,3)
+rbeta(n = 10, shape1 = 5, shape2 = 3)
+
+```
+
+## Inverse CDF
+
+For any continuous random variable, the random variable defined by its Cumulative Distribution Function (CDF) evaluated at itself follows a U(0,1) distribution.
+
+Thus you can get the random value from the inverse of CDF.
+
+### Example: Beta(5,3)
+
+$$f(x) = \frac{1}{Beta(5,3)} x^4 (1-x)^2$$
+
+```{r}
+ReverseCDF <- function(N) {
+    return(qbeta(runif(N),5,3))
+}
+
+b0 <- ReverseCDF(50)
+hist(b0, freq = F, ylim = c(0, 2.8))
+curve(dbeta(x, 5, 3), add = T)
+```
+
+
+
+
+## Acceptance-Rejection Method
+
+Assume you have $X\sim f_X$, $Y\sim g_Y$, and $$ \frac{f(t)}{g(t)}\leq c, \forall t s.t. f(t)>0 $$
+
+Then generate $u$ from $U \sim U(0,1)$ and $y$ from $Y\sim g_Y$, accept $y$ if $u < \frac{f(t)}{c g(t)}$, otherwise drop it.
+
+In some textbooks, $M = sup \frac{f(t)}{g(t)} < \infty \Rightarrow \frac{f(t)}{Mg(t)}\leq 1$. The $M$ here is equal to the $c$ mentioned earlier.
+
+
+### Example: Beta(5,3)
+
+$$f(x) = \frac{1}{Beta(5,3)} x^4 (1-x)^2$$
+
+$$f'(x) = \frac{1}{Beta(5,3)} [4x^3 (1-x)^2 - 2x^4 (1-x)] =  \frac{2x^3(1-x)(2-3x)}{Beta(5,3)}  $$
+
+Then we have $M = sup \frac{f(t)}{g(t)}  =  f(\frac{2}{3})$
+
+```{r}
+b1 <- rbeta(50, 5,3)
+hist(b1, freq = F, ylim = c(0, 2.8))
+curve(dbeta(x, 5, 3), add = T)
+
+b2 <- c()
+M <- dbeta(2/3, 5,3)
+while (length(b2) < 50){
+    u1 <- runif(1)
+    y <- runif(1)
+    if(u1 < dbeta(y,5,3)/M){
+        b2 <- c(b2,y)
+    }
+}
+hist(b2, freq = F, ylim = c(0, 2.8))
+curve(dbeta(x, 5, 3), add = T)
+```
+
+There're some performance weakness: 
+- bad append operation ```b2 <- c(b2,y)```
+- non-vectorized operation
+
+Let's optimize!
+
+
+```{r}
+N <- 50
+M <- dbeta(2/3, 5,3)
+N1 <- as.integer(N * M * 1.2)
+
+u <- runif(N1)
+y <- runif(N1)
+b3 <- y[u < dbeta(y,5,3)/M]
+print(paste(c("target is", N, ", and we generated", N1, "finally get", length(b3)), collapse = " "))
+b3 <- b3[1:N]
+hist(b3, freq = F, ylim = c(0, 2.8))
+curve(dbeta(x, 5, 3), add = T)
+
+
+```
+
+## Benchmark
+
+```{r}
+library(microbenchmark)
+
+rejection_scalar <- function(N) {
+    b2 <- numeric(N)
+    M <- dbeta(2/3, 5, 3)
+    count <- 0
+    while (count < N) {
+        u1 <- runif(1)
+        y <- runif(1)
+        if (u1 < dbeta(y, 5, 3) / M) {
+            count <- count + 1
+            b2[count] <- y
+        }
+    }
+    return(b2)
+}
+
+rejection_vectorized <- function(N) {
+    M <- dbeta(2/3, 5,3)
+    N1 <- as.integer(N * M * 1.2)
+
+    u <- runif(N1)
+    y <- runif(N1)
+    b3 <- y[u < dbeta(y,5,3)/M]
+    return(b3[1:N])
+}
+
+results <- microbenchmark(
+    Reverse = ReverseCDF(5000),
+    Scalar_Loop = rejection_scalar(5000),
+    Vectorized  = rejection_vectorized(5000),
+    Built_in = rbeta(5000, 5, 3),
+    times = 100
+)
+
+results
+```

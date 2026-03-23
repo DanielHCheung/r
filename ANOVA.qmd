@@ -1,0 +1,7 @@
+# ANalysis of VAriance (ANOVA)
+
+ANalysis of VAriance (ANOVA) is a method to make multiple group mean inference with F statistics based on variance.
+
+$$H_0: \mu_1 = \mu_2 = \mu_3 = \dots \mu_p \quad H_a:\text{At least one of them different from others}$$
+
+ANOVA tries to calculate the variance with in groups and variance for all groups, and have a F-test.

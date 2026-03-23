@@ -1,0 +1,94 @@
+# Neural Network
+
+Note that dataset ```diamonds``` actually can be fit by simple models.
+
+## neuralnet
+```{r, warning = F, message = F}
+library(tidyverse)
+library(caret)
+library(neuralnet)
+```
+
+```{r, warning = F, message = F}
+data(diamonds)
+head(diamonds)
+sum(is.na(diamonds))
+str(diamonds)
+```
+
+
+```{r}
+new_diamonds <- diamonds %>% 
+    predict(dummyVars(price ~ ., data = ., sep = "_", levelsOnly = FALSE), newdata = .) %>%
+    as.data.frame() %>%
+    mutate(logprice = log(diamonds$price))
+```
+
+
+```{r}
+set.seed(42)
+colnames(new_diamonds) <- gsub("\\^", "_", colnames(new_diamonds))
+training.idx <- new_diamonds$logprice %>%
+    createDataPartition(p = 0.75, list = F)
+trainset <- new_diamonds[training.idx, ]
+testset <- new_diamonds[-training.idx, ]
+
+```
+
+
+```{r, eval = FALSE}
+prepproc <- preProcess(trainset[, -ncol(trainset)], method = c("center", "scale"))
+train.x <- predict(prepproc, trainset[,-ncol(trainset)])
+test.x <- predict(prepproc, testset[,-ncol(testset)])
+
+trainset.scaled <- data.frame(train.x, logprice = trainset$logprice)
+testset.scaled  <- data.frame(test.x, logprice = testset$logprice)
+```
+
+
+```{r}
+prepproc <- preProcess(trainset, method = c("center", "scale"))
+trainset.scaled <- predict(prepproc, trainset)
+testset.scaled <- predict(prepproc, testset)
+
+mu <- prepproc$mean["logprice"]
+sigma <- prepproc$std["logprice"]
+```
+
+
+
+
+```{r}
+model <- neuralnet(logprice ~ ., data = trainset.scaled, hidden = 0, err.fct = "sse", linear.output = T)
+plot(model, rep = 'best')
+
+pred_scaled <- compute(model, testset.scaled %>% select(-logprice))$net.result
+pred_usd <- exp(pred_scaled * sigma + mu)
+
+performance <- postResample(pred = pred_usd, obs = testset.scaled$logprice)
+performance
+```
+
+
+
+```{r}
+init_weights <- runif(67, min = -1, max = 1)
+model_w <- neuralnet(logprice~., data = trainset.scaled, hidden = 3, err.fct = "sse", linear.output = T, startweights = init_weights)
+plot(model_w, rep = "best")
+
+pred_w_scaled <- compute(model_w, testset.scaled %>% select(-logprice))$net.result
+pred_w_usd <- exp(pred_w_scaled * sigma + mu)
+
+performance_w <- postResample(pred = pred_w_usd, obs = testset.scaled$logprice)
+performance_w
+```
+
+
+
+```{r}
+rbind(performance, performance_w)
+```
+
+
+
+## torch

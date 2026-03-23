@@ -22,3 +22,33 @@ Notice that here SSE means Sum Square Error, and SSR means Sum Square Regression
 
 
 In R, use ```lm()``` to fit a linear regression model.
+
+
+## Example
+
+```{r, echo = F, message = F, warning = F}
+library(dplyr)
+```
+
+```{r}
+x <- rnorm(50, 6,3) 
+y <- 10+ 2*x - 3 *x^3 -6*x^5 + 0.6 * x^7 + rnorm(50,10,8)
+
+plot(x,y)
+```
+
+
+```{r}
+lm(y~x) %>%
+    summary()
+
+
+```
+
+
+```{r}
+lm(y~x+I(x^2)+I(x^3)+I(x^4)+I(x^5)+I(x^6)+I(x^7)) %>%
+    summary()
+
+
+```
