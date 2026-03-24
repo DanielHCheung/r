@@ -275,6 +275,12 @@ window.Quarto = {
   <li><a href="#example-2-improper-integral" id="toc-example-2-improper-integral" class="nav-link" data-scroll-target="#example-2-improper-integral"><span class="header-section-number">11.1.2</span> Example 2: Improper Integral</a></li>
   <li><a href="#variance" id="toc-variance" class="nav-link" data-scroll-target="#variance"><span class="header-section-number">11.1.3</span> Variance</a></li>
   </ul></li>
+  <li><a href="#variance-decrease" id="toc-variance-decrease" class="nav-link" data-scroll-target="#variance-decrease"><span class="header-section-number">11.2</span> Variance Decrease</a>
+  <ul class="collapse">
+  <li><a href="#antithetic-variates" id="toc-antithetic-variates" class="nav-link" data-scroll-target="#antithetic-variates"><span class="header-section-number">11.2.1</span> Antithetic Variates</a></li>
+  <li><a href="#control-variable" id="toc-control-variable" class="nav-link" data-scroll-target="#control-variable"><span class="header-section-number">11.2.2</span> Control Variable</a></li>
+  <li><a href="#importance-sampling" id="toc-importance-sampling" class="nav-link" data-scroll-target="#importance-sampling"><span class="header-section-number">11.2.3</span> Importance Sampling</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -325,48 +331,51 @@ p = \frac{\text{Area of Green}}{\text{Area of Rectangular}} = \frac{S_G}{S_R}
 \]</span></p>
 <p>Let <span class="math inline">\(X\)</span> is a random variable with uniform distribution from 0 to 1, <span class="math inline">\(Y = e^X\)</span>, then the Intergal <span class="math inline">\(\hat{\theta} = S_G = p S_R = \mathbb{E}[\bar{Y}]\)</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(m)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">"Monte Carlo"</span>, <span class="st">"Real Intergation"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">c</span>(<span class="st">"Monte Carlo"</span>, <span class="fu">mean</span>(<span class="fu">exp</span>(x)), <span class="st">'</span><span class="sc">\n</span><span class="st">'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Monte Carlo"      "Real Intergation"</code></pre>
+<pre><code>Monte Carlo 1.71023613681694 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(<span class="fu">exp</span>(x)), <span class="fu">exp</span>(<span class="dv">1</span>)<span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">c</span>(<span class="st">"Real Intergation"</span>, <span class="fu">exp</span>(<span class="dv">1</span>)<span class="sc">-</span><span class="dv">1</span>, <span class="st">'</span><span class="sc">\n</span><span class="st">'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.718873 1.718282</code></pre>
+<pre><code>Real Intergation 1.71828182845905 </code></pre>
 </div>
 </div>
 </section>
 <section id="example-2-improper-integral" class="level3" data-number="11.1.2">
 <h3 data-number="11.1.2" class="anchored" data-anchor-id="example-2-improper-integral"><span class="header-section-number">11.1.2</span> Example 2: Improper Integral</h3>
 <p>Estimating this intergal by Monte Carlo: (F(x) here is CDF of normal distribution) <span class="math display">\[
-\theta = \int_{-\infty}^{x} {e^{-\frac{t^2}{2}}} dt  = \sqrt{2\pi} F(x)
+\theta = \int_{-\infty}^{x} {\frac{1}{\sqrt{2\pi}}e^{-\frac{t^2}{2}}} dt  =  F(x)
 \]</span></p>
 <!-- = \frac{1}{2} + \frac{\sqrt{\pi}}{2} erf(x) -->
 <p>Let’s make transformation first:</p>
-<p><span class="math display">\[\theta = \sqrt{2\pi} (0.5+ \int_{0}^{x} {e^{-\frac{t^2}{2}}} dt )=\sqrt{\frac{\pi}{2}}+ \sqrt{2\pi} \int_{0}^{1} xe^{\frac{(xy)^2}{2}}dy\]</span></p>
+<p><span class="math display">\[\theta = (0.5+ \int_{0}^{x} {\frac{1}{\sqrt{2\pi}}e^{-\frac{t^2}{2}}} dt )=\frac{1}{2}+ \frac{1}{\sqrt{2\pi}} \int_{0}^{1} xe^{-\frac{(xy)^2}{2}}dy\]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">runif</span>(m)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">"Monte Carlo"</span>, <span class="st">"Real Intergation"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">runif</span>(m)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">c</span>(<span class="st">"Monte Carlo"</span>, <span class="fl">0.5</span> <span class="sc">+</span> x <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">2</span> <span class="sc">*</span> pi) <span class="sc">*</span> <span class="fu">mean</span>(<span class="fu">exp</span>(<span class="sc">-</span>(x<span class="sc">*</span>y)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="dv">2</span>)), <span class="st">'</span><span class="sc">\n</span><span class="st">'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Monte Carlo"      "Real Intergation"</code></pre>
+<pre><code>Monte Carlo 0.840837027284758 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">sqrt</span>(pi)<span class="sc">/</span><span class="dv">2</span><span class="sc">+</span> x <span class="sc">*</span> <span class="fu">mean</span>(<span class="fu">exp</span>((x<span class="sc">*</span>y)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="dv">2</span>)),<span class="fu">sqrt</span>(pi<span class="sc">*</span><span class="dv">2</span>) <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">c</span>(<span class="st">"Real Intergation"</span>, <span class="fu">pnorm</span>(<span class="dv">1</span>), <span class="st">'</span><span class="sc">\n</span><span class="st">'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.080523 2.108939</code></pre>
+<pre><code>Real Intergation 0.841344746068543 </code></pre>
 </div>
 </div>
 <p>Another idea is that, the sample EDF will converge to CDF. Thus, let’s generate normal random variables.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(m)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">sqrt</span>(pi<span class="sc">*</span><span class="dv">2</span>) <span class="sc">*</span> <span class="fu">mean</span>(y<span class="sc">&lt;=</span>x) ,<span class="fu">sqrt</span>(pi<span class="sc">*</span><span class="dv">2</span>) <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(m)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">c</span>(<span class="st">"Monte Carlo"</span>,  <span class="fu">mean</span>(y<span class="sc">&lt;=</span>x), <span class="st">'</span><span class="sc">\n</span><span class="st">'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.108325 2.108939</code></pre>
+<pre><code>Monte Carlo 0.842 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">c</span>(<span class="st">"Real Intergation"</span>, <span class="fu">pnorm</span>(<span class="dv">1</span>), <span class="st">'</span><span class="sc">\n</span><span class="st">'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Real Intergation 0.841344746068543 </code></pre>
 </div>
 </div>
 </section>
@@ -381,29 +390,107 @@ p = \frac{\text{Area of Green}}{\text{Area of Rectangular}} = \frac{S_G}{S_R}
 </div>
 </div>
 <p>For the second example, we have two estimation:</p>
-<p><span class="math display">\[X_1 \sim U(0,1) \Rightarrow Y_1 = \frac{\sqrt{\pi}}{2} + x e^{\frac{xX_1}{2}}\]</span></p>
+<p><span class="math display">\[X_1 \sim U(0,1) \Rightarrow Y_1 = \frac{1}{2} + \frac{1}{\sqrt{2\pi}} x e^{-\frac{xX_1}{2}}\]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>x_1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(m)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>y_1 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(pi)<span class="sc">/</span><span class="dv">2</span><span class="sc">+</span> x <span class="sc">*</span> <span class="fu">exp</span>((x<span class="sc">*</span>x_1)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(y_1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x_1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(m)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>y_1 <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span><span class="sc">+</span> x <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">2</span> <span class="sc">*</span> pi) <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>(x<span class="sc">*</span>x_1)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(y_1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.03488502</code></pre>
+<pre><code>[1] 0.002347814</code></pre>
 </div>
 </div>
 <p><span class="math display">\[X_2 \sim N(0,1) \Rightarrow \frac{Y_2}{\sqrt{2\pi}}\sim B(1,p)\]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>x_2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(m)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>y_2 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(pi<span class="sc">*</span><span class="dv">2</span>) <span class="sc">*</span> (y<span class="sc">&lt;=</span>x)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(y_2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>x_2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(m)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>y_2 <span class="ot">&lt;-</span> (x_2<span class="sc">&lt;=</span>x)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(y_2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8397611</code></pre>
+<pre><code>[1] 0.129025</code></pre>
 </div>
 </div>
+</section>
+</section>
+<section id="variance-decrease" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="variance-decrease"><span class="header-section-number">11.2</span> Variance Decrease</h2>
+<section id="antithetic-variates" class="level3" data-number="11.2.1">
+<h3 data-number="11.2.1" class="anchored" data-anchor-id="antithetic-variates"><span class="header-section-number">11.2.1</span> Antithetic Variates</h3>
+<p><span class="math display">\[U \sim U(0,1) \Rightarrow 1-U \sim U(0,1)\]</span></p>
+<p><span class="math display">\[Z \sim N(0,1) \Rightarrow -Z \sim Z(0,1)\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>x_1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(m<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>y_1a <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span><span class="sc">+</span> x <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">2</span> <span class="sc">*</span> pi)<span class="sc">*</span> ((<span class="fu">exp</span>(<span class="sc">-</span>(x<span class="sc">*</span>x_1)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>(x<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>x_1))<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="dv">2</span>))<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(y_1a)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8.304542e-05</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(y_1)<span class="sc">/</span><span class="fu">var</span>(y_1a)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 28.27144</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>x_2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(m<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>y_2a <span class="ot">&lt;-</span> ((x_2<span class="sc">&lt;=</span>x) <span class="sc">+</span> (<span class="sc">-</span>x_2 <span class="sc">&lt;=</span> x)<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(y_2a)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1374138</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(y_2)<span class="sc">/</span><span class="fu">var</span>(y_2a)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9389523</code></pre>
+</div>
+</div>
+</section>
+<section id="control-variable" class="level3" data-number="11.2.2">
+<h3 data-number="11.2.2" class="anchored" data-anchor-id="control-variable"><span class="header-section-number">11.2.2</span> Control Variable</h3>
+<p>Estimating <span class="math inline">\(g(U)\)</span> with <span class="math inline">\(Var[g(U)]\)</span>, optimizing by <span class="math inline">\(h(U) = g(U) + c [f(U)-\mu]\)</span></p>
+<p>Then the variance become <span class="math inline">\(Var[g[U]] + c^2 Var[f[U]] +2c  COV(g(X), f(X))\)</span>, which is minimized when <span class="math inline">\(c^* = - \frac{cov(g(X), f(X))}{Var[f(U)]}\)</span></p>
+<p><span class="math display">\[Var[h(U)] = Var[g(U)] - \frac{[COV(g(X), f(X))]^2}{[Var[f(U)]]^2} \]</span></p>
+<p>Example: estimating <span class="math inline">\(\theta = \int_{0}^{1} {e^x} dx = e-1\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(m)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>y3a <span class="ot">&lt;-</span> <span class="fu">exp</span>(x)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">c</span>(<span class="st">"Monte Carlo"</span>, <span class="fu">mean</span>(y3a), <span class="st">'</span><span class="sc">\n</span><span class="st">'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Monte Carlo 1.71288580562846 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">c</span>(<span class="st">"Monte Carlo Variance"</span>, <span class="fu">var</span>(y3a), <span class="st">'</span><span class="sc">\n</span><span class="st">'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Monte Carlo Variance 0.255165094190046 </code></pre>
+</div>
+</div>
+<p>We use <span class="math inline">\(U \sim U(0,1)\)</span> and <span class="math inline">\(g(U) = e^U\)</span> as estimation. Let <span class="math inline">\(f(U) = U\)</span> be the controling variable:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>gU <span class="ot">&lt;-</span> <span class="fu">exp</span>(x)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>fU <span class="ot">&lt;-</span> x</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>c.star <span class="ot">=</span> <span class="sc">-</span> <span class="fu">cov</span>(gU, fU) <span class="sc">/</span> <span class="fu">var</span>(fU)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>y3b <span class="ot">&lt;-</span> gU <span class="sc">+</span> c.star <span class="sc">*</span> (fU <span class="sc">-</span> <span class="fu">mean</span>(fU))</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">c</span>(<span class="st">"Control Variable"</span>, <span class="fu">mean</span>(y3b), <span class="st">'</span><span class="sc">\n</span><span class="st">'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Control Variable 1.71288580562846 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">c</span>(<span class="st">"Control Variable Variance"</span>, <span class="fu">var</span>(y3b), <span class="st">'</span><span class="sc">\n</span><span class="st">'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Control Variable Variance 0.00395813289699567 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">c</span>(<span class="st">"Variance Decrease Ratio"</span>, <span class="fu">var</span>(y3a)<span class="sc">/</span><span class="fu">var</span>(y3b), <span class="st">'</span><span class="sc">\n</span><span class="st">'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Variance Decrease Ratio 64.4660249744829 </code></pre>
+</div>
+</div>
+</section>
+<section id="importance-sampling" class="level3" data-number="11.2.3">
+<h3 data-number="11.2.3" class="anchored" data-anchor-id="importance-sampling"><span class="header-section-number">11.2.3</span> Importance Sampling</h3>
 
 
 </section>
