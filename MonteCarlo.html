@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>13&nbsp; Monte Carlo – R Note for Statistics Learning and Computing</title>
+<title>16&nbsp; Monte Carlo – R Note for Statistics Learning and Computing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
+<link href="./resampling.html" rel="next">
 <link href="./Random.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -156,7 +156,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./MonteCarlo.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Monte Carlo</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./MonteCarlo.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Monte Carlo</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -207,62 +207,92 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./EDA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Exploratory Data Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./HypothesisTest.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Hypothesis Test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Hypothesis Test</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./LinearRegression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Linear Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Linear Regression</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ANOVA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ANalysis of VAriance (ANOVA)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">ANalysis of VAriance (ANOVA)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./LogisticsRegression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Logistics Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Logistics Regression</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./GLM.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Generalized Linear Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Generalized Linear Regression</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Classification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Classification Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Classification Models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./NeuralNetwork.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Neural Network</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Neural Network</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./DecisionTree.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Decision Tree and Random Forests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Decision Tree and Random Forests</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Cluster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Cluster</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Dimension.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dimensionality Reduction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Random.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Generate Random Variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Generate Random Variables</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./MonteCarlo.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Monte Carlo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Monte Carlo</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./resampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">resampling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Expection - Maximized</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -281,17 +311,17 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#monte-carlo-simulation-of-intergation" id="toc-monte-carlo-simulation-of-intergation" class="nav-link active" data-scroll-target="#monte-carlo-simulation-of-intergation"><span class="header-section-number">13.1</span> Monte Carlo Simulation of Intergation</a>
+  <li><a href="#monte-carlo-simulation-of-intergation" id="toc-monte-carlo-simulation-of-intergation" class="nav-link active" data-scroll-target="#monte-carlo-simulation-of-intergation"><span class="header-section-number">16.1</span> Monte Carlo Simulation of Intergation</a>
   <ul class="collapse">
-  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1"><span class="header-section-number">13.1.1</span> Example 1</a></li>
-  <li><a href="#example-2-improper-integral" id="toc-example-2-improper-integral" class="nav-link" data-scroll-target="#example-2-improper-integral"><span class="header-section-number">13.1.2</span> Example 2: Improper Integral</a></li>
-  <li><a href="#variance" id="toc-variance" class="nav-link" data-scroll-target="#variance"><span class="header-section-number">13.1.3</span> Variance</a></li>
+  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1"><span class="header-section-number">16.1.1</span> Example 1</a></li>
+  <li><a href="#example-2-improper-integral" id="toc-example-2-improper-integral" class="nav-link" data-scroll-target="#example-2-improper-integral"><span class="header-section-number">16.1.2</span> Example 2: Improper Integral</a></li>
+  <li><a href="#variance" id="toc-variance" class="nav-link" data-scroll-target="#variance"><span class="header-section-number">16.1.3</span> Variance</a></li>
   </ul></li>
-  <li><a href="#variance-decrease" id="toc-variance-decrease" class="nav-link" data-scroll-target="#variance-decrease"><span class="header-section-number">13.2</span> Variance Decrease</a>
+  <li><a href="#variance-decrease" id="toc-variance-decrease" class="nav-link" data-scroll-target="#variance-decrease"><span class="header-section-number">16.2</span> Variance Decrease</a>
   <ul class="collapse">
-  <li><a href="#antithetic-variates" id="toc-antithetic-variates" class="nav-link" data-scroll-target="#antithetic-variates"><span class="header-section-number">13.2.1</span> Antithetic Variates</a></li>
-  <li><a href="#control-variable" id="toc-control-variable" class="nav-link" data-scroll-target="#control-variable"><span class="header-section-number">13.2.2</span> Control Variable</a></li>
-  <li><a href="#importance-sampling" id="toc-importance-sampling" class="nav-link" data-scroll-target="#importance-sampling"><span class="header-section-number">13.2.3</span> Importance Sampling</a></li>
+  <li><a href="#antithetic-variates" id="toc-antithetic-variates" class="nav-link" data-scroll-target="#antithetic-variates"><span class="header-section-number">16.2.1</span> Antithetic Variates</a></li>
+  <li><a href="#control-variable" id="toc-control-variable" class="nav-link" data-scroll-target="#control-variable"><span class="header-section-number">16.2.2</span> Control Variable</a></li>
+  <li><a href="#importance-sampling" id="toc-importance-sampling" class="nav-link" data-scroll-target="#importance-sampling"><span class="header-section-number">16.2.3</span> Importance Sampling</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -301,7 +331,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Monte Carlo</span></h1>
+<h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Monte Carlo</span></h1>
 </div>
 
 
@@ -318,10 +348,10 @@ window.Quarto = {
 </header>
 
 
-<section id="monte-carlo-simulation-of-intergation" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="monte-carlo-simulation-of-intergation"><span class="header-section-number">13.1</span> Monte Carlo Simulation of Intergation</h2>
-<section id="example-1" class="level3" data-number="13.1.1">
-<h3 data-number="13.1.1" class="anchored" data-anchor-id="example-1"><span class="header-section-number">13.1.1</span> Example 1</h3>
+<section id="monte-carlo-simulation-of-intergation" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="monte-carlo-simulation-of-intergation"><span class="header-section-number">16.1</span> Monte Carlo Simulation of Intergation</h2>
+<section id="example-1" class="level3" data-number="16.1.1">
+<h3 data-number="16.1.1" class="anchored" data-anchor-id="example-1"><span class="header-section-number">16.1.1</span> Example 1</h3>
 <p>Estimating this intergal by Monte Carlo: <span class="math display">\[
 \theta = \int_{0}^{1} {e^x} dx = e-1
 \]</span></p>
@@ -356,8 +386,8 @@ p = \frac{\text{Area of Green}}{\text{Area of Rectangular}} = \frac{S_G}{S_R}
 </div>
 </div>
 </section>
-<section id="example-2-improper-integral" class="level3" data-number="13.1.2">
-<h3 data-number="13.1.2" class="anchored" data-anchor-id="example-2-improper-integral"><span class="header-section-number">13.1.2</span> Example 2: Improper Integral</h3>
+<section id="example-2-improper-integral" class="level3" data-number="16.1.2">
+<h3 data-number="16.1.2" class="anchored" data-anchor-id="example-2-improper-integral"><span class="header-section-number">16.1.2</span> Example 2: Improper Integral</h3>
 <p>Estimating this intergal by Monte Carlo: (F(x) here is CDF of normal distribution) <span class="math display">\[
 \theta = \int_{-\infty}^{x} {\frac{1}{\sqrt{2\pi}}e^{-\frac{t^2}{2}}} dt  =  F(x)
 \]</span></p>
@@ -391,8 +421,8 @@ p = \frac{\text{Area of Green}}{\text{Area of Rectangular}} = \frac{S_G}{S_R}
 </div>
 </div>
 </section>
-<section id="variance" class="level3" data-number="13.1.3">
-<h3 data-number="13.1.3" class="anchored" data-anchor-id="variance"><span class="header-section-number">13.1.3</span> Variance</h3>
+<section id="variance" class="level3" data-number="16.1.3">
+<h3 data-number="16.1.3" class="anchored" data-anchor-id="variance"><span class="header-section-number">16.1.3</span> Variance</h3>
 <p>In the first example we use <span class="math inline">\(Y = e^X\)</span> to estimate $ = _{0}^{1} {e^x} dx $</p>
 <p>As <span class="math inline">\(X\sim U(0,1)\)</span>, it’s unbiased estimation since <span class="math inline">\(\mathbb{E}[Y] = \mathbb{E}[e^X] = e-1 = \theta\)</span>.</p>
 <p>The variance is <span class="math inline">\(Var[Y] = \mathbb{E}[Y^2] - {[\mathbb{E}[Y]]}^2 = \frac{(e-1)(3-e)}{2} = 0.2420\)</span></p>
@@ -425,10 +455,10 @@ p = \frac{\text{Area of Green}}{\text{Area of Rectangular}} = \frac{S_G}{S_R}
 </div>
 </section>
 </section>
-<section id="variance-decrease" class="level2" data-number="13.2">
-<h2 data-number="13.2" class="anchored" data-anchor-id="variance-decrease"><span class="header-section-number">13.2</span> Variance Decrease</h2>
-<section id="antithetic-variates" class="level3" data-number="13.2.1">
-<h3 data-number="13.2.1" class="anchored" data-anchor-id="antithetic-variates"><span class="header-section-number">13.2.1</span> Antithetic Variates</h3>
+<section id="variance-decrease" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="variance-decrease"><span class="header-section-number">16.2</span> Variance Decrease</h2>
+<section id="antithetic-variates" class="level3" data-number="16.2.1">
+<h3 data-number="16.2.1" class="anchored" data-anchor-id="antithetic-variates"><span class="header-section-number">16.2.1</span> Antithetic Variates</h3>
 <p><span class="math display">\[U \sim U(0,1) \Rightarrow 1-U \sim U(0,1)\]</span></p>
 <p><span class="math display">\[Z \sim N(0,1) \Rightarrow -Z \sim Z(0,1)\]</span></p>
 <div class="cell">
@@ -459,8 +489,8 @@ p = \frac{\text{Area of Green}}{\text{Area of Rectangular}} = \frac{S_G}{S_R}
 </div>
 </div>
 </section>
-<section id="control-variable" class="level3" data-number="13.2.2">
-<h3 data-number="13.2.2" class="anchored" data-anchor-id="control-variable"><span class="header-section-number">13.2.2</span> Control Variable</h3>
+<section id="control-variable" class="level3" data-number="16.2.2">
+<h3 data-number="16.2.2" class="anchored" data-anchor-id="control-variable"><span class="header-section-number">16.2.2</span> Control Variable</h3>
 <p>Estimating <span class="math inline">\(g(U)\)</span> with <span class="math inline">\(Var[g(U)]\)</span>, optimizing by <span class="math inline">\(h(U) = g(U) + c [f(U)-\mu]\)</span></p>
 <p>Then the variance become <span class="math inline">\(Var[g[U]] + c^2 Var[f[U]] +2c  COV(g(X), f(X))\)</span>, which is minimized when <span class="math inline">\(c^* = - \frac{cov(g(X), f(X))}{Var[f(U)]}\)</span></p>
 <p><span class="math display">\[Var[h(U)] = Var[g(U)] - \frac{[COV(g(X), f(X))]^2}{[Var[f(U)]]^2} \]</span></p>
@@ -501,8 +531,8 @@ p = \frac{\text{Area of Green}}{\text{Area of Rectangular}} = \frac{S_G}{S_R}
 </div>
 </div>
 </section>
-<section id="importance-sampling" class="level3" data-number="13.2.3">
-<h3 data-number="13.2.3" class="anchored" data-anchor-id="importance-sampling"><span class="header-section-number">13.2.3</span> Importance Sampling</h3>
+<section id="importance-sampling" class="level3" data-number="16.2.3">
+<h3 data-number="16.2.3" class="anchored" data-anchor-id="importance-sampling"><span class="header-section-number">16.2.3</span> Importance Sampling</h3>
 
 
 </section>
@@ -912,12 +942,12 @@ p = \frac{\text{Area of Green}}{\text{Area of Rectangular}} = \frac{S_G}{S_R}
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./Random.html" class="pagination-link" aria-label="Generate Random Variables">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Generate Random Variables</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Generate Random Variables</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link" aria-label="References">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./resampling.html" class="pagination-link" aria-label="resampling">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">resampling</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

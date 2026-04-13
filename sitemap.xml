@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://r.danieldata.com/index.html</loc>
-    <lastmod>2026-03-08T01:39:38.442Z</lastmod>
+    <lastmod>2026-04-13T21:55:47.422Z</lastmod>
   </url>
   <url>
     <loc>https://r.danieldata.com/RBasics.html</loc>
-    <lastmod>2026-03-13T15:17:03.248Z</lastmod>
+    <lastmod>2026-04-13T21:56:11.260Z</lastmod>
   </url>
   <url>
     <loc>https://r.danieldata.com/RProgramming.html</loc>
@@ -17,12 +17,16 @@
     <lastmod>2026-03-22T15:14:05.661Z</lastmod>
   </url>
   <url>
+    <loc>https://r.danieldata.com/EDA.html</loc>
+    <lastmod>2026-03-27T15:10:23.944Z</lastmod>
+  </url>
+  <url>
     <loc>https://r.danieldata.com/HypothesisTest.html</loc>
     <lastmod>2026-03-13T15:25:41.900Z</lastmod>
   </url>
   <url>
     <loc>https://r.danieldata.com/LinearRegression.html</loc>
-    <lastmod>2026-04-01T19:49:32.756Z</lastmod>
+    <lastmod>2026-04-13T21:57:30.197Z</lastmod>
   </url>
   <url>
     <loc>https://r.danieldata.com/ANOVA.html</loc>
@@ -30,7 +34,7 @@
   </url>
   <url>
     <loc>https://r.danieldata.com/LogisticsRegression.html</loc>
-    <lastmod>2026-03-27T15:19:08.055Z</lastmod>
+    <lastmod>2026-04-01T21:12:19.622Z</lastmod>
   </url>
   <url>
     <loc>https://r.danieldata.com/GLM.html</loc>
@@ -49,12 +53,28 @@
     <lastmod>2026-03-25T21:50:46.405Z</lastmod>
   </url>
   <url>
+    <loc>https://r.danieldata.com/Cluster.html</loc>
+    <lastmod>2026-04-13T21:45:45.781Z</lastmod>
+  </url>
+  <url>
+    <loc>https://r.danieldata.com/Dimension.html</loc>
+    <lastmod>2026-04-13T21:44:05.580Z</lastmod>
+  </url>
+  <url>
     <loc>https://r.danieldata.com/Random.html</loc>
-    <lastmod>2026-03-27T17:27:04.473Z</lastmod>
+    <lastmod>2026-04-03T17:23:36.087Z</lastmod>
   </url>
   <url>
     <loc>https://r.danieldata.com/MonteCarlo.html</loc>
     <lastmod>2026-03-25T21:39:24.790Z</lastmod>
+  </url>
+  <url>
+    <loc>https://r.danieldata.com/resampling.html</loc>
+    <lastmod>2026-04-06T18:42:14.341Z</lastmod>
+  </url>
+  <url>
+    <loc>https://r.danieldata.com/EM.html</loc>
+    <lastmod>2026-04-13T21:58:33.049Z</lastmod>
   </url>
   <url>
     <loc>https://r.danieldata.com/references.html</loc>
@@ -62,6 +82,6 @@
   </url>
   <url>
     <loc>https://r.danieldata.com/R-Note-for-Statistics-Learning-and-Computing.pdf</loc>
-    <lastmod>2026-04-01T19:50:55.644Z</lastmod>
+    <lastmod>2026-04-13T22:00:02.130Z</lastmod>
   </url>
 </urlset>
