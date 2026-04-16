@@ -533,8 +533,114 @@ p = \frac{\text{Area of Green}}{\text{Area of Rectangular}} = \frac{S_G}{S_R}
 </section>
 <section id="importance-sampling" class="level3" data-number="16.2.3">
 <h3 data-number="16.2.3" class="anchored" data-anchor-id="importance-sampling"><span class="header-section-number">16.2.3</span> Importance Sampling</h3>
+<p>To estimate <span class="math inline">\(\int_{A} f(x) dx\)</span>, find another function close to <span class="math inline">\(f(x)\)</span> on the same support, thus we have <span class="math inline">\(\int_{A} f(x) dx = \int_{A} \frac{f(x)}{g(x)} g(x) dx\)</span></p>
+<p>If this the support of the distribution is equal to the A here, it will equal to the expection <span class="math inline">\(\int_{A} {f(x) dx}= \mathbb{E}{[\frac{f(x)}{g(x)}]}\)</span></p>
+<p>Another format is, <span class="math inline">\(\int_{A} {f(x)g(x) dx}\)</span> then you can give a <span class="math inline">\(h(x)\)</span> then <span class="math inline">\(\int_{A} {f(x)g(x) dx }= \int_{A} {\frac{f(x)g(x)}{h(x)} h(x) dx}\)</span></p>
+<section id="example" class="level4" data-number="16.2.3.1">
+<h4 data-number="16.2.3.1" class="anchored" data-anchor-id="example"><span class="header-section-number">16.2.3.1</span> Example</h4>
+<p>Let’s estimate:</p>
+<p><span class="math display">\[
+\omega = \int_{0}^{0.5} {e^{-x}dx}
+\]</span></p>
+<p>Find an importance function, here we use exponential <span class="math inline">\(f(x) = \lambda e^{-\lambda x}\quad  (x\geq 0 )\)</span></p>
+<p><span class="math display">\[
+\begin{array}{rl}
+\omega &amp; = \int_{0}^{0.5} {e^{-x}dx} \\
+&amp; =  \int_{0}^{0.5} {\frac{e^{-x}}{f(x)} f(x)dx} \\
+&amp; =  \int_{0}^{0.5} {\frac{e^{-x}}{\lambda e^{-\lambda x}} \lambda e^{-\lambda x}dx}  \\
+&amp; =  \int_{0}^{0.5} {  e^{-(1-\lambda) x}  e^{-\lambda x}dx}
+\end{array}
+\]</span></p>
+<p>A simple idea is to let <span class="math inline">\(\lambda = 1\)</span>, then we just calculate how many elements drop to area <span class="math inline">\([0,0.5]\)</span>. This is equalivent to the CDF of exponential, <span class="math inline">\(F(0.5)\)</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">67</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>omega.real <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">0.5</span>)<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>u1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(m, <span class="dv">0</span>, <span class="fl">0.5</span>)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>omega1.est <span class="ot">&lt;-</span> (<span class="fl">0.5</span> <span class="sc">-</span> <span class="dv">0</span>) <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>u1)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dexp</span>(x), <span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">main =</span> <span class="st">"pdf of exponential (1)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MonteCarlo_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>e2 <span class="ot">&lt;-</span> <span class="fu">rexp</span>(m)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>omega2.est <span class="ot">&lt;-</span> (e2 <span class="sc">&lt;=</span> <span class="fl">0.5</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"real value is "</span>, omega.real, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>real value is  0.3934693 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"general estimation is "</span>, <span class="fu">mean</span>(omega1.est), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>general estimation is  0.3934729 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"variance of general estimation is "</span>, <span class="fu">var</span>(omega1.est), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>variance of general estimation is  0.003194946 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"importance sampling estimation is "</span>, <span class="fu">mean</span>(omega2.est), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>importance sampling estimation is  0.399 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"variance of importance sampling estimation is "</span>, <span class="fu">var</span>(omega2.est), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>variance of importance sampling estimation is  0.239823 </code></pre>
+</div>
+</div>
+<p>The variance is very big, since we drop more than 60% of sample. A better idea is to use Beta(1,1.2) and transform into <span class="math inline">\([0,0.5]\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dexp</span>(x), <span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">2</span>), <span class="at">main =</span> <span class="st">"pdf of exponential (1) and beta (1,1.2)"</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dbeta</span>(x<span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span>,<span class="fl">1.2</span>)<span class="sc">/</span><span class="dv">2</span>, <span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),  <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="at">add =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MonteCarlo_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>e3 <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(m,<span class="dv">1</span>,<span class="fl">1.2</span>)<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>omega3.est <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span>e3)<span class="sc">/</span>(<span class="fu">dbeta</span>(e3<span class="sc">*</span><span class="dv">2</span>,<span class="dv">1</span>,<span class="fl">1.2</span>)<span class="sc">*</span><span class="dv">2</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"importance sampling estimation is "</span>, <span class="fu">mean</span>(omega3.est), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>importance sampling estimation is  0.3934025 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"variance of importance sampling estimation is "</span>, <span class="fu">var</span>(omega3.est), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>variance of importance sampling estimation is  0.001304244 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"variance of general estimation is "</span>, <span class="fu">var</span>(omega1.est), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>variance of general estimation is  0.003194946 </code></pre>
+</div>
+</div>
+<p>Let’s go back to first trial: exponential trial. We use <span class="math inline">\(\lambda = 1\)</span> is just for convenience.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>lam <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>e2a <span class="ot">&lt;-</span> <span class="fu">rexp</span>(m, lam)</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>omega2a.est <span class="ot">&lt;-</span> (e2a <span class="sc">&lt;=</span> <span class="fl">0.5</span>) <span class="sc">*</span> <span class="fu">exp</span>((lam<span class="dv">-1</span>)<span class="sc">*</span>e2a)<span class="sc">/</span>lam</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"importance sampling estimation is "</span>, <span class="fu">mean</span>(omega2a.est), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>importance sampling estimation is  0.3923736 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"variance of importance sampling estimation is "</span>, <span class="fu">var</span>(omega2a.est), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>variance of importance sampling estimation is  0.09533041 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"variance of general estimation is "</span>, <span class="fu">var</span>(omega1.est), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>variance of general estimation is  0.003194946 </code></pre>
+</div>
+</div>
 
 
+</section>
 </section>
 </section>
 

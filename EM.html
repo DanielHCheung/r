@@ -357,7 +357,7 @@ window.Quarto = {
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x.sample)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  19.572951  20.244484  -7.912213 -10.135934  21.031454  20.232970</code></pre>
+<pre><code>[1] -8.560997 -8.955152 20.313554 21.465090 19.110296 19.483237</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x.sample, <span class="at">freq =</span> F, <span class="at">breaks =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
@@ -492,9 +492,9 @@ $$
 <span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">sigma2 =</span> <span class="fu">c</span>(real.sigma2, iter.sigma2)</span>
 <span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  Value   p       mu1   sigma1      mu2   sigma2
-1  Real 0.3 -10.00000 1.000000 20.00000 1.000000
-2    EM 0.3 -10.07049 1.054076 19.83182 0.913871</code></pre>
+<pre><code>  Value   p        mu1    sigma1      mu2    sigma2
+1  Real 0.3 -10.000000 1.0000000 20.00000 1.0000000
+2    EM 0.3  -9.835749 0.9753299 20.08518 0.9586382</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -550,9 +550,9 @@ $$
 <span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">sigma2 =</span> <span class="fu">c</span>(real.sigma2, iter.sigma2)</span>
 <span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  Value   p       mu1   sigma1      mu2   sigma2
-1  Real 0.3 -10.00000 1.000000 20.00000 1.000000
-2    EM 0.3 -10.07049 1.054076 19.83182 0.913871</code></pre>
+<pre><code>  Value   p        mu1    sigma1      mu2    sigma2
+1  Real 0.3 -10.000000 1.0000000 20.00000 1.0000000
+2    EM 0.3  -9.835749 0.9753299 20.08518 0.9586382</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -590,8 +590,8 @@ $$
 <div class="cell-output cell-output-stdout">
 <pre><code>Final Parameters:
  pi = 0.3 
- mu1 = -10.07049 mu2 = 19.83182 
- var1 = 1.111077 var2 = 0.8351602</code></pre>
+ mu1 = -9.835749 mu2 = 20.08518 
+ var1 = 0.9512684 var2 = 0.9189873</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">Value =</span> <span class="fu">c</span>(<span class="st">"Real"</span>, <span class="st">"EM"</span>),</span>
@@ -602,9 +602,9 @@ $$
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">sigma2 =</span> <span class="fu">c</span>(real.sigma2, <span class="fu">sqrt</span>(sigma2_sq))</span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  Value   p       mu1   sigma1      mu2   sigma2
-1  Real 0.3 -10.00000 1.000000 20.00000 1.000000
-2    EM 0.3 -10.07049 1.054076 19.83182 0.913871</code></pre>
+<pre><code>  Value   p        mu1    sigma1      mu2    sigma2
+1  Real 0.3 -10.000000 1.0000000 20.00000 1.0000000
+2    EM 0.3  -9.835749 0.9753299 20.08518 0.9586382</code></pre>
 </div>
 </div>
 

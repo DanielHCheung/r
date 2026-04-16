@@ -349,30 +349,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width    Species Petal.Ratio
-1           6.7         2.5          5.8         1.8  virginica    3.222222
-2           6.1         2.6          5.6         1.4  virginica    4.000000
-3           5.5         4.2          1.4         0.2     setosa    7.000000
-4           5.4         3.0          4.5         1.5 versicolor    3.000000
-5           4.9         3.1          1.5         0.1     setosa   15.000000
-6           5.0         3.5          1.3         0.3     setosa    4.333333
-7           5.1         3.8          1.5         0.3     setosa    5.000000
-8           5.7         2.8          4.1         1.3 versicolor    3.153846
-9           5.1         3.5          1.4         0.2     setosa    7.000000
-10          6.7         3.0          5.0         1.7 versicolor    2.941176</code></pre>
+1           5.7         2.9          4.2         1.3 versicolor    3.230769
+2           5.7         2.8          4.1         1.3 versicolor    3.153846
+3           5.0         3.3          1.4         0.2     setosa    7.000000
+4           5.7         3.0          4.2         1.2 versicolor    3.500000
+5           6.7         2.5          5.8         1.8  virginica    3.222222
+6           6.7         3.3          5.7         2.5  virginica    2.280000
+7           6.1         3.0          4.6         1.4 versicolor    3.285714
+8           4.6         3.4          1.4         0.3     setosa    4.666667
+9           5.1         3.5          1.4         0.3     setosa    4.666667
+10          5.8         2.6          4.0         1.2 versicolor    3.333333</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>iris[<span class="fu">sample</span>(<span class="fu">nrow</span>(iris), <span class="dv">10</span>), ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species Petal.Ratio
-61           5.0         2.0          3.5         1.0 versicolor    3.500000
-47           5.1         3.8          1.6         0.2     setosa    8.000000
-79           6.0         2.9          4.5         1.5 versicolor    3.000000
-13           4.8         3.0          1.4         0.1     setosa   14.000000
-128          6.1         3.0          4.9         1.8  virginica    2.722222
-14           4.3         3.0          1.1         0.1     setosa   11.000000
-42           4.5         2.3          1.3         0.3     setosa    4.333333
-24           5.1         3.3          1.7         0.5     setosa    3.400000
-21           5.4         3.4          1.7         0.2     setosa    8.500000
-52           6.4         3.2          4.5         1.5 versicolor    3.000000</code></pre>
+139          6.0         3.0          4.8         1.8  virginica    2.666667
+118          7.7         3.8          6.7         2.2  virginica    3.045455
+57           6.3         3.3          4.7         1.6 versicolor    2.937500
+119          7.7         2.6          6.9         2.3  virginica    3.000000
+70           5.6         2.5          3.9         1.1 versicolor    3.545455
+33           5.2         4.1          1.5         0.1     setosa   15.000000
+106          7.6         3.0          6.6         2.1  virginica    3.142857
+145          6.7         3.3          5.7         2.5  virginica    2.280000
+117          6.5         3.0          5.5         1.8  virginica    3.055556
+36           5.0         3.2          1.2         0.2     setosa    6.000000</code></pre>
 </div>
 </div>
 <p>Please use <code>y</code> (target variable) as the variable into <code>createDataPartition</code>, rather than any other variables. p is the portition of training set.</p>
